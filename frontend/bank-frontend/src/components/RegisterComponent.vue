@@ -5,7 +5,6 @@
             style="height: calc(100vh - 146px)"
     >
         <v-card
-                variant="outlined"
                 width="50%"
         >
             <v-toolbar>
@@ -37,19 +36,27 @@
                                   placeholder="Confirm your password"
                                   required
                     ></v-text-field>
-                    <div class="red--text"> {{ errorMessage }}</div>
-                    <div
-                            width="100%"
-                            class="d-flex flex-row-reverse"
-                    >
-                        <v-btn
-                                type="submit"
-                                class="mt-2"
-                                color="primary"
-                                value="log in">
-                            {{ isRegister ? stateObj.register.name : stateObj.login.name }}
-                        </v-btn>
-                    </div>
+                        <div
+                                width="100%"
+                                class="d-flex justify-space-between align-center"
+                        >
+                            <div>
+                                Already have an account?
+                                <router-link to="/customer-login">Login Here</router-link>
+                            </div>
+                            <div
+                                width="100%"
+                                class="justify-end"
+                            >
+                            <v-btn
+                                    type="submit"
+                                    class="mt-2"
+                                    color="primary"
+                                    value="log in">
+                                Register
+                            </v-btn>
+                        </div>
+                        </div>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -59,7 +66,7 @@
 <script>
 
 export default {
-    name: 'LoginComponent',
+    name: 'RegisterComponent',
 
     data: () => {
         return {
@@ -67,24 +74,10 @@ export default {
             password: "",
             confirmPassword: "",
             isRegister: true,
-            stateObj: {
-                register: {
-                    name: 'Register',
-                    message: 'Aleady have an Account? login.'
-                },
-                login: {
-                    name: 'Login',
-                    message: 'Register'
-                }
-            }
+            errorMessage: "Error",
         }
     },
 
-    computed: {
-        toggleMessage: function () {
-            return this.isRegister ? this.stateObj.register.message : this.stateObj.login.message
-        }
-    }
 }
 
 </script>

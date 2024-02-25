@@ -4,7 +4,7 @@
           class="d-flex"
         >
             <v-app-bar-title>
-               Fake Bank Name
+               Charger United Credit Union
             </v-app-bar-title>
         </v-app-bar>
         <v-main>
