@@ -31,6 +31,8 @@ public class FinancialAccount {
         return balance;
     }
 
+    public void zeroOutBalance() { balance = 0; }
+
 
     /**
      * creates new financial account and adds it to database

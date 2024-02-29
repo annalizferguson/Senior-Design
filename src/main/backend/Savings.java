@@ -11,8 +11,4 @@ public class Savings extends FinancialAccount {
         double addedAmount = getBalance() * interestRate;
         deposit(addedAmount);
     }
-    public static void main(String[] args) {
-        Savings testAccount = new Savings(0.00502, 2343.15);
-        testAccount.addInterest();
-    }
 }
