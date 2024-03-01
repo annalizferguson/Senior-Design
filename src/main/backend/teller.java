@@ -1,4 +1,8 @@
 public class Teller extends User{
+    public Teller(String u, String p, String f, String l, String i) {
+        super(u, p, f, l, i);
+    }
+
     // createCustomerFinancialAccount
     // Creates financial accounts for customers.
     // 0: Checking, 1: Savings, 2: Money Market, 3: Home Mortgage, 4: Credit Card
@@ -89,7 +93,7 @@ public class Teller extends User{
     // deleteCustomerBankAccount
     // Deletes bank accounts for customers.
     // 0: Checking, 1: Savings, 2: Money Market, 3: Home Mortgage, 4: Credit Card
-    public void createCustomerBankAccount(int type, String id){
+    public void deleteCustomerBankAccount(int type, String id){
         if (type == 0){  // checking
 
         }
@@ -176,6 +180,6 @@ public class Teller extends User{
     // Records a withdrawal from a customer financial account.
     // Returns 1 if successful, 0 if there is insufficient funds.
     public int recordWithdrawal(float amount, String acc, String id){
-
+        return 0;
     }
 }
