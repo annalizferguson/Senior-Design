@@ -15,11 +15,16 @@ public class User{
         id = i;
     }
 
+    // Default Constructor
+    public User(){
+
+    }
+
     // setUsername
     // Changes the user's username to the given parameter.
     // Ensures the username is unique and (optionally) check for inappropriate names.
     public int setUsername(String user){
-
+        return 0;
     }
 
     // setPassword
@@ -37,24 +42,29 @@ public class User{
         boolean lower = false;  //if there is a lowercase letter
 
         for (int i = 0; i < pass.length(); i++){  // iterates through each letter
-            char c = pass.charAt(i)
+            char c = pass.charAt(i);
+            System.out.println(i);
 
-            if (c.isDigit()){  // checks if the digits is a number
+            if (Character.isDigit(c)){  // checks if the digits is a number
                 number = true;
+                System.out.println("number");
                 continue;  // continues because the rest of the checks are guaranteed false
             }
 
-            if (Character.toString(c).matches("!@#$%^&*(),.<>?/:;\"\'\\[]{}-_=+")){  // checks for a special character
+            if (Character.toString(c).matches("[^a-z A-Z0-9]")){  // checks for a special character
                 specialChar = true;
-                continue
+                System.out.println("spec");
+                continue;
             }
 
             if (Character.isUpperCase(c)){  // checks for uppercase letters
                 upper = true;
+                System.out.println("up");
                 continue;
             }
 
             if (Character.isLowerCase(c)){  // checks for lowercase letters
+                System.out.println("low");
                 lower = true;
             }
         }
@@ -64,9 +74,7 @@ public class User{
             return 0;  // returns success code
         }
 
-        else{  // if a condition was not met
-            return 1;  // returns invalid password code
-        }
+        return 1;  // if not all conditions are met
     }
 
     // setFirstName

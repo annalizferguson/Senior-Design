@@ -1,4 +1,8 @@
 public class Admin extends User{
+    public Admin(String u, String p, String f, String l, String i) {
+        super(u, p, f, l, i);
+    }
+
     // createTellerAccount
     // Creates teller accounts.
     public void createTellerAccount(String id){
