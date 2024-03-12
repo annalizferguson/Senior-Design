@@ -1,0 +1,187 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1710284506778)
++++ b/.idea/misc.xml	(date 1710284506778)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" default="true">
++    <output url="file://$PROJECT_DIR$/out" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1710284655097)
++++ b/.idea/vcs.xml	(date 1710284655097)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+new file mode 100644
+--- /dev/null	(date 1710284731186)
++++ b/.idea/workspace.xml	(date 1710284731186)
+@@ -0,0 +1,142 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
++  <component name="ChangeListManager">
++    <list default="true" id="7b209e94-1ad0-4d14-8757-25d1f1c84177" name="Changes" comment="" />
++    <option name="SHOW_DIALOG" value="false" />
++    <option name="HIGHLIGHT_CONFLICTS" value="true" />
++    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++    <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="classes" />
++      </map>
++    </option>
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;jcoop47&quot;
++  }
++}</component>
++  <component name="GithubPullRequestsUISettings">
++    <option name="selectedUrlAndAccountId">
++      <UrlAndAccount>
++        <option name="accountId" value="e59429f6-445d-42ba-a10e-02c3b22c9cc4" />
++        <option name="url" value="https://github.com/annalizferguson/Senior-Design" />
++      </UrlAndAccount>
++    </option>
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
++  <component name="ProjectColorInfo">{
++  &quot;associatedIndex&quot;: 4
++}</component>
++  <component name="ProjectId" id="2b9tvlTQf0E4Hwr4RGoEkAE5Hgp" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
++    <OptionsSetting value="false" id="Update" />
++    <ConfirmationsSetting value="1" id="Add" />
++  </component>
++  <component name="ProjectViewState">
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
++  </component>
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Node.js.main.js.executor": "Run",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "git-widget-placeholder": "main",
++    "javascript.nodejs.core.library.configured.version": "20.11.1",
++    "javascript.nodejs.core.library.typings.version": "20.11.20",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "C:/Program Files/nodejs",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_interpreter_path": "node",
++    "nodejs_package_manager_path": "C:\\Program Files\\nodejs",
++    "settings.editor.selected.configurable": "vcs.Git",
++    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
++    "vue.rearranger.settings.migration": "true"
++  }
++}]]></component>
++  <component name="RunManager">
++    <configuration name="main.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="main.js" working-dir="$PROJECT_DIR$/frontend/bank-frontend/src">
++      <method v="2" />
++    </configuration>
++  </component>
++  <component name="SharedIndexes">
++    <attachedChunks>
++      <set>
++        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
++      </set>
++    </attachedChunks>
++  </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="7b209e94-1ad0-4d14-8757-25d1f1c84177" name="Changes" comment="" />
++      <created>1705639354395</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1705639354395</updated>
++      <workItem from="1708625766551" duration="1446000" />
++      <workItem from="1708627226631" duration="1074000" />
++      <workItem from="1708810288749" duration="534000" />
++      <workItem from="1708906274033" duration="1544000" />
++      <workItem from="1708979621016" duration="59000" />
++      <workItem from="1709055517151" duration="620000" />
++      <workItem from="1709063533218" duration="5206000" />
++      <workItem from="1709091574168" duration="5529000" />
++      <workItem from="1709142125102" duration="7150000" />
++      <workItem from="1709262018653" duration="158000" />
++      <workItem from="1709262265411" duration="1452000" />
++      <workItem from="1709494373028" duration="77000" />
++      <workItem from="1709601591378" duration="1027000" />
++      <workItem from="1710011518300" duration="2124000" />
++      <workItem from="1710097718739" duration="2418000" />
++      <workItem from="1710115503586" duration="761000" />
++      <workItem from="1710284318485" duration="188000" />
++      <workItem from="1710284647688" duration="84000" />
++    </task>
++    <servers />
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="origin/user-class" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++  <component name="XSLT-Support.FileAssociations.UIState">
++    <expand />
++    <select />
++  </component>
++</project>
+\ No newline at end of file
