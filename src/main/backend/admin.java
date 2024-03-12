@@ -1,3 +1,5 @@
+import java.sql.*;
+
 public class Admin extends User{
     public Admin(String u, String p, String f, String l, String i) {
         super(u, p, f, l, i);
@@ -5,8 +7,8 @@ public class Admin extends User{
 
     // createTellerAccount
     // Creates teller accounts.
-    public void createTellerAccount(String id){
-
+    public Teller createTellerAccount(String user, String pass, String first, String last, String id){
+        return new Teller(user, pass, first, last, id);
     }
 
     // deleteTellerAccount

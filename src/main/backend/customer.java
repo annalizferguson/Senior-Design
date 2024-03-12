@@ -1,3 +1,5 @@
+import java.sql.*;
+
 public class Customer extends User{
     String ssn; // social security number
     String dob; // date of birth
