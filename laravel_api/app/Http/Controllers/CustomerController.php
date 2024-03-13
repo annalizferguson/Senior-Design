@@ -35,4 +35,20 @@ class CustomerController extends Controller
             'customer' => $customer,
         ]);
     }
+
+    public function deleteCustomer($id)
+    {
+        $customer = Customer::find($id);
+        if($customer)
+        {
+            $customer->delete();
+            return response()->json([
+                'message' => 'Customer deleted successfully']);
+        }
+        else
+        {
+            return response()->json([
+                'message' => "Customer with id:$id does not exist"]);
+        }
+    }
 }

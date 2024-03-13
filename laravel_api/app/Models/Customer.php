@@ -10,4 +10,5 @@ class Customer extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $primaryKey = 'customer_id';
 }
