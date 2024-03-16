@@ -40,6 +40,8 @@
                             width="100%"
                             class="justify-end"
                         >
+                            <router-link
+                                to="/customer-dash">
                             <v-btn
                                 type="submit"
                                 class="mt-2"
@@ -47,6 +49,7 @@
                                 value="log in">
                                 Login
                             </v-btn>
+                            </router-link>
                         </div>
                     </div>
                 </v-form>

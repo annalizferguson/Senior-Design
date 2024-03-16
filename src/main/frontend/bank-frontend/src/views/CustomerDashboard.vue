@@ -1,0 +1,99 @@
+<template>
+    <div
+            class="d-flex justify-center align-center"
+            style="height: calc(100vh - 100px)">
+        <v-card
+                class="d-flex flex-wrap mb-1"
+                width="1250"
+                style="height:calc(100vh - 200px)"
+                variant="flat"
+        >
+            <v-card
+                    width="100%"
+                    height="10%"
+                    variant="elevated"
+                    color="#4097f5"
+            >
+                <v-card-title
+                        class="d-flex justify-space-between"
+                >
+                    Your Dashboard
+                    <div>
+                        <v-btn
+                            variant="outlined"
+                        >
+                            Settings
+                        </v-btn>
+                    </div>
+                </v-card-title>
+            </v-card>
+            <OpenAccountsDashboardComponent/>
+            <v-card
+                    class="d-flex flex-wrap justify-center "
+                    height="85%"
+                    width="57.95%"
+                    variant="flat"
+            >
+                <UpcomingPaymentsDashboardComponent/>
+                <v-card
+                        width="100%"
+                        height="47.5%"
+                        variant="outlined"
+                        class="d-flex flex-wrap justify-center align-center mt-4"
+                >
+                    <div style="height: 100px; width: 250px; margin-right: 100px">
+                        <v-btn
+                                block
+                                height="100%"
+                                color="#4097f5"
+                        >
+                            Settings
+                        </v-btn>
+                    </div>
+                    <div style="height: 100px; width: 250px">
+                        <v-btn
+                            block
+                            height="100%"
+                            color="#4097f5"
+                        >
+                            Settings
+                        </v-btn>
+                    </div>
+                    <div style="height: 100px; width: 250px; margin-right: 100px">
+                        <v-btn
+                            block
+                            height="100%"
+                            color="#4097f5"
+                        >
+                            Settings
+                        </v-btn>
+                    </div>
+                    <div style="height: 100px; width: 250px">
+                        <v-btn
+                            block
+                            height="100%"
+                            color="#4097f5"
+                        >
+                            Settings
+                        </v-btn>
+                    </div>
+                </v-card>
+            </v-card>
+        </v-card>
+    </div>
+</template>
+
+<script>
+// Components
+import OpenAccountsDashboardComponent from '../components/OpenAccountsDashboardComponent.vue';
+import UpcomingPaymentsDashboardComponent from '../components/UpcomingPaymentsDashboardComponent.vue';
+
+export default {
+    name: "CustomerDashboard.vue",
+    components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent}
+}
+</script>
+
+<style scoped>
+
+</style>
