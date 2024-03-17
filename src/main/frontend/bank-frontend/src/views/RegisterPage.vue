@@ -6,7 +6,7 @@
 import { defineComponent } from 'vue';
 
 // Components
-import RegisterComponent from '../components/RegisterComponent.vue';
+import RegisterComponent from '../components/customer-components/RegisterComponent.vue';
 
 export default defineComponent({
   name: 'RegisterView',

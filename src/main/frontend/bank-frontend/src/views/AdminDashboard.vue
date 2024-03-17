@@ -21,43 +21,34 @@
                     <div>
                         <v-btn
                                 variant="outlined"
+                                class="mr-4"
                                 @click="changeFocus()"
                         >
                             View {{oppositeFocus}}
                         </v-btn>
+                        <v-btn
+                            variant="outlined"
+                        >
+                            Settings
+                        </v-btn>
                     </div>
                 </v-card-title>
             </v-card>
-            <v-card
-                    width="100%"
-                    height="85%"
-                    variant="outlined"
-            >
-                <v-card-title
-                    class="d-flex"
-                >
-                    {{searchFocus}} Search
-                    <v-btn
-                        v-if="isTellerFocus"
-                        class="ml-5"
-                        color="#4097f5"
-                    >
-                        Create New Teller
-                    </v-btn>
-                </v-card-title>
-                <v-card-text>hello</v-card-text>
-            </v-card>
+            <TellerSearchDashboardComponent v-if="isTellerFocus"/>
+            <CustomerSearchDashboardComponent v-if="!isTellerFocus" width="100%"/>
         </v-card>
     </div>
 </template>
 
 <script>
+import TellerSearchDashboardComponent from "@/components/admin-components/TellerSearchDashboardComponent.vue";
+import CustomerSearchDashboardComponent from "@/components/teller-components/CustomerSearchDashboardComponent.vue";
 export default {
     name: "AdminDashboard.vue",
+    components: {TellerSearchDashboardComponent, CustomerSearchDashboardComponent},
 
     data: () => {
         return {
-            searchFocus: "Tellers",
             oppositeFocus: "Customers",
             isTellerFocus: true,
         }
@@ -66,7 +57,6 @@ export default {
     methods: {
         changeFocus: function() {
             this.isTellerFocus = !this.isTellerFocus
-            this.searchFocus = this.isTellerFocus? "Tellers":"Customers"
             this.oppositeFocus = this.isTellerFocus? "Customers":"Tellers"
         },
     }

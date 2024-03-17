@@ -5,7 +5,7 @@
           style="background-color: #1565c0; color: #ffffff"
         >
             <v-app-bar-title>
-               Charger United Credit Union
+               <router-link to="/" style="text-decoration: none; color: inherit;">Charger United Credit Union</router-link>
             </v-app-bar-title>
             <div class="mr-2">
                 Routing Number: #123456789

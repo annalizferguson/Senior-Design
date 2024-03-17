@@ -18,12 +18,10 @@
                         class="d-flex justify-space-between"
                 >
                     Your Dashboard
-                    <div>
-                        <v-btn
-                            variant="outlined"
-                        >
-                            Settings
-                        </v-btn>
+                    <div
+                        style="font-size:0.85em"
+                    >
+                        Welcome, John Doe
                     </div>
                 </v-card-title>
             </v-card>
@@ -47,7 +45,7 @@
                                 height="100%"
                                 color="#4097f5"
                         >
-                            Settings
+                            Open New Account
                         </v-btn>
                     </div>
                     <div style="height: 100px; width: 250px">
@@ -56,7 +54,7 @@
                             height="100%"
                             color="#4097f5"
                         >
-                            Settings
+                            View Reports
                         </v-btn>
                     </div>
                     <div style="height: 100px; width: 250px; margin-right: 100px">
@@ -65,7 +63,7 @@
                             height="100%"
                             color="#4097f5"
                         >
-                            Settings
+                            View Account History
                         </v-btn>
                     </div>
                     <div style="height: 100px; width: 250px">
@@ -85,9 +83,8 @@
 
 <script>
 // Components
-import OpenAccountsDashboardComponent from '../components/OpenAccountsDashboardComponent.vue';
-import UpcomingPaymentsDashboardComponent from '../components/UpcomingPaymentsDashboardComponent.vue';
-
+import OpenAccountsDashboardComponent from '../components/customer-components/OpenAccountsDashboardComponent.vue';
+import UpcomingPaymentsDashboardComponent from '../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
 export default {
     name: "CustomerDashboard.vue",
     components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent}

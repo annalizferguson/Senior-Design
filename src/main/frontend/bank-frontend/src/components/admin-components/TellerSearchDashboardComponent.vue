@@ -1,20 +1,18 @@
 <template>
     <v-card
-            width="40%"
+            width="100%"
             height="85%"
             variant="outlined"
-            class="mr-6"
     >
         <v-card-title
-            class="d-flex justify-space-between"
+                class="d-flex"
         >
-            Open Accounts
+            Teller Search
             <v-btn
-                to="/"
-                variant="plain"
-                color="#4097f5"
+                    class="ml-5"
+                    color="#4097f5"
             >
-                See all accounts
+                Create New Teller
             </v-btn>
         </v-card-title>
         <v-card-text>hello</v-card-text>
@@ -23,7 +21,7 @@
 
 <script>
 export default {
-    name: "OpenAccountsDashboardComponent.vue"
+    name: "TellerSearchDashboardComponent.vue"
 }
 </script>
 

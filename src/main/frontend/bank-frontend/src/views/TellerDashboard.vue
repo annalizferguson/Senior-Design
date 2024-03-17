@@ -27,30 +27,19 @@
                     </div>
                 </v-card-title>
             </v-card>
-            <v-card
-                    class="mr-6"
-                    width="48%"
-                    height="85%"
-                    variant="outlined"
-            >
-                <v-card-title>Customer Search</v-card-title>
-                <v-card-text>hello</v-card-text>
-            </v-card>
-            <v-card
-                    width="50%"
-                    height="85%"
-                    variant="outlined"
-            >
-                <v-card-title>Alerts</v-card-title>
-                <v-card-text>hello</v-card-text>
-            </v-card>
+            <CustomerSearchDashboardComponent />
+            <AlertsDashboardComponent />
         </v-card>
     </div>
 </template>
 
 <script>
+
+import CustomerSearchDashboardComponent from "@/components/teller-components/CustomerSearchDashboardComponent.vue";
+import AlertsDashboardComponent from "@/components/teller-components/AlertsDashboardComponent.vue";
 export default {
-    name: "TellerDashboard.vue"
+    name: "TellerDashboard.vue",
+    components: {CustomerSearchDashboardComponent, AlertsDashboardComponent}
 }
 </script>
 
