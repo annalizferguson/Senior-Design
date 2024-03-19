@@ -1,3 +1,5 @@
+import java.sql.*;
+
 public class User{
     String username;
     String password;
@@ -24,7 +26,17 @@ public class User{
     // Changes the user's username to the given parameter.
     // Ensures the username is unique and (optionally) check for inappropriate names.
     public int setUsername(String user){
-        return 0;
+        // Still needs to check if it is unique
+
+        if (user.len() < 4 || user.len() > 12){  // checks if username is in the length bounds [4, 12]
+            return 1;
+        }
+
+        // Possibly add list of inappropriate usernames to block.
+        // Needs to be careful, like "hello" shouldn't be blocked.
+
+        username = user;  // sets the username
+        return 0;  // successful change
     }
 
     // setPassword
@@ -91,8 +103,22 @@ public class User{
 
     // login
     // Logs the user into the system.
-    public void login(){
+    public String login(String user, String pass){
+        // Still needs to be changed.
+        // Needs to find a user object in the database based on the given username.
+        if (user.equals(username) && pass.equals(password)){  // if both username and password are correct
+            return "Login successful.";
+        }
 
+        else if (!user.equals(username)){  // if just the username is incorrect
+            return "Invalid username.";
+        }
+
+        else{  // if just the password is incorrect
+            return "Invalid password.";
+        }
+
+        return "Login error.";  // if something goes terribly wrong with Java logic
     }
 
     // logout
