@@ -1,4 +1,5 @@
-public class User{
+package main.backend;
+public class user {
     String username;
     String password;
     String firstName;
@@ -7,7 +8,7 @@ public class User{
 
     // Constructor
     // Sets the fields when a new user class is made.
-    public User(String u, String p, String f, String l, String i){
+    public user(String u, String p, String f, String l, String i){
         username = u;
         password = p;
         firstName = f;
@@ -16,7 +17,7 @@ public class User{
     }
 
     // Default Constructor
-    public User(){
+    public user(){
 
     }
 
