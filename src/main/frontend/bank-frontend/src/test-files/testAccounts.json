@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Test Account 1",
+    "type": "Checking",
+    "number": "123456789",
+    "balance": 123.84
+  },
+  {
+    "name": "Test Account 2",
+    "type": "Savings",
+    "number": "987654321",
+    "balance": 2134.84
+  },
+  {
+    "name": "Test Account 3",
+    "type": "Money Market",
+    "number": "284018572",
+    "balance": 600.24
+  },
+  {
+    "name": "Test Account 4",
+    "type": "Checking",
+    "number": "968163823",
+    "balance": 3.84
+  }
+]

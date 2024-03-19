@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Credit Card Bill",
+    "due date": "4/4/2024",
+    "amount": 50.02
+  },
+  {
+    "name": "Money Market",
+    "due date": "4/4/2024",
+    "amount": 832.50
+  }
+]

@@ -3,6 +3,9 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import dns from 'dns'
 import vue from '@vitejs/plugin-vue'
+import dns from 'dns'
+
+dns.setDefaultResultOrder('verbatim')
 
 dns.setDefaultResultOrder('verbatim')
 
@@ -19,5 +22,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    host: 'localhost',
+    port: 8000
   }
 })
