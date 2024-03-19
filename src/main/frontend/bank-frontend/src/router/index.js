@@ -7,6 +7,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      component: () => import('../views/LandingPage.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
       component: Register
     },
     {
@@ -26,6 +31,21 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('../views/RegisterPage.vue')
+    },
+    {
+      path: '/customer-dash',
+      name: 'customer-dashboard',
+      component: () => import('../views/CustomerDashboard.vue')
+    },
+    {
+      path: '/teller-dash',
+      name: 'teller-dash',
+      component: () => import('../views/TellerDashboard.vue')
+    },
+    {
+      path: '/admin-dash',
+      name: 'admin-dash',
+      component: () => import('../views/AdminDashboard.vue')
     }
   ]
 })
