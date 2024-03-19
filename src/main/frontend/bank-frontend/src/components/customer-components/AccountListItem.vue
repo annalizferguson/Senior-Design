@@ -1,13 +1,13 @@
 <template>
     <v-card
-            class="d-flex flex-wrap ml-3 mb-5"
-            width="95%"
-            height="90%"
-            variant="outlined"
+            class="ml-3 mb-6"
+            width= "95%"
+            height="95%"
+            variant="tonal"
     >
         <v-card-title
                 class="d-flex justify-space-between"
-                style="font-size: 1em; width: 480px"
+                style="font-size: 1em"
         >
             <div>{{ accountType }} *{{ endingDigits }}</div>
             <v-btn

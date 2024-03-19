@@ -3,8 +3,8 @@
             class="d-flex justify-center align-center"
             style="height: calc(100vh - 100px)">
         <v-card
-                class="d-flex flex-wrap mb-1"
-                width="1250"
+                class="d-flex flex-wrap mb-1 overflow-y-auto"
+                width="90%"
                 style="height:calc(100vh - 200px)"
                 variant="flat"
         >
@@ -29,17 +29,17 @@
             <v-card
                     class="d-flex flex-wrap justify-center "
                     height="85%"
-                    width="57.95%"
+                    width="48%"
                     variant="flat"
             >
                 <UpcomingPaymentsDashboardComponent/>
                 <v-card
                         width="100%"
-                        height="47.5%"
+                        height="47%"
                         variant="outlined"
                         class="d-flex flex-wrap justify-center align-center mt-4"
                 >
-                    <div style="height: 100px; width: 250px; margin-right: 100px">
+                    <div style="height: 90px; width: 250px; margin-right: 100px">
                         <v-btn
                                 block
                                 height="100%"
@@ -48,7 +48,7 @@
                             Open New Account
                         </v-btn>
                     </div>
-                    <div style="height: 100px; width: 250px">
+                    <div style="height: 90px; width: 250px">
                         <v-btn
                             block
                             height="100%"
@@ -57,7 +57,7 @@
                             View Reports
                         </v-btn>
                     </div>
-                    <div style="height: 100px; width: 250px; margin-right: 100px">
+                    <div style="height: 90px; width: 250px; margin-right: 100px">
                         <v-btn
                             block
                             height="100%"
@@ -66,7 +66,7 @@
                             View Account History
                         </v-btn>
                     </div>
-                    <div style="height: 100px; width: 250px">
+                    <div style="height: 90px; width: 250px">
                         <v-btn
                             block
                             height="100%"

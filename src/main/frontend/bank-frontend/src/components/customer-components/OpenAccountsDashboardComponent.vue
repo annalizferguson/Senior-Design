@@ -1,6 +1,6 @@
 <template>
     <v-card
-            width="40%"
+            width="50%"
             height="85%"
             variant="outlined"
             class="mr-6 overflow-y-auto"
@@ -9,27 +9,29 @@
                 class="d-flex justify-space-between"
         >
             Open Accounts
-            <v-btn
-                to="/customer-dash"
-                variant="plain"
-                color="#4097f5"
-                style="font-size:0.60em"
-            >
-                Make a Transfer
-            </v-btn>
-            <v-btn
-                    to="/customer-dash"
-                    variant="plain"
-                    color="#4097f5"
-                    style="font-size:0.60em"
-            >
-                See all accounts
-            </v-btn>
+            <div>
+                <v-btn
+                        to="/customer-dash"
+                        variant="plain"
+                        color="#4097f5"
+                        style="font-size:0.65em"
+                >
+                    Make a Transfer
+                </v-btn>
+                <v-btn
+                        to="/customer-dash"
+                        variant="plain"
+                        color="#4097f5"
+                        style="font-size:0.65em"
+                >
+                    See all accounts
+                </v-btn>
+            </div>
         </v-card-title>
         <v-card
-            variant="flat"
-            height="20%"
-            v-for="(item, index) in accounts"
+                variant="flat"
+                height="20%"
+                v-for="(item, index) in accounts"
         >
             <AccountListItem :account="item"/>
         </v-card>
