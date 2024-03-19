@@ -1,11 +1,11 @@
 import java.sql.*;
 
 public class User{
-    String username;
-    String password;
-    String firstName;
-    String lastName;
-    String id;  // customer ID, this is optional and can be deleted later if it never gets used
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String id;  // customer/employee ID, this is optional and can be deleted later if it never gets used
 
     // Constructor
     // Sets the fields when a new user class is made.
@@ -15,6 +15,27 @@ public class User{
         firstName = f;
         lastName = l;
         id = i;
+    }
+
+    // Get Methods
+    public String getUsername(){
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public String getFirstName(){
+        return firstName;
+    }
+
+    public String getLastName(){
+        return lastName;
+    }
+
+    public String getId(){
+        return id;
     }
 
     // Default Constructor

@@ -1,13 +1,13 @@
 import java.sql.*;
 
 public class Customer extends User{
-    String ssn; // social security number
-    String dob; // date of birth
-    String email;
-    String address;
-    String mailingAddress;
-    String phoneNumber;
-    String cellPhoneNumber;
+    private String ssn; // social security number
+    private String dob; // date of birth
+    private String email;
+    private String address;
+    private String mailingAddress;
+    private String phoneNumber;
+    private String cellPhoneNumber;
 
     // constructor
     // Sends the user fields to the user superclass, sets everything else.
@@ -24,6 +24,36 @@ public class Customer extends User{
         phoneNumber = ph;
         cellPhoneNumber = ce;
     }
+
+    // Get Methods
+    public String getSsn(){
+        return ssn;
+    }
+
+    public String getDob(){
+        return dob;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public String getAddress(){
+        return address;
+    }
+
+    public String getMailingAddress(){
+        return mailingAddress;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+
+    public String getCellPhoneNumber(){
+        return cellPhoneNumber;
+    }
+
 
     // viewReports
     // Shows the user a list of banking reports including deposits, withdrawals, transfers, etc.
