@@ -2,10 +2,12 @@
     <div
             class="d-flex justify-center align-center"
             width="100%"
-            style="height: calc(100vh - 146px)"
+            style="height: calc(100vh - 70px)"
     >
         <v-card
-                width="50%"
+                width="70%"
+                height="80%"
+                class="overflow-y-auto"
         >
             <v-toolbar>
                 <v-toolbar-title>Register for an Account</v-toolbar-title>
@@ -36,27 +38,83 @@
                                   placeholder="Confirm your password"
                                   required
                     ></v-text-field>
-                        <div
+                    <v-text-field
+                            v-model="email"
+                            name="getEmail"
+                            label="Email"
+                            type="text"
+                            placeholder="Enter your email"
+                            required
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="phoneNumber"
+                            name="getPhoneNumber"
+                            label="Phone Number"
+                            type="text"
+                            placeholder="Enter your phone number"
+                            required
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="cellPhoneNumber"
+                            name="getCellPhoneNumber"
+                            label="Cell Phone Number"
+                            type="text"
+                            placeholder="Enter your cell phone number"
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="address"
+                            name="getAddress"
+                            label="Address"
+                            type="text"
+                            placeholder="Enter your home address"
+                            required
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="mailingAddress"
+                            name="getMailingAddress"
+                            label="Mailing Address"
+                            type="text"
+                            placeholder="Enter your mailing address"
+                            required
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="dob"
+                            name="getDOB"
+                            label="Date of Birth"
+                            type="text"
+                            placeholder="Enter your date of birth"
+                            required
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="ssn"
+                            name="getSSN"
+                            label="SSN"
+                            type="password"
+                            placeholder="Enter your SSN"
+                            required
+                    ></v-text-field>
+                    <v-container
+                            width="100%"
+                            class="d-flex justify-space-between align-center"
+                    >
+                        <v-container>
+                            Already have an account?
+                            <router-link to="/customer-login">Login Here</router-link>
+                        </v-container>
+                        <v-container
                                 width="100%"
-                                class="d-flex justify-space-between align-center"
+                                class="d-flex justify-end"
                         >
-                            <div>
-                                Already have an account?
-                                <router-link to="/customer-login">Login Here</router-link>
-                            </div>
-                            <div
-                                width="100%"
-                                class="justify-end"
-                            >
                             <v-btn
                                     type="submit"
                                     class="mt-2"
                                     color="primary"
+                                    variant="elevated"
                                     value="log in">
                                 Register
                             </v-btn>
-                        </div>
-                        </div>
+                        </v-container>
+                    </v-container>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -75,6 +133,13 @@ export default {
             confirmPassword: "",
             isRegister: true,
             errorMessage: "Error",
+            address: "",
+            mailingAddress: "",
+            email: "",
+            phoneNumber: "",
+            cellPhoneNumber: "",
+            dob: "",
+            ssn: ""
         }
     },
 
