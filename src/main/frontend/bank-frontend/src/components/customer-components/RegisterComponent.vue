@@ -13,14 +13,14 @@
                 <v-toolbar-title>Register for an Account</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-                <v-form ref="form">
+                <v-form v-model="validForm" ref="form">
                     <v-text-field
                             v-model="username"
                             name="username"
                             label="Username"
                             type="text"
                             placeholder="Enter a username"
-                            required
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="password"
@@ -28,7 +28,7 @@
                             label="Password"
                             type="password"
                             placeholder="Enter a password"
-                            required
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field v-if="isRegister"
                                   v-model="confirmPassword"
@@ -36,7 +36,7 @@
                                   label="Confirm Password"
                                   type="password"
                                   placeholder="Confirm your password"
-                                  required
+                                  :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="email"
@@ -44,7 +44,7 @@
                             label="Email"
                             type="text"
                             placeholder="Enter your email"
-                            required
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="phoneNumber"
@@ -52,7 +52,7 @@
                             label="Phone Number"
                             type="text"
                             placeholder="Enter your phone number"
-                            required
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="cellPhoneNumber"
@@ -67,7 +67,7 @@
                             label="Address"
                             type="text"
                             placeholder="Enter your home address"
-                            required
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="mailingAddress"
@@ -75,7 +75,9 @@
                             label="Mailing Address"
                             type="text"
                             placeholder="Enter your mailing address"
-                            required
+                            class="mr-3"
+                            disable="!checked"
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="dob"
@@ -83,7 +85,7 @@
                             label="Date of Birth"
                             type="text"
                             placeholder="Enter your date of birth"
-                            required
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="ssn"
@@ -91,7 +93,7 @@
                             label="SSN"
                             type="password"
                             placeholder="Enter your SSN"
-                            required
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-container
                             width="100%"
@@ -110,7 +112,9 @@
                                     class="mt-2"
                                     color="primary"
                                     variant="elevated"
-                                    value="log in">
+                                    value="log in"
+                                    onClick="checkIfFormIsFilled"
+                            >
                                 Register
                             </v-btn>
                         </v-container>
@@ -128,6 +132,11 @@ export default {
 
     data: () => {
         return {
+            validForm: false,
+            rules: {
+                required: [value => !!value || "Required."]
+            },
+            checked: false,
             username: "",
             password: "",
             confirmPassword: "",
@@ -139,10 +148,14 @@ export default {
             phoneNumber: "",
             cellPhoneNumber: "",
             dob: "",
-            ssn: ""
+            ssn: "",
         }
     },
-
+    methods: {
+        checkIfFieldsFilled: function () {
+            this.$refs.form.validate();
+        },
+    }
 }
 
 </script>
