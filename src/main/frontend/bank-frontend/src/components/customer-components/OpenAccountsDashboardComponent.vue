@@ -15,9 +15,22 @@
                         variant="plain"
                         color="#4097f5"
                         style="font-size:0.65em"
+                        @click="dialogActive = true"
                 >
                     Make a Transfer
                 </v-btn>
+                <v-dialog
+                    v-model="dialogActive"
+                    width="50%"
+                >
+                    <TransfersComponent />
+                    <v-btn
+                        color="#4097f5"
+                        @click="dialogActive = false"
+                    >
+                        Cancel
+                    </v-btn>
+                </v-dialog>
                 <v-btn
                         to="/customer-dash"
                         variant="plain"
@@ -41,13 +54,15 @@
 <script>
 import AccountListItem from "@/components/customer-components/AccountListItem.vue";
 import testAccounts from "@/test-files/testAccounts.json";
+import TransfersComponent from "@/components/customer-components/TransfersComponent.vue";
 
 export default {
     name: "OpenAccountsDashboardComponent.vue",
-    components: {AccountListItem},
+    components: {AccountListItem, TransfersComponent},
     data: () => {
         return {
-            accounts: testAccounts
+            accounts: testAccounts,
+            dialogActive: false,
         }
     }
 }
