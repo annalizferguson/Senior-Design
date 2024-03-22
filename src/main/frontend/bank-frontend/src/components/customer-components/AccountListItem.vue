@@ -32,7 +32,13 @@
             v-model="dialogActive"
             width="40%"
         >
-            <AccountDetailsDialog :account="currentAccount"/>
+            <v-card>
+                <v-card-title style="background-color: #4097f5; color: #ffffff" class="d-flex justify-space-between align-center">
+                    {{ title }}
+                    <v-btn icon="mdi-close" color="#4097f5" variant="flat" @click="dialogActive = false"/>
+                </v-card-title>
+                <AccountDetailsDialog :account="currentAccount"/>
+            </v-card>
         </v-dialog>
     </v-card>
 </template>
@@ -59,6 +65,7 @@ export default {
             accountNumber: this.account.number,
             balance: this.account.balance,
             endingDigits: this.account.number.slice(5, 9),
+            title: this.account.type + " *" + this.account.number.slice(5, 9),
         }
     },
 

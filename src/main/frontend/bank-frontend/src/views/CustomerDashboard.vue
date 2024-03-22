@@ -71,6 +71,7 @@
                             block
                             height="100%"
                             color="#4097f5"
+                            to="/customer-settings"
                         >
                             Settings
                         </v-btn>

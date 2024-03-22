@@ -1,7 +1,16 @@
 <template>
     <div class="d-flex justify-center">
         <v-card width="80%" class="mt-4">
-            <v-card-title style="background-color: #4097f5; color: #ffffff">Settings</v-card-title>
+            <v-card-title style="background-color: #4097f5; color: #ffffff" class="d-flex justify-space-between">
+                Settings
+                <v-btn
+                    variant="flat"
+                    color="#4097f5"
+                    to="/customer-dash"
+                >
+                    Return to Dashboard
+                </v-btn>
+            </v-card-title>
             <v-container>
                 <v-row>
                     <v-col>
@@ -53,7 +62,7 @@
                                     </v-form>
                                     <v-card-actions class="d-flex justify-end">
                                         <v-btn variant="tonal" color="#4097f5">
-                                            Save Changes
+                                            Confirm Changes
                                         </v-btn>
                                     </v-card-actions>
                                 </v-card>
@@ -95,7 +104,6 @@
                                                 label="Mailing Address"
                                                 type="text"
                                                 placeholder="Enter your mailing address"
-                                                class="mr-3"
                                                 disable="!checked"
                                         ></v-text-field>
                                         <v-text-field
@@ -115,7 +123,7 @@
                                     </v-form>
                                     <v-card-actions class="d-flex justify-space-between">
                                         <v-btn variant="tonal" color="#4097f5">
-                                            Save Changes
+                                            Confirm Changes
                                         </v-btn>
                                         <v-btn variant="tonal" color="red">
                                             Discard Changes
