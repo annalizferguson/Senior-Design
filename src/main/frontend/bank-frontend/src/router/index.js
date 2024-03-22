@@ -51,6 +51,11 @@ const router = createRouter({
       path: '/admin-dash',
       name: 'admin-dash',
       component: () => import('../views/AdminDashboard.vue')
+    },
+    {
+      path: '/customer-settings',
+      name: 'customer-settings',
+      component: () => import('../views/CustomerSettingsPage.vue')
     }
   ]
 })
