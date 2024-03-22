@@ -20,28 +20,71 @@
                     <v-container>${{ balance }}</v-container>
                 </v-col>
             </v-row>
-            <v-row>
+            <v-row v-if="type === 'Savings' || type === 'Money Market' || type === 'Credit Card' ">
                 <v-col>
-                    <v-container v-if="type === 'Savings' || type === 'Money Market'"><b>Interest Rate:</b></v-container>
+                    <v-container><b>Interest
+                        Rate:</b></v-container>
                 </v-col>
                 <v-col>
-                    <v-container v-if="type === 'Savings' || type === 'Money Market'">{{ interestRate }}%</v-container>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <v-container v-if="type === 'Money Market'"><b>Transaction Count:</b></v-container>
-                </v-col>
-                <v-col>
-                    <v-container v-if="type === 'Money Market'">{{ transactionCount }}</v-container>
+                    <v-container>
+                        {{ interestRate }}%
+                    </v-container>
                 </v-col>
             </v-row>
-            <v-row>
+            <v-row v-if="type === 'Money Market'">
                 <v-col>
-                    <v-container v-if="type === 'Money Market'"><b>Transaction Limit:</b></v-container>
+                    <v-container><b>Transaction Count:</b></v-container>
                 </v-col>
                 <v-col>
-                    <v-container v-if="type === 'Money Market'">{{ transactionLimit }}</v-container>
+                    <v-container>{{ transactionCount }}</v-container>
+                </v-col>
+            </v-row>
+            <v-row v-if="type === 'Money Market'">
+                <v-col>
+                    <v-container><b>Transaction Limit:</b></v-container>
+                </v-col>
+                <v-col>
+                    <v-container>{{ transactionLimit }}</v-container>
+                </v-col>
+            </v-row>
+            <v-row v-if="type === 'Credit Card'">
+                <v-col>
+                    <v-container><b>Amount Due:</b></v-container>
+                </v-col>
+                <v-col>
+                    <v-container>${{ amountDue }}</v-container>
+                </v-col>
+            </v-row>
+            <v-row v-if="type === 'Home Mortgage'">
+                <v-col>
+                    <v-container><b>Monthly Amount Due:</b></v-container>
+                </v-col>
+                <v-col>
+                    <v-container>${{ monthlyDue }}</v-container>
+                </v-col>
+            </v-row>
+            <v-row v-if="type === 'Home Mortgage'">
+                <v-col>
+                    <v-container><b>Total Mortgage:</b></v-container>
+                </v-col>
+                <v-col>
+                    <v-container>${{ totalMortgage }}</v-container>
+                </v-col>
+            </v-row>
+            <v-row v-if="type === 'Home Mortgage'">
+                <v-col>
+                    <v-container><b>Mortgage Left:</b></v-container>
+                </v-col>
+                <v-col>
+                    <v-container>${{ mortgageLeft }}</v-container>
+                </v-col>
+            </v-row>
+            <v-row v-if="type === 'Home Mortgage'">
+                <v-col>
+                    <v-container><b>Unpaid Balance:</b></v-container>
+                </v-col>
+                <v-col>
+                    <v-container>${{ unpaidBalance }}</v-container>
                 </v-col>
             </v-row>
         </v-card-text>
@@ -58,7 +101,7 @@ export default {
             type: Object
         }
     },
-    data: function() {
+    data: function () {
         return {
             number: this.account.number,
             balance: this.account.balance,
@@ -66,9 +109,14 @@ export default {
             title: this.account.type + " *" + this.account.number.slice(5, 9),
             interestRate: this.account.interestRate,
             transactionCount: this.account.transactionCount,
-            transactionLimit: this.account.transactionLimit
+            transactionLimit: this.account.transactionLimit,
+            amountDue: this.account.amountDue,
+            totalMortgage: this.account.totalMortgage?.toLocaleString(),
+            mortgageLeft: this.account.mortgageLeft?.toLocaleString(),
+            monthlyDue: this.account.monthlyDue,
+            unpaidBalance: this.account.unpaidBalance
         }
-    }
+    },
 }
 </script>
 

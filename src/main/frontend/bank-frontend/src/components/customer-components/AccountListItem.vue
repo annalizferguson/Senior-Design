@@ -30,7 +30,7 @@
         </v-card-text>
         <v-dialog
             v-model="dialogActive"
-            width="30%"
+            width="40%"
         >
             <AccountDetailsDialog :account="currentAccount"/>
         </v-dialog>
