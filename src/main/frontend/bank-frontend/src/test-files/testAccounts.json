@@ -9,12 +9,16 @@
     "name": "Test Account 2",
     "type": "Savings",
     "number": "987654321",
-    "balance": 2134.84
+    "balance": 2134.84,
+    "interestRate": 0.023
   },
   {
     "name": "Test Account 3",
     "type": "Money Market",
     "number": "284018572",
+    "interestRate": 2,
+    "transactionCount": 2,
+    "transactionLimit": 6,
     "balance": 600.24
   },
   {

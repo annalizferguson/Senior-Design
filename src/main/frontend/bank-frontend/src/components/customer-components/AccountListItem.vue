@@ -13,6 +13,7 @@
             <v-btn
                     color="#4097f5"
                     variant="plain"
+                    @click="dialogActive = true"
             >
                 <b><u>Quick Peak</u></b>
             </v-btn>
@@ -27,14 +28,22 @@
                 ${{ balance }}
             </div>
         </v-card-text>
+        <v-dialog
+            v-model="dialogActive"
+            width="30%"
+        >
+            <AccountDetailsDialog :account="currentAccount"/>
+        </v-dialog>
     </v-card>
 </template>
 
 <script>
 import testaccount from "@/test-files/testaccount.json"
+import AccountDetailsDialog from "@/components/customer-components/AccountDetailsDialog.vue";
 
 export default {
     name: "AccountListItem.vue",
+    components: {AccountDetailsDialog},
     props: {
         account: {
             type: Object
@@ -43,6 +52,8 @@ export default {
 
     data: function() {
         return {
+            currentAccount: this.account,
+            dialogActive: false,
             accountName: this.account.name,
             accountType: this.account.type,
             accountNumber: this.account.number,
