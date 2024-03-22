@@ -8,12 +8,15 @@
                     :items="accounts"
                     item-title="label"
                     return-object
+                    variant="outlined"
                 />
                 <v-select
                     label="To"
                     :items="accounts"
                     item-title="label"
                     return-object
+                    variant="outlined"
+
                 />
                 <v-text-field
                         v-model="amount"
@@ -21,6 +24,8 @@
                         label="Amount"
                         type="number"
                         placeholder="Enter amount to transfer"
+                        variant="outlined"
+                        prepend-icon="mdi-currency-usd"
                         required
                 />
                 <v-container class="d-flex justify-end">
