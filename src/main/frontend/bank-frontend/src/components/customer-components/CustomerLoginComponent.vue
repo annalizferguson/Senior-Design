@@ -46,7 +46,8 @@
                                 type="submit"
                                 class="mt-2"
                                 color="primary"
-                                value="log in">
+                                value="log in"
+                            >
                                 Login
                             </v-btn>
                             </router-link>
@@ -60,11 +61,13 @@
 
 
 <script>
+import { useUserStore } from "@/states/UserStore.js";
 
 export default {
     name: 'CustomerLoginComponent',
 
     data: () => {
+        const thisStore = useUserStore()
         return {
             username: "",
             password: "",
