@@ -3,6 +3,7 @@
             width="100%"
             variant="tonal"
     >
+        <v-card-title style="background-color: #4097f5; color: white"/>
         <v-container
                 class="d-flex justify-space-between"
         >
@@ -23,6 +24,7 @@
         </v-container>
         <v-card-actions class="d-flex justify-end">
             <v-btn
+                color="#4097f5"
                 @click="dialogActive = true"
             >
                 Pay Now
