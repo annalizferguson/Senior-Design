@@ -40,10 +40,10 @@
                 </v-btn>
             </div>
         </v-card-title>
-        <v-container style="height: calc(100vh - 350px)" class="overflow-y-auto">
-        <AccountListItem height="25%"
-                         v-for="(item, index) in accounts"
-                         :account="item"/>
+        <v-container style="height: calc(100vh - 350px)" class="d-flex flex-wrap justify-center overflow-x-auto">
+            <AccountListItem
+                             v-for="(item, index) in accounts"
+                             :account="item"/>
         </v-container>
     </v-card>
 </template>

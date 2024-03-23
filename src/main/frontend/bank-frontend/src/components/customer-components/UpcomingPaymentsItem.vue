@@ -3,7 +3,7 @@
             width="100%"
             variant="tonal"
     >
-        <v-card-title style="background-color: #4097f5; color: white"/>
+        <v-card-title style="background-color: #4097f5"/>
         <v-container
                 class="d-flex justify-space-between"
         >
