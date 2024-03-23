@@ -11,7 +11,6 @@
             Open Accounts
             <div>
                 <v-btn
-                        to="/customer-dash"
                         variant="plain"
                         color="#4097f5"
                         style="font-size:0.65em"
@@ -32,10 +31,10 @@
                     </v-btn>
                 </v-dialog>
                 <v-btn
-                        to="/customer-dash"
                         variant="plain"
                         color="#4097f5"
                         style="font-size:0.65em"
+                        to="/accounts"
                 >
                     See all accounts
                 </v-btn>
