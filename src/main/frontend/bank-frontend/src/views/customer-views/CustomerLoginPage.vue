@@ -6,7 +6,7 @@
 import { defineComponent } from 'vue';
 
 // Components
-import CustomerLogin from '../components/customer-components/CustomerLoginComponent.vue';
+import CustomerLogin from '../../components/customer-components/CustomerLoginComponent.vue';
 
 export default defineComponent({
     name: 'CustomerLoginView',

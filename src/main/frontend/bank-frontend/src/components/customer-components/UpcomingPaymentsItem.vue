@@ -1,7 +1,6 @@
 <template>
     <v-card
             width="100%"
-            height="85cd%"
             variant="tonal"
     >
         <v-container
@@ -22,14 +21,34 @@
             <b>Amount</b>
             <div style="font-size: 2em">${{ billAmount }}</div>
         </v-container>
+        <v-card-actions class="d-flex justify-end">
+            <v-btn
+                @click="dialogActive = true"
+            >
+                Pay Now
+            </v-btn>
+            <v-dialog
+                v-model="dialogActive"
+                width="50%"
+            >
+                <MakeAPaymentComponent :bill="bill"/>
+                <v-btn
+                    color="#4097f5"
+                    @click="dialogActive = false"
+                >
+                    Cancel
+                </v-btn>
+            </v-dialog>
+        </v-card-actions>
     </v-card>
 </template>
 
 <script>
-import testPayment from "@/test-files/testPayment.json"
+import MakeAPaymentComponent from "@/components/customer-components/MakeAPaymentComponent.vue";
 
 export default {
     name: "UpcomingPaymentsItem.vue",
+    components: {MakeAPaymentComponent},
     props: {
         bill: {
             type: Object
@@ -37,6 +56,7 @@ export default {
     },
     data: function() {
         return {
+            dialogActive: false,
             billName: this.bill.name,
             billDate: this.bill["due date"],
             billAmount: this.bill.amount
