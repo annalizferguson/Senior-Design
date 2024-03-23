@@ -43,6 +43,11 @@ const router = createRouter({
       component: () => import('../views/TransfersPage.vue')
     },
     {
+      path: '/accounts',
+      name: 'accounts',
+      component: () => import('../views/CustomerAccountsPage.vue')
+    },
+    {
       path: '/teller-dash',
       name: 'teller-dash',
       component: () => import('../views/TellerDashboard.vue')

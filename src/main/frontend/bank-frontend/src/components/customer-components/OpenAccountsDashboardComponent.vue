@@ -3,7 +3,7 @@
             width="50%"
             height="85%"
             variant="outlined"
-            class="mr-6 overflow-y-auto"
+            class="mr-6"
     >
         <v-card-title
                 class="d-flex justify-space-between"
@@ -11,7 +11,6 @@
             Open Accounts
             <div>
                 <v-btn
-                        to="/customer-dash"
                         variant="plain"
                         color="#4097f5"
                         style="font-size:0.65em"
@@ -20,34 +19,32 @@
                     Make a Transfer
                 </v-btn>
                 <v-dialog
-                    v-model="dialogActive"
-                    width="50%"
+                        v-model="dialogActive"
+                        width="50%"
                 >
-                    <TransfersComponent />
+                    <TransfersComponent/>
                     <v-btn
-                        color="#4097f5"
-                        @click="dialogActive = false"
+                            color="#4097f5"
+                            @click="dialogActive = false"
                     >
                         Cancel
                     </v-btn>
                 </v-dialog>
                 <v-btn
-                        to="/customer-dash"
                         variant="plain"
                         color="#4097f5"
                         style="font-size:0.65em"
+                        to="/accounts"
                 >
                     See all accounts
                 </v-btn>
             </div>
         </v-card-title>
-        <v-card
-                variant="flat"
-                height="20%"
-                v-for="(item, index) in accounts"
-        >
-            <AccountListItem :account="item"/>
-        </v-card>
+        <v-container style="height: calc(100vh - 350px)" class="overflow-y-auto">
+        <AccountListItem height="25%"
+                         v-for="(item, index) in accounts"
+                         :account="item"/>
+        </v-container>
     </v-card>
 </template>
 
