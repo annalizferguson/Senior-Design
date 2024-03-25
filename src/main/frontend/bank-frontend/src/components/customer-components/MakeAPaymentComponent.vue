@@ -10,6 +10,7 @@
                         item-title="title"
                         return-object
                         variant-outlined
+                        @update="amountToPay = 0"
                 />
                 <v-container v-if="selectedBill">
                     <b>Amount Due:</b> ${{ selectedBillAmount }}
@@ -22,6 +23,8 @@
                             variant="outlined"
                             prepend-icon="mdi-currency-usd"
                             class="mt-4"
+                            clearable
+                            hide-spin-buttons
                             required
                     />
                     <div class="d-flex justify-center">

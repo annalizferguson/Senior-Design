@@ -50,16 +50,18 @@
                             v-model="phoneNumber"
                             name="getPhoneNumber"
                             label="Phone Number"
-                            type="text"
+                            type="number"
                             placeholder="Enter your phone number"
+                            hide-spin-buttons
                             :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="cellPhoneNumber"
                             name="getCellPhoneNumber"
                             label="Cell Phone Number"
-                            type="text"
+                            type="number"
                             placeholder="Enter your cell phone number"
+                            hide-spin-buttons
                     ></v-text-field>
                     <v-text-field
                             v-model="address"
@@ -91,8 +93,9 @@
                             v-model="ssn"
                             name="getSSN"
                             label="SSN"
-                            type="password"
+                            type="number"
                             placeholder="Enter your SSN"
+                            hide-spin-buttons
                             :rules="rules.required"
                     ></v-text-field>
                     <v-container
