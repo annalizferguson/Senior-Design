@@ -35,13 +35,12 @@
                 <UpcomingPaymentsDashboardComponent/>
                 <v-card
                         width="100%"
-                        height="47%"
+                        height="32%"
                         variant="outlined"
                         class="d-flex flex-wrap justify-center align-center mt-4"
                 >
                     <div style="height: 90px; width: 250px; margin-right: 100px">
                         <v-btn
-                                block
                                 height="100%"
                                 color="#4097f5"
                         >
@@ -50,7 +49,6 @@
                     </div>
                     <div style="height: 90px; width: 250px">
                         <v-btn
-                            block
                             height="100%"
                             color="#4097f5"
                         >
@@ -59,7 +57,6 @@
                     </div>
                     <div style="height: 90px; width: 250px; margin-right: 100px">
                         <v-btn
-                            block
                             height="100%"
                             color="#4097f5"
                         >
@@ -68,7 +65,6 @@
                     </div>
                     <div style="height: 90px; width: 250px">
                         <v-btn
-                            block
                             height="100%"
                             color="#4097f5"
                             to="/customer-settings"
@@ -84,8 +80,8 @@
 
 <script>
 // Components
-import OpenAccountsDashboardComponent from '../components/customer-components/OpenAccountsDashboardComponent.vue';
-import UpcomingPaymentsDashboardComponent from '../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
+import OpenAccountsDashboardComponent from '../../components/customer-components/OpenAccountsDashboardComponent.vue';
+import UpcomingPaymentsDashboardComponent from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
 export default {
     name: "CustomerDashboard.vue",
     components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent}

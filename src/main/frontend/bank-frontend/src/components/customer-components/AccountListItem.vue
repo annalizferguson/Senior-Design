@@ -1,36 +1,30 @@
 <template>
     <v-card
             class="ml-3 mb-6"
-            width= "95%"
-            height="95%"
-            variant="tonal"
+            width="45%"
+            variant="elevated"
+
     >
         <v-card-title
-                class="d-flex justify-space-between"
-                style="font-size: 1em"
+                class="d-flex justify-space-between mb-6"
+                style="background-color: #4097f5; color: white;"
         >
             <div>{{ accountType }} *{{ endingDigits }}</div>
             <v-btn
-                    color="#4097f5"
                     variant="plain"
                     @click="dialogActive = true"
             >
                 <b><u>Quick Peak</u></b>
             </v-btn>
         </v-card-title>
-        <v-card-text
-                class="d-flex"
-        >
-            Current Balance...............................
-            <div
-                    style="font-size: 2.7em"
-            >
-                ${{ balance }}
-            </div>
-        </v-card-text>
+        <v-container class="d-flex justify-space-between align-center">
+            <div><b>Current Balance</b></div>
+            <div>${{ balance }}</div>
+
+        </v-container>
         <v-dialog
-            v-model="dialogActive"
-            width="40%"
+                v-model="dialogActive"
+                width="40%"
         >
             <v-card>
                 <v-card-title style="background-color: #4097f5; color: #ffffff" class="d-flex justify-space-between align-center">
@@ -56,7 +50,7 @@ export default {
         }
     },
 
-    data: function() {
+    data: function () {
         return {
             currentAccount: this.account,
             dialogActive: false,
