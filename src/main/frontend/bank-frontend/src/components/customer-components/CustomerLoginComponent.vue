@@ -5,7 +5,7 @@
             style="height: calc(100vh - 146px)"
     >
         <v-card
-                width="50%"
+                width="70%"
         >
             <v-toolbar>
                 <v-toolbar-title>Login to Account</v-toolbar-title>

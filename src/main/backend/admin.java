@@ -1,5 +1,7 @@
-public class Admin extends User{
-    public Admin(String u, String p, String f, String l, String i) {
+package main.backend;
+
+public class admin extends user{
+    public admin(String u, String p, String f, String l, String i) {
         super(u, p, f, l, i);
     }
 

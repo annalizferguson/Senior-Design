@@ -1,5 +1,7 @@
-public class Teller extends User{
-    public Teller(String u, String p, String f, String l, String i) {
+package main.backend;
+
+public class teller extends user{
+    public teller(String u, String p, String f, String l, String i) {
         super(u, p, f, l, i);
     }
 

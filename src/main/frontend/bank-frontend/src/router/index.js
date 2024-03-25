@@ -34,8 +34,18 @@ const router = createRouter({
     },
     {
       path: '/customer-dash',
-      name: 'customer-dashboard',
+      name: 'customer-dash',
       component: () => import('../views/CustomerDashboard.vue')
+    },
+    {
+      path: '/transfers',
+      name: 'transfers',
+      component: () => import('../views/TransfersPage.vue')
+    },
+    {
+      path: '/accounts',
+      name: 'accounts',
+      component: () => import('../views/CustomerAccountsPage.vue')
     },
     {
       path: '/teller-dash',
