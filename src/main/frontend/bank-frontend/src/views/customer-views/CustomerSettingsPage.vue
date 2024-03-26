@@ -4,9 +4,9 @@
             <v-card-title style="background-color: #4097f5; color: #ffffff" class="d-flex justify-space-between">
                 Settings
                 <v-btn
-                    variant="flat"
-                    color="#4097f5"
-                    to="/customer-dash"
+                        variant="flat"
+                        color="#4097f5"
+                        to="/customer-dash"
                 >
                     Return to Dashboard
                 </v-btn>
@@ -39,21 +39,21 @@
                                 <v-card variant="flat">
                                     <v-form>
                                         <v-text-field
-                                                v-model="username"
+                                                v-model="newUsername"
                                                 name="username"
                                                 label="Username"
                                                 type="text"
                                                 placeholder="Enter a username"
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="password"
+                                                v-model="newPassword"
                                                 name="password"
                                                 label="Password"
                                                 type="password"
                                                 placeholder="Enter a password"
                                         ></v-text-field>
                                         <v-text-field v-if="isRegister"
-                                                      v-model="confirmPassword"
+                                                      v-model="newConfirmPassword"
                                                       name="confirmPassword"
                                                       label="Confirm Password"
                                                       type="password"
@@ -71,35 +71,37 @@
                                 <v-card variant="flat">
                                     <v-form v-model="validForm" ref="form">
                                         <v-text-field
-                                                v-model="email"
+                                                v-model="newEmail"
                                                 name="getEmail"
                                                 label="Email"
                                                 type="text"
                                                 placeholder="Enter your email"
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="phoneNumber"
+                                                v-model="newPhoneNumber"
                                                 name="getPhoneNumber"
                                                 label="Phone Number"
-                                                type="text"
+                                                type="number"
                                                 placeholder="Enter your phone number"
+                                                hide-spin-buttons
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="cellPhoneNumber"
+                                                v-model="newCellPhoneNumber"
                                                 name="getCellPhoneNumber"
                                                 label="Cell Phone Number"
-                                                type="text"
+                                                type="number"
                                                 placeholder="Enter your cell phone number"
+                                                hide-spin-buttons
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="address"
+                                                v-model="newAddress"
                                                 name="getAddress"
                                                 label="Address"
                                                 type="text"
                                                 placeholder="Enter your home address"
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="mailingAddress"
+                                                v-model="newMailingAddress"
                                                 name="getMailingAddress"
                                                 label="Mailing Address"
                                                 type="text"
@@ -111,14 +113,14 @@
                                                 name="getDOB"
                                                 label="Date of Birth"
                                                 type="text"
-                                                placeholder="Enter your date of birth"
+                                                readonly
                                         ></v-text-field>
                                         <v-text-field
                                                 v-model="ssn"
                                                 name="getSSN"
                                                 label="SSN"
                                                 type="password"
-                                                placeholder="Enter your SSN"
+                                                readonly
                                         ></v-text-field>
                                     </v-form>
                                     <v-card-actions class="d-flex justify-space-between">
@@ -140,24 +142,31 @@
 </template>
 
 <script>
+import testUser from "@/test-files/testUser.json"
+
 export default {
     name: "CustomerSettingsPage.vue",
     data: () => {
         return {
             tab: 0,
             validForm: false,
-            username: "",
-            password: "",
-            confirmPassword: "",
+            newUsername: "",
+            newPassword: "",
+            newConfirmPassword: "",
             isRegister: true,
             errorMessage: "Error",
-            address: "",
-            mailingAddress: "",
-            email: "",
-            phoneNumber: "",
-            cellPhoneNumber: "",
-            dob: "",
-            ssn: "",
+            newAddress: "",
+            newMailingAddress: "",
+            newEmail: "",
+            newPhoneNumber: "",
+            newCellPhoneNumber: "",
+            dob: testUser.dob,
+            ssn: testUser.ssn,
+            email: testUser.email,
+            phoneNumber: testUser.phone,
+            cellPhoneNumber: testUser.cellphone,
+            address: testUser.address,
+            mailingAddress: testUser.mailingAddress,
         }
     }
 }

@@ -65,7 +65,7 @@ const router = createRouter({
     {
       path: '/customer-settings',
       name: 'customer-settings',
-      component: () => import('../views/CustomerSettingsPage.vue')
+      component: () => import('../views/customer-views/CustomerSettingsPage.vue')
     }
   ]
 })
