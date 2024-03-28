@@ -5,8 +5,18 @@
     "amount": 50.02
   },
   {
-    "name": "Money Market",
+    "name": "Home Mortgage Bill",
     "due date": "4/4/2024",
+    "amount": 832.50
+  },
+  {
+    "name": "Credit Card Bill",
+    "due date": "5/4/2024",
+    "amount": 451.85
+  },
+  {
+    "name": "Home Mortgage Bill",
+    "due date": "5/4/2024",
     "amount": 832.50
   }
 ]

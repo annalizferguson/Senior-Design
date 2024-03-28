@@ -1,7 +1,8 @@
 package main.backend;
+import java.sql.*;
 
-public class teller extends user{
-    public teller(String u, String p, String f, String l, String i) {
+public class Teller extends User{
+    public Teller(String u, String p, String f, String l, String i) {
         super(u, p, f, l, i);
     }
 

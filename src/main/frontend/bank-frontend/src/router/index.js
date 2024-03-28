@@ -25,7 +25,7 @@ const router = createRouter({
     {
       path: '/customer-login',
       name: 'customer-login',
-      component: () => import('../views/CustomerLoginPage.vue')
+      component: () => import('../views/customer-views/CustomerLoginPage.vue')
     },
     {
       path: '/register',
@@ -35,7 +35,7 @@ const router = createRouter({
     {
       path: '/customer-dash',
       name: 'customer-dash',
-      component: () => import('../views/CustomerDashboard.vue')
+      component: () => import('../views/customer-views/CustomerDashboard.vue')
     },
     {
       path: '/transfers',
@@ -45,7 +45,12 @@ const router = createRouter({
     {
       path: '/accounts',
       name: 'accounts',
-      component: () => import('../views/CustomerAccountsPage.vue')
+      component: () => import('../views/customer-views/CustomerAccountsPage.vue')
+    },
+    {
+      path: '/bills',
+      name: 'bills',
+      component: () => import('../views/customer-views/CustomerBillsPage.vue')
     },
     {
       path: '/teller-dash',
