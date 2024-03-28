@@ -152,21 +152,54 @@ public class User{
     }
 
     // login
-    // Logs the user into the system.
+    // Logs the user into the system. ASSUMES CUSTOMER AT THE MOMENT
     public String login(String user, String pass){
-        // Still needs to be changed.
-        // Needs to find a user object in the database based on the given username.
-        if (user.equals(username) && pass.equals(password)){  // if both username and password are correct
+        String url = "jdbc:mysql://localhost:3306/laravel_api";  //database url
+        String u = "root";  //database username
+        String p = "kd(S(MavJCoLV1";  //database password
+
+        String sql = "select count(*) from customers where username = '" + user + "'";  // sql statement
+        boolean userExists = false;  // if the username was found
+        boolean passExists = false;  // if the password matches for the username
+
+        try(
+                Connection connection = DriverManager.getConnection(url, u, p);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);)
+        {
+            if(resultSet.next()) {
+                int temp = resultSet.getInt(1);  //checks if the username was found
+                userExists = temp > 0;  // if the username was found, the boolean gets changed
+            }
+        }
+        catch(SQLException e){
+            return "Username DB error.";
+        }
+
+        if(userExists){
+            sql = "select password from customers where username = '" + user + "'";
+            try(Connection connection = DriverManager.getConnection(url, u, p);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);)
+            {
+                if(resultSet.next()){
+                    String temp = resultSet.getString("password");
+                    if(temp.equals(pass)){
+                        passExists = true;
+                    }
+                }
+            }
+            catch(SQLException e){
+                System.out.println(e.getMessage());
+                return "Password DB error.";
+            }
+        }
+
+        if(passExists){
             return "Login successful.";
         }
 
-        else if (!user.equals(username)){  // if just the username is incorrect
-            return "Invalid username.";
-        }
-
-        else{  // if just the password is incorrect
-            return "Invalid password.";
-        }
+        return "Username or password not found.";
     }
 
     // logout
