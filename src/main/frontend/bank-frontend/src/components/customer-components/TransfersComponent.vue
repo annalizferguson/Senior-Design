@@ -26,6 +26,7 @@
                         placeholder="Enter amount to transfer"
                         variant="outlined"
                         prepend-icon="mdi-currency-usd"
+                        hide-spin-buttons
                         required
                 />
                 <v-container class="d-flex justify-end">
