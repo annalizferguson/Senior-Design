@@ -1,13 +1,15 @@
 package main.backend;
+import java.sql.*;
 
-public class customer extends user {
-    String ssn; // social security number
-    String dob; // date of birth
-    String email;
-    String address;
-    String mailingAddress;
-    String phoneNumber;
-    String cellPhoneNumber;
+public class Customer extends User{
+    private String ssn; // social security number
+    private String dob; // date of birth
+    private String email;
+    private String address;
+    private String mailingAddress;
+    private String phoneNumber;
+    private String cellPhoneNumber;
+
 
     // constructor
     // Sends the user fields to the user superclass, sets everything else.
@@ -24,6 +26,40 @@ public class customer extends user {
         phoneNumber = ph;
         cellPhoneNumber = ce;
     }
+
+    public Customer(){
+
+    }
+
+    // Get Methods
+    public String getSsn(){
+        return ssn;
+    }
+
+    public String getDob(){
+        return dob;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public String getAddress(){
+        return address;
+    }
+
+    public String getMailingAddress(){
+        return mailingAddress;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+
+    public String getCellPhoneNumber(){
+        return cellPhoneNumber;
+    }
+
 
     // viewReports
     // Shows the user a list of banking reports including deposits, withdrawals, transfers, etc.
@@ -48,42 +84,100 @@ public class customer extends user {
     // Sets the social security number for the customer.
     // The id is the customer id. Perhaps it can be a customer object.
     public void setSSN(String num){
-        ssn = num;
+        if(updateDatabase(this.getId(), "ssn", num)){  //updates the database
+            ssn = num;  //sets the current object
+        }
+        else{  //if there was an error updating the database
+            System.out.println("SSN error");
+        }
     }
 
     // setDOB
     // Sets the date of birth for the customer.
     public void setDOB(String date){
-        dob = date;
+        if(updateDatabase(this.getId(), "dob", date)){  //updates the database
+            dob = date;  //sets the current object
+        }
+        else{  //if there was an error updating the database
+            System.out.println("DOB error");
+        }
     }
 
     // setEmail
     // Sets the email for the customer.
     public void setEmail(String em){
-        email = em;
+        if(updateDatabase(this.getId(), "email", em)){  //updates the database
+            email = em;  //sets the current object
+        }
+        else{  //if there was an error updating the database
+            System.out.println("Email error");
+        }
     }
 
     // setAddress
     // Sets the address for the customer.
     public void setAddress(String addr){
-        address = addr;
+        if(updateDatabase(this.getId(), "address", addr)){  //updates the database
+            address = addr;  //sets the current object
+        }
+        else{  //if there was an error updating the database
+            System.out.println("Address error");
+        }
     }
 
     // setMailingAddress
     // Sets the mailing address for the customer.
     public void setMailingAddress(String mAddr){
-        mailingAddress = mAddr;
+        if(updateDatabase(this.getId(), "mailing_address", mAddr)){  //updates the database
+            mailingAddress = mAddr;  //sets the current object
+        }
+        else{  //if there was an error updating the database
+            System.out.println("Mailing address error");
+        }
     }
 
     // setPhoneNumber
     // Sets the phone number for the customer.
     public void setPhoneNumber(String phone){
-        phoneNumber = phone;
+        if(updateDatabase(this.getId(), "phone_number", phone)){  //updates the database
+            phoneNumber = phone;  //sets the current object
+        }
+        else{  //if there was an error updating the database
+            System.out.println("Phone number error");
+        }
     }
 
     // setCellPhoneNumber
     // Sets the cell phone number for the customer.
     public void setCellPhoneNumber(String cPhone){
-        cellPhoneNumber = cPhone;
+        if(updateDatabase(this.getId(), "cellphone_number", cPhone)){  //updates the database
+            cellPhoneNumber = cPhone;  //sets the current object
+        }
+        else{  //if there was an error updating the database
+            System.out.println("Cell phone error");
+        }
+    }
+
+    private boolean updateDatabase(String row, String col, String field){
+        String url = "jdbc:mysql://localhost:3306/laravel_api";  //database url
+        String user = "root";  //database username
+        String pass = "kd(S(MavJCoLV1";  //database password
+
+        //the sql statement to send to the database
+        String sql = "update customers set " + col + " = '" + field + "' where customer_id = " + row;
+
+        //attempts to connect the driver to the database
+        try (
+                Connection connection = DriverManager.getConnection(url, user, pass);
+                Statement statement = connection.createStatement();
+        )
+        {
+            statement.executeUpdate(sql); //executes the sql statement if the driver connected
+            return true;  //returns success
+        }
+
+        catch (SQLException e) {  //if the driver could not connect
+            return false;  //returns not successful with the connection
+        }
     }
 }

@@ -1,14 +1,12 @@
 package main.backend;
-
-public class admin extends user{
-    public admin(String u, String p, String f, String l, String i) {
+import java.sql.*;
         super(u, p, f, l, i);
     }
 
     // createTellerAccount
     // Creates teller accounts.
-    public void createTellerAccount(String id){
-
+    public Teller createTellerAccount(String user, String pass, String first, String last, String id){
+        return new Teller(user, pass, first, last, id);
     }
 
     // deleteTellerAccount
