@@ -1,3 +1,4 @@
+package main.backend;
 import java.sql.*;
 
 public class Customer extends User{
@@ -9,11 +10,12 @@ public class Customer extends User{
     private String phoneNumber;
     private String cellPhoneNumber;
 
+
     // constructor
     // Sends the user fields to the user superclass, sets everything else.
     // I'm not sure if this is how inheritance works in Java, it's been a while
     // since I've worked with Java inheritance.
-    public Customer(String u, String p, String f, String l, String i, String ss, String d, String em, String ad, String ma, String ph, String ce) {
+    public customer(String u, String p, String f, String l, String i, String ss, String d, String em, String ad, String ma, String ph, String ce) {
         super(u, p, f, l, i);  // sends the user fields to the super class
 
         ssn = ss;

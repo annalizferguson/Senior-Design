@@ -1,3 +1,4 @@
+package main.backend;
 import java.sql.*;
 
 public class User{
@@ -7,9 +8,10 @@ public class User{
     private String lastName;
     private String id;  // customer/employee ID, this is optional and can be deleted later if it never gets used
 
+
     // Constructor
     // Sets the fields when a new user class is made.
-    public User(String u, String p, String f, String l, String i){
+    public user(String u, String p, String f, String l, String i){
         username = u;
         password = p;
         firstName = f;
@@ -39,7 +41,7 @@ public class User{
     }
 
     // Default Constructor
-    public User(){
+    public user(){
 
     }
 

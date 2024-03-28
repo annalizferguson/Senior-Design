@@ -1,7 +1,5 @@
+package main.backend;
 import java.sql.*;
-
-public class Admin extends User{
-    public Admin(String u, String p, String f, String l, String i) {
         super(u, p, f, l, i);
     }
 
