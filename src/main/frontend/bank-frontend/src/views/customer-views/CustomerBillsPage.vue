@@ -5,10 +5,10 @@
                 All Upcoming Payments
                 <div>
                     <v-btn
-                        variant="plain"
-                        color="white"
-                        style="font-size:0.65em"
-                        @click="dialogActive = true"
+                            variant="plain"
+                            color="white"
+                            style="font-size:0.65em"
+                            @click="dialogActive = true"
                     >
                         Make a Payment
                     </v-btn>
@@ -21,13 +21,13 @@
                         Return to Dashboard
                     </v-btn>
                     <v-dialog
-                        v-model="dialogActive"
-                        width="50%"
+                            v-model="dialogActive"
+                            width="50%"
                     >
-                        <MakeAPaymentComponent />
+                        <MakeAPaymentComponent/>
                         <v-btn
-                            color="#4097f5"
-                            @click="dialogActive = false"
+                                color="#4097f5"
+                                @click="dialogActive = false"
                         >
                             Cancel
                         </v-btn>

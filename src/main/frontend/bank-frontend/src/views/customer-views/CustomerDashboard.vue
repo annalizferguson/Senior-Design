@@ -19,7 +19,7 @@
                 >
                     Your Dashboard
                     <div
-                        style="font-size:0.85em"
+                            style="font-size:0.85em"
                     >
                         Welcome, John Doe
                     </div>
@@ -49,24 +49,24 @@
                     </div>
                     <div style="height: 90px; width: 250px">
                         <v-btn
-                            height="100%"
-                            color="#4097f5"
+                                height="100%"
+                                color="#4097f5"
                         >
                             View Reports
                         </v-btn>
                     </div>
                     <div style="height: 90px; width: 250px; margin-right: 100px">
                         <v-btn
-                            height="100%"
-                            color="#4097f5"
+                                height="100%"
+                                color="#4097f5"
                         >
                             View Account History
                         </v-btn>
                     </div>
                     <div style="height: 90px; width: 250px">
                         <v-btn
-                            height="100%"
-                            color="#4097f5"
+                                height="100%"
+                                color="#4097f5"
                         >
                             Settings
                         </v-btn>
@@ -80,7 +80,9 @@
 <script>
 // Components
 import OpenAccountsDashboardComponent from '../../components/customer-components/OpenAccountsDashboardComponent.vue';
-import UpcomingPaymentsDashboardComponent from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
+import UpcomingPaymentsDashboardComponent
+    from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
+
 export default {
     name: "CustomerDashboard.vue",
     components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent}

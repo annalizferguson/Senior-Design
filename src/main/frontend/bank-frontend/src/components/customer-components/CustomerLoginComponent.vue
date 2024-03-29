@@ -13,42 +13,42 @@
             <v-card-text>
                 <v-form ref="form">
                     <v-text-field
-                        v-model="username"
-                        name="username"
-                        label="Username"
-                        type="text"
-                        placeholder="Enter a username"
-                        required
+                            v-model="username"
+                            name="username"
+                            label="Username"
+                            type="text"
+                            placeholder="Enter a username"
+                            required
                     ></v-text-field>
                     <v-text-field
-                        v-model="password"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        placeholder="Enter a password"
-                        required
+                            v-model="password"
+                            name="password"
+                            label="Password"
+                            type="password"
+                            placeholder="Enter a password"
+                            required
                     ></v-text-field>
                     <div
-                        width="100%"
-                        class="d-flex justify-space-between align-center"
+                            width="100%"
+                            class="d-flex justify-space-between align-center"
                     >
                         <div>
                             Don't have an account?
                             <router-link to="/register">Register Here</router-link>
                         </div>
                         <div
-                            width="100%"
-                            class="justify-end"
+                                width="100%"
+                                class="justify-end"
                         >
                             <router-link
-                                to="/customer-dash">
-                            <v-btn
-                                type="submit"
-                                class="mt-2"
-                                color="primary"
-                                value="log in">
-                                Login
-                            </v-btn>
+                                    to="/customer-dash">
+                                <v-btn
+                                        type="submit"
+                                        class="mt-2"
+                                        color="primary"
+                                        value="log in">
+                                    Login
+                                </v-btn>
                             </router-link>
                         </div>
                     </div>

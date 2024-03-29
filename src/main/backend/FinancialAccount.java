@@ -31,11 +31,14 @@ public class FinancialAccount {
         return balance;
     }
 
-    public void zeroOutBalance() { balance = 0; }
+    public void zeroOutBalance() {
+        balance = 0;
+    }
 
 
     /**
      * creates new financial account and adds it to database
+     *
      * @param newId
      * @param newType
      * @param newBalance
@@ -67,6 +70,7 @@ public class FinancialAccount {
     /**
      * withdraws money from account
      * returns 0 for success, 1 for not enough money
+     *
      * @param amount
      * @return
      */

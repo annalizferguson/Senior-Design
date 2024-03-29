@@ -1,9 +1,9 @@
 <template>
-    <CustomerLogin />
+    <CustomerLogin/>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 
 // Components
 import CustomerLogin from '../../components/customer-components/CustomerLoginComponent.vue';

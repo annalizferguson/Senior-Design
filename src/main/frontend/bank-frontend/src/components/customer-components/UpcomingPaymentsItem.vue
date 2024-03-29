@@ -24,19 +24,19 @@
         </v-container>
         <v-card-actions class="d-flex justify-end">
             <v-btn
-                color="#4097f5"
-                @click="dialogActive = true"
+                    color="#4097f5"
+                    @click="dialogActive = true"
             >
                 Pay Now
             </v-btn>
             <v-dialog
-                v-model="dialogActive"
-                width="50%"
+                    v-model="dialogActive"
+                    width="50%"
             >
                 <MakeAPaymentComponent :bill="bill"/>
                 <v-btn
-                    color="#4097f5"
-                    @click="dialogActive = false"
+                        color="#4097f5"
+                        @click="dialogActive = false"
                 >
                     Cancel
                 </v-btn>
@@ -56,7 +56,7 @@ export default {
             type: Object
         }
     },
-    data: function() {
+    data: function () {
         return {
             dialogActive: false,
             billName: this.bill.name,

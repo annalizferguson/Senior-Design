@@ -39,7 +39,6 @@ public class MoneyMarket extends FinancialAccount {
     }
 
 
-
     public void addInterest() {
         double addedAmount = getBalance() * interestRate;
         deposit(addedAmount);

@@ -20,15 +20,15 @@
                     Your Dashboard
                     <div>
                         <v-btn
-                            variant="outlined"
+                                variant="outlined"
                         >
                             Create New Customer
                         </v-btn>
                     </div>
                 </v-card-title>
             </v-card>
-            <CustomerSearchDashboardComponent />
-            <AlertsDashboardComponent />
+            <CustomerSearchDashboardComponent/>
+            <AlertsDashboardComponent/>
         </v-card>
     </div>
 </template>
@@ -37,6 +37,7 @@
 
 import CustomerSearchDashboardComponent from "@/components/teller-components/CustomerSearchDashboardComponent.vue";
 import AlertsDashboardComponent from "@/components/teller-components/AlertsDashboardComponent.vue";
+
 export default {
     name: "TellerDashboard.vue",
     components: {CustomerSearchDashboardComponent, AlertsDashboardComponent}

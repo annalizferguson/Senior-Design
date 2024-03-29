@@ -1,18 +1,18 @@
 <template>
-  <RegisterComponent />
+    <RegisterComponent/>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 
 // Components
 import RegisterComponent from '../components/customer-components/RegisterComponent.vue';
 
 export default defineComponent({
-  name: 'RegisterView',
+    name: 'RegisterView',
 
-  components: {
-    RegisterComponent,
-  },
+    components: {
+        RegisterComponent,
+    },
 });
 </script>

@@ -28,14 +28,14 @@
                             required
                     />
                     <div class="d-flex justify-center">
-                    <v-btn
-                        v-model="payInFull"
-                        @click="amountToPay = selectedBill.amount"
-                        color="#4097f5"
-                        variant="tonal"
-                    >
-                        Pay Bill In Full
-                    </v-btn>
+                        <v-btn
+                                v-model="payInFull"
+                                @click="amountToPay = selectedBill.amount"
+                                color="#4097f5"
+                                variant="tonal"
+                        >
+                            Pay Bill In Full
+                        </v-btn>
                     </div>
                 </v-container>
                 <v-container class="d-flex justify-end">
