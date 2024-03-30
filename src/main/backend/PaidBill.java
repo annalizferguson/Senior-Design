@@ -1,18 +1,30 @@
-import java.util.Date;
-
 public class PaidBill {
+    private String paidId;
     private String payeeName;
     private String address;
     private float amount;
-    private Date dateDue;
+    private String dateDue;
     private String accountPaidFrom;
 
-    public PaidBill(String name, String addr, float am, Date date, String acc){
+    public PaidBill(String id, String name, String addr, float am, String date, String acc){
+        paidId = id;
         payeeName = name;
         address = addr;
         amount = am;
         dateDue = date;
         accountPaidFrom = acc;
+    }
+
+    public PaidBill(String name, String addr, float am, String date, String acc){
+        payeeName = name;
+        address = addr;
+        amount = am;
+        dateDue = date;
+        accountPaidFrom = acc;
+    }
+
+    public String getPaidId(){
+        return paidId;
     }
 
     public String getPayeeName(){
@@ -27,12 +39,16 @@ public class PaidBill {
         return amount;
     }
 
-    public Date getDateDue(){
+    public String getDateDue(){
         return dateDue;
     }
 
     public String getAccountPaidFrom(){
         return accountPaidFrom;
+    }
+
+    public void setPaidId(String id){
+        paidId = id;
     }
 
     public void setPayeeName(String name){
@@ -47,7 +63,7 @@ public class PaidBill {
         amount = am;
     }
 
-    public void setDateDue(Date date){
+    public void setDateDue(String date){
         dateDue = date;
     }
 

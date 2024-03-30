@@ -1,189 +1,223 @@
 import java.sql.*;
 
-public class Customer extends User{
-    private String ssn; // social security number
-    private String dob; // date of birth
-    private String email;
-    private String address;
-    private String mailingAddress;
-    private String phoneNumber;
-    private String cellPhoneNumber;
+public class User{
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String id;  // customer/employee ID, this is optional and can be deleted later if it never gets used
 
-    // constructor
-    // Sends the user fields to the user superclass, sets everything else.
-    // I'm not sure if this is how inheritance works in Java, it's been a while
-    // since I've worked with Java inheritance.
-    public Customer(String u, String p, String f, String l, String i, String ss, String d, String em, String ad, String ma, String ph, String ce) {
-        super(u, p, f, l, i);  // sends the user fields to the super class
-
-        ssn = ss;
-        dob = d;
-        email = em;
-        address = ad;
-        mailingAddress = ma;
-        phoneNumber = ph;
-        cellPhoneNumber = ce;
-    }
-
-    public Customer(){
-
+    // Constructor
+    // Sets the fields when a new user class is made.
+    public User(String u, String p, String f, String l, String i){
+        username = u;
+        password = p;
+        firstName = f;
+        lastName = l;
+        id = i;
     }
 
     // Get Methods
-    public String getSsn(){
-        return ssn;
+    public String getUsername(){
+        return username;
     }
 
-    public String getDob(){
-        return dob;
+    public String getPassword(){
+        return password;
     }
 
-    public String getEmail(){
-        return email;
+    public String getFirstName(){
+        return firstName;
     }
 
-    public String getAddress(){
-        return address;
+    public String getLastName(){
+        return lastName;
     }
 
-    public String getMailingAddress(){
-        return mailingAddress;
+    public String getId(){
+        return id;
     }
 
-    public String getPhoneNumber(){
-        return phoneNumber;
-    }
-
-    public String getCellPhoneNumber(){
-        return cellPhoneNumber;
-    }
-
-
-    // viewReports
-    // Shows the user a list of banking reports including deposits, withdrawals, transfers, etc.
-    public void viewReports(){
+    // Default Constructor
+    public User(){
 
     }
 
-    // transferMoney
-    // Transfers money from one account to another.
-    // I'm not sure if this will work. It may have to be modified later.
-    public String transferMoney(float amount, FinancialAccount accTo, FinancialAccount accFrom){
-        int with = accFrom.withdraw(amount);  // holds the result code of the withdrawal
+    // setUsername
+    // Changes the user's username to the given parameter.
+    // Ensures the username is unique and (optionally) check for inappropriate names.
+    public int setUsername(String user, String db){
+        // Still needs to check if it is unique
 
-        if(with == 1){  // if there are insufficient funds
-            return "Insufficient funds.";
+        if (user.length() < 4 || user.length() > 12){  // checks if username is in the length bounds [4, 12]
+            return 1;
         }
 
-        else if(with == 2){  // mma limit reached
-            return "Money market account monthly transaction limit reached.";
-        }
-
-        else if(with != 0){  // if another error happens
-            return "Unknown error making withdrawal during transfer.";
-        }
-
-        int dep = accTo.deposit(amount);  // holds result code for the deposit
-
-        if(dep != 0){  // if the deposit was not successful, unknown error
-            return "Unknown error making deposit during transaction.";
-        }
-
-        return "Transfer complete.";
-    }
-
-    // payBill
-    // Allows the user to pay a bill.
-    public void payBill(){
-
-    }
-
-
-    // setSSN
-    // Sets the social security number for the customer.
-    // The id is the customer id. Perhaps it can be a customer object.
-    public void setSSN(String num){
-        if(updateDatabase(this.getId(), "ssn", num)){  //updates the database
-            ssn = num;  //sets the current object
+        if(updateDatabase(this.getId(), "username", user, db)){  //updates the database
+            username = user;  // sets the username  //sets the current object
         }
         else{  //if there was an error updating the database
             System.out.println("SSN error");
         }
+
+
+        return 0;  // successful change
     }
 
-    // setDOB
-    // Sets the date of birth for the customer.
-    public void setDOB(String date){
-        if(updateDatabase(this.getId(), "dob", date)){  //updates the database
-            dob = date;  //sets the current object
+    // setPassword
+    // Changes the user's password to the given parameter.
+    // Ensures the password is strong by making it 8 characters long, has a number, a special character,
+    // and one uppercase and lowercase letter.
+    public int setPassword(String pass, String db){
+        if (pass.length() < 8){  // checks for proper password strength
+            return 1;
+        }
+
+        boolean number = false;  // if the string has a number
+        boolean specialChar = false;  // if the string has a special character
+        boolean upper = false;  // if there is an uppercase letter
+        boolean lower = false;  //if there is a lowercase letter
+
+        for (int i = 0; i < pass.length(); i++){  // iterates through each letter
+            char c = pass.charAt(i);
+            System.out.println(i);
+
+            if (Character.isDigit(c)){  // checks if the digits is a number
+                number = true;
+                System.out.println("number");
+                continue;  // continues because the rest of the checks are guaranteed false
+            }
+
+            if (Character.toString(c).matches("[^a-z A-Z0-9]")){  // checks for a special character
+                specialChar = true;
+                System.out.println("spec");
+                continue;
+            }
+
+            if (Character.isUpperCase(c)){  // checks for uppercase letters
+                upper = true;
+                System.out.println("up");
+                continue;
+            }
+
+            if (Character.isLowerCase(c)){  // checks for lowercase letters
+                System.out.println("low");
+                lower = true;
+            }
+        }
+
+        if (number && specialChar && upper && lower){  // if all conditions are met
+            if(updateDatabase(this.getId(), "password", pass, db)){  //updates the database
+                password = pass;  //sets the current object
+            }
+            else{  //if there was an error updating the database
+                System.out.println("Password error");
+                return 1; //error with password
+            }
+            return 0;
+        }
+
+        return 1;  // if not all conditions are met
+    }
+
+    // setFirstName
+    // Changes the user's first name to the given parameter.
+    public void setFirstName(String first, String db){
+        if(updateDatabase(this.getId(), "firstname", first, db)){  //updates the database
+            firstName = first;  //sets the current object
         }
         else{  //if there was an error updating the database
-            System.out.println("DOB error");
+            System.out.println("First name error");
         }
     }
 
-    // setEmail
-    // Sets the email for the customer.
-    public void setEmail(String em){
-        if(updateDatabase(this.getId(), "email", em)){  //updates the database
-            email = em;  //sets the current object
+    // setLastName
+    // Changes the user's last name to the given parameter.
+    public void setLastName(String last, String db){
+        if(updateDatabase(this.getId(), "lastname", last, db)){  //updates the database
+            lastName = last;  //sets the current object
         }
         else{  //if there was an error updating the database
-            System.out.println("Email error");
+            System.out.println("Last name error");
         }
     }
 
-    // setAddress
-    // Sets the address for the customer.
-    public void setAddress(String addr){
-        if(updateDatabase(this.getId(), "address", addr)){  //updates the database
-            address = addr;  //sets the current object
+    public void setId(String num, String db){
+        if(updateDatabase(this.getId(), "customer_id", num, db)){  //updates the database
+            id = num;  //sets the current object
         }
         else{  //if there was an error updating the database
-            System.out.println("Address error");
+            System.out.println("Last name error");
         }
     }
 
-    // setMailingAddress
-    // Sets the mailing address for the customer.
-    public void setMailingAddress(String mAddr){
-        if(updateDatabase(this.getId(), "mailing_address", mAddr)){  //updates the database
-            mailingAddress = mAddr;  //sets the current object
+    // login
+    // Logs the user into the system. ASSUMES CUSTOMER AT THE MOMENT
+    public String login(String user, String pass){
+        String url = "jdbc:mysql://localhost:3306/laravel_api";  //database url
+        String u = "root";  //database username
+        String p = "kd(S(MavJCoLV1";  //database password
+
+        String sql = "select count(*) from customers where username = '" + user + "'";  // sql statement
+        boolean userExists = false;  // if the username was found
+        boolean passExists = false;  // if the password matches for the username
+
+        try(
+                Connection connection = DriverManager.getConnection(url, u, p);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);)
+        {
+            if(resultSet.next()) {
+                int temp = resultSet.getInt(1);  //checks if the username was found
+                userExists = temp > 0;  // if the username was found, the boolean gets changed
+            }
         }
-        else{  //if there was an error updating the database
-            System.out.println("Mailing address error");
+        catch(SQLException e){
+            return "Username DB error.";
         }
+
+        if(userExists){
+            sql = "select password from customers where username = '" + user + "'";
+            try(Connection connection = DriverManager.getConnection(url, u, p);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql);)
+            {
+                if(resultSet.next()){
+                    String temp = resultSet.getString("password");
+                    if(temp.equals(pass)){
+                        passExists = true;
+                    }
+                }
+            }
+            catch(SQLException e){
+                System.out.println(e.getMessage());
+                return "Password DB error.";
+            }
+        }
+
+        if(passExists){
+            return "Login successful.";
+        }
+
+        return "Username or password not found.";
     }
 
-    // setPhoneNumber
-    // Sets the phone number for the customer.
-    public void setPhoneNumber(String phone){
-        if(updateDatabase(this.getId(), "phone_number", phone)){  //updates the database
-            phoneNumber = phone;  //sets the current object
-        }
-        else{  //if there was an error updating the database
-            System.out.println("Phone number error");
-        }
+    // logout
+    // Logs the user out of the system.
+    public void logout(){
+
     }
 
-    // setCellPhoneNumber
-    // Sets the cell phone number for the customer.
-    public void setCellPhoneNumber(String cPhone){
-        if(updateDatabase(this.getId(), "cellphone_number", cPhone)){  //updates the database
-            cellPhoneNumber = cPhone;  //sets the current object
-        }
-        else{  //if there was an error updating the database
-            System.out.println("Cell phone error");
-        }
-    }
-
-    private boolean updateDatabase(String row, String col, String field){
+    // updateDatabase
+    // If the parent class needs to update the database for a subclass.
+    // Used when the subclass doesn't have the set methods for the parent field.
+    private boolean updateDatabase(String row, String col, String field, String db){
         String url = "jdbc:mysql://localhost:3306/laravel_api";  //database url
         String user = "root";  //database username
         String pass = "kd(S(MavJCoLV1";  //database password
 
         //the sql statement to send to the database
-        String sql = "update customers set " + col + " = '" + field + "' where customer_id = " + row;
+        String sql = "update " + db + " set " + col + " = '" + field + "' where customer_id = " + row;
 
         //attempts to connect the driver to the database
         try (

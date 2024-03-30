@@ -1,4 +1,3 @@
-package main.backend;
 import java.sql.*;
 
 public class Customer extends User{
@@ -10,12 +9,11 @@ public class Customer extends User{
     private String phoneNumber;
     private String cellPhoneNumber;
 
-
     // constructor
     // Sends the user fields to the user superclass, sets everything else.
     // I'm not sure if this is how inheritance works in Java, it's been a while
     // since I've worked with Java inheritance.
-    public customer(String u, String p, String f, String l, String i, String ss, String d, String em, String ad, String ma, String ph, String ce) {
+    public Customer(String u, String p, String f, String l, String i, String ss, String d, String em, String ad, String ma, String ph, String ce) {
         super(u, p, f, l, i);  // sends the user fields to the super class
 
         ssn = ss;
@@ -69,14 +67,80 @@ public class Customer extends User{
 
     // transferMoney
     // Transfers money from one account to another.
-    public void transferMoney(){
+    // I'm not sure if this will work. It may have to be modified later.
+    public String transferMoney(float amount, FinancialAccount accTo, FinancialAccount accFrom){
+        int with = accFrom.withdraw(amount);  // holds the result code of the withdrawal
 
+        if(with == 1){
+            return "Insufficient funds.";
+        }
+
+        else if(with == 2){
+            return "Money market account monthly transaction limit reached.";
+        }
+
+        else if(with != 0){
+            return "Unknown error making withdrawal during transfer.";
+        }
+
+        int dep = accTo.deposit(amount);
+
+        if(dep != 0){
+            return "Unknown error making deposit during transaction.";
+        }
+
+        return "Transfer complete.";
     }
 
     // payBill
     // Allows the user to pay a bill.
-    public void payBill(){
+    // I have it returning a PaidBill object, it can be changed later if it's not needed.
+    public PaidBill payBill(float amount, FinancialAccount accountPaidFrom, UnpaidBill unpaidBill){
+        float amountDue = unpaidBill.getCurrentAmountDue();  // gets the amount left to pay in bill
 
+        if(amount > amountDue){  // checks if too much money was inputted
+            amount = amountDue;  // changes the input to the amount due
+        }
+
+        if(accountPaidFrom.withdraw(amount) != 0){  // withdraws money from the account unless an error occurs
+            System.out.println("Error withdrawing while making a bill payment.");
+            return null;
+        }
+
+        System.out.println(amountDue - amount);
+        unpaidBill.setCurrentAmountDue(amountDue - amount);  // subtracts the amount given from the amount due
+
+        if(unpaidBill.getCurrentAmountDue() > 0){  // checks if the bill was only partially paid, return if so
+            System.out.println("Bill partially paid.");
+            return null;
+        }
+
+        // creates a new paid bill
+        PaidBill tempBill = new PaidBill(this.getFirstName() + " " + this.getLastName(), this.getAddress(), unpaidBill.getAmountDue(), unpaidBill.getDueDate(), accountPaidFrom.getType());
+
+        String url = "jdbc:mysql://localhost:3306/laravel_api";  //database url
+        String user = "root";  //database username
+        String pass = "kd(S(MavJCoLV1";  //database password
+
+        String sql1 = "insert into paid_bill (payee_name, address, amount, due_date, account_paid_from, customer_id) " +
+                "values ('" + tempBill.getPayeeName() + "', '" + tempBill.getAddress() + "', '" +
+                tempBill.getAmount() + "', '" + tempBill.getDateDue() + "', '" +
+                tempBill.getAccountPaidFrom() + "', '" + this.getId() + "')";  // sql command for inserting the new paid bill
+        String sql2 = "delete from unpaid_bill where unpaid_id = '" + unpaidBill.getUnpaidId() + "'";
+
+        try(Connection connection = DriverManager.getConnection(url, user, pass);
+            Statement statement = connection.createStatement();
+        )
+        {
+            statement.executeUpdate(sql1);
+            statement.executeUpdate(sql2);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            System.out.println("Error in bill payment.");
+        }
+
+        return tempBill;
     }
 
 
@@ -167,9 +231,8 @@ public class Customer extends User{
         String sql = "update customers set " + col + " = '" + field + "' where customer_id = " + row;
 
         //attempts to connect the driver to the database
-        try (
-                Connection connection = DriverManager.getConnection(url, user, pass);
-                Statement statement = connection.createStatement();
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+             Statement statement = connection.createStatement();
         )
         {
             statement.executeUpdate(sql); //executes the sql statement if the driver connected
