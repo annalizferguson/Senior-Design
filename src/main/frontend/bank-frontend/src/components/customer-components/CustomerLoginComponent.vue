@@ -65,11 +65,13 @@ export default {
 
     data: () => {
         const router = useRouter()
+        const store = useUserStore()
         return {
             username: "",
             password: "",
             errorMessage: "Error",
             router: router,
+            store: store,
         }
     },
 
@@ -82,11 +84,12 @@ export default {
                 }).then((response) => {
                     console.log("login valid!")
                     console.log(response)
+                    this.store.customer = response.data
                     this.router.push("/customer-dash")
 
                 })
             } catch (error) {
-                console.log(error)
+                console.log("invalid login")
             }
 
         }
