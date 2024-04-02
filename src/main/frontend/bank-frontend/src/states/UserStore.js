@@ -1,14 +1,57 @@
 import { defineStore } from 'pinia'
 
-export const useUserStore = defineStore('userStore', {
+export const useCustomerStore = defineStore('userStore', {
     state: () => {
         return {
-            customer: null
+            customer: {
+                id: "",
+                address: "",
+                cellNumber: "",
+                cellPhoneNumber: "",
+                doB: "",
+                email: "",
+                ssn: "",
+                firstName: "",
+                lastname: "",
+                mailingAddress: "",
+                username: "",
+                password: ""
+            }
         }
     },
     getters: {
         getID(state) {
             return state.customer.id;
+        },
+        getAddress(state) {
+            return state.customer.address;
+        },
+        getCellNumber(state) {
+            return state.customer.cellNumber;
+        },
+        getDoB(state) {
+            return state.customer.doB;
+        },
+        getEmail(state) {
+            return state.customer.email;
+        },
+        getFirstName(state) {
+            return state.customer.firstName;
+        },
+        getLastName(state) {
+            return state.customer.lastname;
+        },
+        getMailingAddress(state) {
+            return state.customer.mailingAddress;
+        },
+        getPhoneNumber(state) {
+            return state.customer.phoneNumber
+        },
+        getSSN(state) {
+            return state.customer.ssn
+        },
+        getUsername(state) {
+            return state.customer.username
         }
     },
     actions: {

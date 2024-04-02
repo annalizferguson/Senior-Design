@@ -82,14 +82,14 @@
 import OpenAccountsDashboardComponent from '../../components/customer-components/OpenAccountsDashboardComponent.vue';
 import UpcomingPaymentsDashboardComponent
     from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
-import {useUserStore} from "@/states/UserStore.js";
+import {useCustomerStore} from "@/states/UserStore.js";
 import axios from 'axios';
 
 export default {
     name: "CustomerDashboard.vue",
     components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent},
     data: () => {
-        const store = useUserStore()
+        const store = useCustomerStore()
         return {
             customer_id: store.getID,
             store: store

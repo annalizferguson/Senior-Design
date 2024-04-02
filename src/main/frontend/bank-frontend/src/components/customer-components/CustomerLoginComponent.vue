@@ -56,7 +56,7 @@
 
 
 <script>
-import {useUserStore} from "@/states/UserStore.js";
+import {useCustomerStore} from "@/states/UserStore.js";
 import {useRouter} from "vue-router";
 import axios from "axios";
 
@@ -65,7 +65,7 @@ export default {
 
     data: () => {
         const router = useRouter()
-        const store = useUserStore()
+        const store = useCustomerStore()
         return {
             username: "",
             password: "",
@@ -84,6 +84,7 @@ export default {
                 }).then((response) => {
                     console.log("login valid!")
                     this.store.addCustomer(response.data)
+                    console.log(response.data)
                     this.router.push("/customer-dash")
 
                 })
