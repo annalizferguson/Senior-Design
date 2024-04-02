@@ -1,7 +1,6 @@
 <template>
     <div
             class="d-flex justify-center align-center"
-            width="100%"
             style="height: calc(100vh - 146px)"
     >
         <v-card
@@ -29,7 +28,6 @@
                             required
                     ></v-text-field>
                     <div
-                            width="100%"
                             class="d-flex justify-space-between align-center"
                     >
                         <div>
@@ -37,19 +35,17 @@
                             <router-link to="/register">Register Here</router-link>
                         </div>
                         <div
-                                width="100%"
                                 class="justify-end"
                         >
-                            <router-link
-                                    to="/customer-dash">
-                                <v-btn
-                                        type="submit"
-                                        class="mt-2"
-                                        color="primary"
-                                        value="log in">
-                                    Login
-                                </v-btn>
-                            </router-link>
+                            <v-btn
+                                    type="button"
+                                    class="mt-2"
+                                    color="primary"
+                                    value="log in"
+                                    @click="login"
+                            >
+                                Login
+                            </v-btn>
                         </div>
                     </div>
                 </v-form>
@@ -60,17 +56,41 @@
 
 
 <script>
+import {useUserStore} from "@/states/UserStore.js";
+import {useRouter} from "vue-router";
+import axios from "axios";
 
 export default {
     name: 'CustomerLoginComponent',
 
     data: () => {
+        const router = useRouter()
         return {
             username: "",
             password: "",
             errorMessage: "Error",
+            router: router,
         }
     },
+
+    methods: {
+        login: function () {
+            try {
+                axios.post('/api/login', {
+                    username: this.$data.username,
+                    password: this.$data.password
+                }).then((response) => {
+                    console.log("login valid!")
+                    console.log(response)
+                    this.router.push("/customer-dash")
+
+                })
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+    }
 
 }
 
