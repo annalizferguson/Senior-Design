@@ -83,6 +83,7 @@ import OpenAccountsDashboardComponent from '../../components/customer-components
 import UpcomingPaymentsDashboardComponent
     from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
 import {useUserStore} from "@/states/UserStore.js";
+import axios from 'axios';
 
 export default {
     name: "CustomerDashboard.vue",
@@ -90,11 +91,19 @@ export default {
     data: () => {
         const store = useUserStore()
         return {
+            customer_id: store.getID,
             store: store
         }
     },
+    methods: {
+      async getCheckingAccounts() {
+          const {data} = await axios.get(`/api/customers/${this.customer_id}/checking`)
+          console.log(data)
+      }
+    },
     beforeMount() {
         console.log(this.store.getID)
+        this.getCheckingAccounts()
     }
 }
 </script>

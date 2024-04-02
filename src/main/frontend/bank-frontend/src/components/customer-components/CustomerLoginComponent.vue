@@ -90,8 +90,7 @@ export default {
             } catch (error) {
                 console.log("invalid login")
             }
-
-        }
+        },
     }
 
 }
