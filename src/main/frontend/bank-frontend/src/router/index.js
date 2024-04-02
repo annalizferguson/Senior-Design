@@ -53,9 +53,19 @@ const router = createRouter({
             component: () => import('../views/customer-views/CustomerBillsPage.vue')
         },
         {
+          path: '/teller-login',
+          name: 'teller-login',
+          component: () => import('../views/teller-views/TellerLoginPage.vue')
+        },
+        {
             path: '/teller-dash',
             name: 'teller-dash',
-            component: () => import('../views/TellerDashboard.vue')
+            component: () => import('../views/teller-views/TellerDashboard.vue')
+        },
+        {
+          path: '/create-customer',
+          name: 'create-customer',
+          component: () => import('../views/teller-views/CreateCustomerPage.vue')
         },
         {
             path: '/admin-dash',

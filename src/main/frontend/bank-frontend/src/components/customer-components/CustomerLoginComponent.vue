@@ -60,6 +60,7 @@
 
 
 <script>
+import axios from 'axios';
 
 export default {
     name: 'CustomerLoginComponent',
@@ -70,6 +71,16 @@ export default {
             password: "",
             errorMessage: "Error",
         }
+    },
+    methods: {
+        async getAnswer() {
+            const { data } = await axios.get("/api/tellers");
+            console.log(data)
+            this.answer = data;
+        },
+    },
+    beforeMount() {
+        this.getAnswer();
     },
 
 }
