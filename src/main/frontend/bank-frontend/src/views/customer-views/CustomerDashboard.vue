@@ -94,7 +94,7 @@ export default {
         }
     },
     beforeMount() {
-        console.log(this.store.customer)
+        console.log(this.store.getID)
     }
 }
 </script>

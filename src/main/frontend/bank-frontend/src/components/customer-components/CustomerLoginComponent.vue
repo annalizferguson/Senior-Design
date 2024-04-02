@@ -83,8 +83,7 @@ export default {
                     password: this.$data.password
                 }).then((response) => {
                     console.log("login valid!")
-                    console.log(response)
-                    this.store.customer = response.data
+                    this.store.addCustomer(response.data)
                     this.router.push("/customer-dash")
 
                 })
