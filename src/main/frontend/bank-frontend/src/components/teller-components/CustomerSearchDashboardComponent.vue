@@ -14,6 +14,7 @@
                 single-line
         ></v-text-field>
         <v-data-table
+                class="ml-5"
                 :headers="header"
                 :items="customers"
                 :search="search"
@@ -35,7 +36,7 @@
                     Manage Accounts
                 </v-btn>
                 <v-btn
-                        variant="outlined"m
+                        variant="outlined" m
                         color="primary"
                         class="mr-2"
                 >
@@ -46,14 +47,14 @@
                         color="primary"
                         class="mr-2"
                 >
-                    View Alerts
+                    View Bills
                 </v-btn>
                 <v-btn
-                        variant="outlined"
-                        color="primary"
-                        class="mr-2"
+                    variant="outlined"
+                    color="primary"
+                    class="mr-2"
                 >
-                    View Bills
+                    User Settings
                 </v-btn>
             </template>
         </v-data-table>
@@ -61,26 +62,36 @@
 </template>
 
 <script>
-import testCustomers from "@/test-files/testCustomers.json"
+import axios from 'axios';
 
 export default {
     name: "CustomerSearchDashboardComponent.vue",
     data: () => {
         return {
-            customers: testCustomers,
+            customers: [],
             header: [
                 {
-                    title: 'Last Name',
+                    title: 'ID',
                     align: 'start',
                     sortable: false,
-                    key: 'lastname',
+                    key: 'id',
                 },
-                {title: 'First Name', key: 'firstname'},
-                {title: 'Account #', key: 'accountNumber'},
+                {title: 'Last Name', key: 'lastName'},
+                {title: 'First Name', key: 'firstName'},
                 {title: 'Actions', key: 'actions', sortable: false},
             ],
             search: ""
         }
+    },
+    methods: {
+        async getCustomers() {
+            axios.get('/api/customers').then((response) => {
+                this.customers = response.data
+            })
+        }
+    },
+    beforeMount() {
+        this.getCustomers()
     }
 }
 </script>
