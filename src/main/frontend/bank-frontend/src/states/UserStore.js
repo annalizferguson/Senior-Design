@@ -20,6 +20,9 @@ export const useCustomerStore = defineStore('userStore', {
         }
     },
     getters: {
+        getCustomer(state) {
+            return state.customer;
+        },
         getID(state) {
             return state.customer.id;
         },

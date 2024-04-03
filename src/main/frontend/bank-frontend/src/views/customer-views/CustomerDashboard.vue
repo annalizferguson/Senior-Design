@@ -102,7 +102,6 @@ export default {
       }
     },
     beforeMount() {
-        console.log(this.store.getID)
         this.getCheckingAccounts()
     }
 }
