@@ -13,6 +13,7 @@
             </div>
             <v-btn
                     to="/"
+                    @click="clearStore"
             >
                 Logout
             </v-btn>
@@ -24,5 +25,20 @@
 </template>
 
 <script>
-export default {}
+import {useCustomerStore} from "@/states/UserStore.js";
+export default {
+    data: function() {
+        const store = useCustomerStore()
+        return {
+            store: store
+        }
+    },
+    methods: {
+        clearStore: function() {
+            this.store.$reset()
+        }
+    }
+
+
+}
 </script>
