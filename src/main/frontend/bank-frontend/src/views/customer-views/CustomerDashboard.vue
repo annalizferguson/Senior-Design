@@ -19,7 +19,7 @@
                 >
                     Your Dashboard
                     <div
-                        style="font-size:0.85em"
+                            style="font-size:0.85em"
                     >
                         Welcome, John Doe
                     </div>
@@ -49,16 +49,16 @@
                     </div>
                     <div style="height: 90px; width: 250px">
                         <v-btn
-                            height="100%"
-                            color="#4097f5"
+                                height="100%"
+                                color="#4097f5"
                         >
                             View Reports
                         </v-btn>
                     </div>
                     <div style="height: 90px; width: 250px; margin-right: 100px">
                         <v-btn
-                            height="100%"
-                            color="#4097f5"
+                                height="100%"
+                                color="#4097f5"
                         >
                             View Account History
                         </v-btn>
@@ -81,10 +81,30 @@
 <script>
 // Components
 import OpenAccountsDashboardComponent from '../../components/customer-components/OpenAccountsDashboardComponent.vue';
-import UpcomingPaymentsDashboardComponent from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
+import UpcomingPaymentsDashboardComponent
+    from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
+import {useCustomerStore} from "@/states/UserStore.js";
+import axios from 'axios';
+
 export default {
     name: "CustomerDashboard.vue",
-    components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent}
+    components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent},
+    data: () => {
+        const store = useCustomerStore()
+        return {
+            customer_id: store.getID,
+            store: store
+        }
+    },
+    methods: {
+      async getCheckingAccounts() {
+          const {data} = await axios.get(`/api/customers/${this.customer_id}/checking`)
+          console.log(data)
+      }
+    },
+    beforeMount() {
+        this.getCheckingAccounts()
+    }
 }
 </script>
 

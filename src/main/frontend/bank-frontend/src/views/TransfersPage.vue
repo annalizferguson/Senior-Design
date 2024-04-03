@@ -1,7 +1,7 @@
 <template>
     <v-container
-        class="d-flex justify-center align-center"
-        style="height: calc(100vh - 250px)"
+            class="d-flex justify-center align-center"
+            style="height: calc(100vh - 250px)"
     >
         <TransfersComponent width="80%"/>
     </v-container>

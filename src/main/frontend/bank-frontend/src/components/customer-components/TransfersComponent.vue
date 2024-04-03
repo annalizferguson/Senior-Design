@@ -4,18 +4,18 @@
         <v-card-text>
             <v-form class="mt-5">
                 <v-select
-                    label="From"
-                    :items="accounts"
-                    item-title="label"
-                    return-object
-                    variant="outlined"
+                        label="From"
+                        :items="accounts"
+                        item-title="label"
+                        return-object
+                        variant="outlined"
                 />
                 <v-select
-                    label="To"
-                    :items="accounts"
-                    item-title="label"
-                    return-object
-                    variant="outlined"
+                        label="To"
+                        :items="accounts"
+                        item-title="label"
+                        return-object
+                        variant="outlined"
 
                 />
                 <v-text-field
@@ -39,12 +39,13 @@
 
 <script>
 import testAccounts from "@/test-files/testAccounts.json";
+
 export default {
     name: "TransfersComponent.vue",
     data: () => {
         let accounts = testAccounts
         accounts.forEach((account) => {
-             account.label = account.type + " *" + account.number.slice(5, 9)
+            account.label = account.type + " *" + account.number.slice(5, 9)
         })
         return {
             amount: 0,

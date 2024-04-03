@@ -18,13 +18,13 @@
                     Make a payment
                 </v-btn>
                 <v-dialog
-                    v-model="dialogActive"
-                    width="50%"
+                        v-model="dialogActive"
+                        width="50%"
                 >
-                    <MakeAPaymentComponent />
+                    <MakeAPaymentComponent/>
                     <v-btn
-                        color="#4097f5"
-                        @click="dialogActive = false"
+                            color="#4097f5"
+                            @click="dialogActive = false"
                     >
                         Cancel
                     </v-btn>

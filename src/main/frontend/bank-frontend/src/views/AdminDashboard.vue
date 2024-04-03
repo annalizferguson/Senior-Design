@@ -24,10 +24,10 @@
                                 class="mr-4"
                                 @click="changeFocus()"
                         >
-                            View {{oppositeFocus}}
+                            View {{ oppositeFocus }}
                         </v-btn>
                         <v-btn
-                            variant="outlined"
+                                variant="outlined"
                         >
                             Settings
                         </v-btn>
@@ -43,6 +43,7 @@
 <script>
 import TellerSearchDashboardComponent from "@/components/admin-components/TellerSearchDashboardComponent.vue";
 import CustomerSearchDashboardComponent from "@/components/teller-components/CustomerSearchDashboardComponent.vue";
+
 export default {
     name: "AdminDashboard.vue",
     components: {TellerSearchDashboardComponent, CustomerSearchDashboardComponent},
@@ -55,9 +56,9 @@ export default {
     },
 
     methods: {
-        changeFocus: function() {
+        changeFocus: function () {
             this.isTellerFocus = !this.isTellerFocus
-            this.oppositeFocus = this.isTellerFocus? "Customers":"Tellers"
+            this.oppositeFocus = this.isTellerFocus ? "Customers" : "Tellers"
         },
     }
 }

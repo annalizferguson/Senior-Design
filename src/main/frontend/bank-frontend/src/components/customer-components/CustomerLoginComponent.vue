@@ -1,7 +1,6 @@
 <template>
     <div
             class="d-flex justify-center align-center"
-            width="100%"
             style="height: calc(100vh - 146px)"
     >
         <v-card
@@ -13,43 +12,40 @@
             <v-card-text>
                 <v-form ref="form">
                     <v-text-field
-                        v-model="username"
-                        name="username"
-                        label="Username"
-                        type="text"
-                        placeholder="Enter a username"
-                        required
+                            v-model="username"
+                            name="username"
+                            label="Username"
+                            type="text"
+                            placeholder="Enter a username"
+                            required
                     ></v-text-field>
                     <v-text-field
-                        v-model="password"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        placeholder="Enter a password"
-                        required
+                            v-model="password"
+                            name="password"
+                            label="Password"
+                            type="password"
+                            placeholder="Enter a password"
+                            required
                     ></v-text-field>
                     <div
-                        width="100%"
-                        class="d-flex justify-space-between align-center"
+                            class="d-flex justify-space-between align-center"
                     >
                         <div>
                             Don't have an account?
                             <router-link to="/register">Register Here</router-link>
                         </div>
                         <div
-                            width="100%"
-                            class="justify-end"
+                                class="justify-end"
                         >
-                            <router-link
-                                to="/customer-dash">
                             <v-btn
-                                type="submit"
-                                class="mt-2"
-                                color="primary"
-                                value="log in">
+                                    type="button"
+                                    class="mt-2"
+                                    color="primary"
+                                    value="log in"
+                                    @click="login"
+                            >
                                 Login
                             </v-btn>
-                            </router-link>
                         </div>
                     </div>
                 </v-form>
@@ -60,17 +56,43 @@
 
 
 <script>
+import {useCustomerStore} from "@/states/UserStore.js";
+import {useRouter} from "vue-router";
+import axios from "axios";
 
 export default {
     name: 'CustomerLoginComponent',
 
     data: () => {
+        const router = useRouter()
+        const store = useCustomerStore()
         return {
             username: "",
             password: "",
             errorMessage: "Error",
+            router: router,
+            store: store,
         }
     },
+
+    methods: {
+        login: function () {
+            try {
+                axios.post('/api/login', {
+                    username: this.$data.username,
+                    password: this.$data.password
+                }).then((response) => {
+                    console.log("login valid!")
+                    this.store.addCustomer(response.data)
+                    console.log(response.data)
+                    this.router.push("/customer-dash")
+
+                })
+            } catch (error) {
+                console.log("invalid login")
+            }
+        },
+    }
 
 }
 
