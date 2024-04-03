@@ -1,8 +1,9 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 
 export const useCustomerStore = defineStore('userStore', {
     state: () => {
         return {
+            authenticated: false,
             customer: {
                 id: "",
                 address: "",
@@ -12,7 +13,7 @@ export const useCustomerStore = defineStore('userStore', {
                 email: "",
                 ssn: "",
                 firstName: "",
-                lastname: "",
+                lastName: "",
                 mailingAddress: "",
                 username: "",
                 password: ""
@@ -20,6 +21,9 @@ export const useCustomerStore = defineStore('userStore', {
         }
     },
     getters: {
+        getAuthenticated(state) {
+            return state.authenticated;
+        },
         getCustomer(state) {
             return state.customer;
         },
@@ -42,7 +46,7 @@ export const useCustomerStore = defineStore('userStore', {
             return state.customer.firstName;
         },
         getLastName(state) {
-            return state.customer.lastname;
+            return state.customer.lastName;
         },
         getMailingAddress(state) {
             return state.customer.mailingAddress;
@@ -58,9 +62,12 @@ export const useCustomerStore = defineStore('userStore', {
         }
     },
     actions: {
-      addCustomer(customer) {
-          this.customer = customer
-      }
+        addCustomer(customer) {
+            this.customer = customer
+        },
+        setAuthenticated() {
+            this.authenticated = true
+        }
     },
     persist: true,
 })
