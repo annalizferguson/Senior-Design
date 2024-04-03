@@ -39,25 +39,32 @@
                                 <v-card variant="flat">
                                     <v-form>
                                         <v-text-field
-                                                v-model="newUsername"
+                                                v-model="username"
                                                 name="username"
                                                 label="Username"
                                                 type="text"
                                                 placeholder="Enter a username"
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="newPassword"
+                                                v-model="oldPassword"
                                                 name="password"
-                                                label="Password"
+                                                label="Old Password"
                                                 type="password"
                                                 placeholder="Enter a password"
                                         ></v-text-field>
-                                        <v-text-field v-if="isRegister"
-                                                      v-model="newConfirmPassword"
-                                                      name="confirmPassword"
-                                                      label="Confirm Password"
-                                                      type="password"
-                                                      placeholder="Confirm your password"
+                                        <v-text-field
+                                            v-model="newPassword"
+                                            name="password"
+                                            label="New Password"
+                                            type="password"
+                                            placeholder="Enter a password"
+                                        ></v-text-field>
+                                        <v-text-field
+                                                v-model="newConfirmPassword"
+                                                name="confirmPassword"
+                                                label="Confirm New Password"
+                                                type="password"
+                                                placeholder="Confirm your password"
                                         ></v-text-field>
                                     </v-form>
                                     <v-card-actions class="d-flex justify-end">
@@ -71,37 +78,35 @@
                                 <v-card variant="flat">
                                     <v-form v-model="validForm" ref="form">
                                         <v-text-field
-                                                v-model="newEmail"
+                                                v-model="email"
                                                 name="getEmail"
                                                 label="Email"
                                                 type="text"
                                                 placeholder="Enter your email"
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="newPhoneNumber"
+                                                v-model="phoneNumber"
                                                 name="getPhoneNumber"
                                                 label="Phone Number"
-                                                type="number"
+                                                type="text"
                                                 placeholder="Enter your phone number"
-                                                hide-spin-buttons
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="newCellPhoneNumber"
+                                                v-model="cellNumber"
                                                 name="getCellPhoneNumber"
                                                 label="Cell Phone Number"
-                                                type="number"
+                                                type="text"
                                                 placeholder="Enter your cell phone number"
-                                                hide-spin-buttons
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="newAddress"
+                                                v-model="address"
                                                 name="getAddress"
                                                 label="Address"
                                                 type="text"
                                                 placeholder="Enter your home address"
                                         ></v-text-field>
                                         <v-text-field
-                                                v-model="newMailingAddress"
+                                                v-model="mailingAddress"
                                                 name="getMailingAddress"
                                                 label="Mailing Address"
                                                 type="text"
@@ -142,31 +147,27 @@
 </template>
 
 <script>
-import testUser from "@/test-files/testUser.json"
+import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
     name: "CustomerSettingsPage.vue",
     data: () => {
+        const store = useCustomerStore()
         return {
+            store: store,
             tab: 0,
             validForm: false,
-            newUsername: "",
+            oldPassword: "",
             newPassword: "",
             newConfirmPassword: "",
-            isRegister: true,
-            errorMessage: "Error",
-            newAddress: "",
-            newMailingAddress: "",
-            newEmail: "",
-            newPhoneNumber: "",
-            newCellPhoneNumber: "",
-            dob: testUser.dob,
-            ssn: testUser.ssn,
-            email: testUser.email,
-            phoneNumber: testUser.phone,
-            cellPhoneNumber: testUser.cellphone,
-            address: testUser.address,
-            mailingAddress: testUser.mailingAddress,
+            username: store.getUsername,
+            dob: store.getDoB,
+            ssn: store.getSSN,
+            email: store.getEmail,
+            phoneNumber: store.getPhoneNumber,
+            cellNumber: store.getCellNumber,
+            address: store.getAddress,
+            mailingAddress: store.getMailingAddress,
         }
     }
 }
