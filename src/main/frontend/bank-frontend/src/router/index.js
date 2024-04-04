@@ -52,11 +52,6 @@ const router = createRouter({
             component: () => import('../views/customer-views/CustomerSettingsPage.vue')
         },
         {
-            path: '/transfers',
-            name: 'transfers',
-            component: () => import('../views/TransfersPage.vue')
-        },
-        {
             path: '/accounts',
             name: 'accounts',
             beforeEnter: (to,from,next) => {
