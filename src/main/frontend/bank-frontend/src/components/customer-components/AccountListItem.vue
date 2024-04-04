@@ -55,7 +55,7 @@ export default {
             dialogActive: false,
             accountType: this.account.type,
             accountNumber: this.account.accountNumber,
-            balance: this.account.balance,
+            balance: this.account.balance.toLocaleString(),
             endingDigits: this.account.accountNumber.slice(5, 9),
             title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
         }
