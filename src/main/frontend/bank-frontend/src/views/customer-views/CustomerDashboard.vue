@@ -65,8 +65,9 @@
                     </div>
                     <div style="height: 90px; width: 250px">
                         <v-btn
-                                height="100%"
-                                color="#4097f5"
+                            height="100%"
+                            color="#4097f5"
+                            to="/customer-settings"
                         >
                             Settings
                         </v-btn>
