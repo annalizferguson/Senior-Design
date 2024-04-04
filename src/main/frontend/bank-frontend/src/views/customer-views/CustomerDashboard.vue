@@ -21,7 +21,7 @@
                     <div
                             style="font-size:0.85em"
                     >
-                        Welcome, John Doe
+                        Welcome, {{firstname}} {{lastname}}
                     </div>
                 </v-card-title>
             </v-card>
@@ -85,15 +85,20 @@ import UpcomingPaymentsDashboardComponent
     from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
 import {useCustomerStore} from "@/states/UserStore.js";
 import axios from 'axios';
+import {useRouter} from "vue-router";
 
 export default {
     name: "CustomerDashboard.vue",
     components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent},
     data: () => {
         const store = useCustomerStore()
+        const router = useRouter()
         return {
+            store: store,
+            router: router,
             customer_id: store.getID,
-            store: store
+            firstname: store.getFirstName,
+            lastname: store.getLastName
         }
     },
     methods: {
@@ -104,6 +109,9 @@ export default {
     },
     beforeMount() {
         this.getCheckingAccounts()
+        if (!this.store.getAuthenticated) {
+            this.router.push('/')
+        }
     }
 }
 </script>

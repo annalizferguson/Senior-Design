@@ -5,7 +5,7 @@
                 style="background-color: #1565c0; color: #ffffff"
         >
             <v-app-bar-title>
-                <router-link to="/" style="text-decoration: none; color: inherit;">Charger United Credit Union
+                <router-link to="/customer-dash" style="text-decoration: none; color: inherit;">Charger United Credit Union
                 </router-link>
             </v-app-bar-title>
             <div class="mr-2">
@@ -30,7 +30,7 @@ export default {
     data: function() {
         const store = useCustomerStore()
         return {
-            store: store
+            store: store,
         }
     },
     methods: {

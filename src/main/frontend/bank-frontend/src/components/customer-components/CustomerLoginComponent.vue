@@ -84,6 +84,7 @@ export default {
                 }).then((response) => {
                     console.log("login valid!")
                     this.store.addCustomer(response.data)
+                    this.store.setAuthenticated()
                     console.log(response.data)
                     this.router.push("/customer-dash")
 
