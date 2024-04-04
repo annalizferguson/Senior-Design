@@ -101,14 +101,7 @@ export default {
             lastname: store.getLastName
         }
     },
-    methods: {
-      async getCheckingAccounts() {
-          const {data} = await axios.get(`/api/customers/${this.customer_id}/checking`)
-          console.log(data)
-      }
-    },
     beforeMount() {
-        this.getCheckingAccounts()
         if (!this.store.getAuthenticated) {
             this.router.push('/')
         }
