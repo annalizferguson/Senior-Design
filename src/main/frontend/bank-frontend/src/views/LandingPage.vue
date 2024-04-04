@@ -24,6 +24,7 @@
                     width="100%"
                     height="35%"
                     color="#5ea4d6"
+                    to="/teller-login"
             >
                 I am an Employee
             </v-btn>
@@ -33,7 +34,7 @@
 
 <script>
 export default {
-    name: "LandingPage.vue"
+    name: "LandingPage.vue",
 }
 </script>
 

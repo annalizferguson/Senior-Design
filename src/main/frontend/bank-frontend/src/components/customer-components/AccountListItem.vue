@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import testaccount from "@/test-files/testaccount.json"
 import AccountDetailsDialog from "@/components/customer-components/AccountDetailsDialog.vue";
 
 export default {

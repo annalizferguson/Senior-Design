@@ -87,8 +87,6 @@
 </template>
 
 <script>
-import testAccounts from "@/test-files/testAccounts.json"
-
 export default {
     name: "AccountDetailsDialog.vue",
     props: {
