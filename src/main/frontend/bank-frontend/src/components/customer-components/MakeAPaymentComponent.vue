@@ -84,6 +84,9 @@ export default {
             this.bills.forEach((bill) => {
                 bill.title = bill.payeeName + ": Due " + bill.dueDate
             })
+            if (this.bill) {
+                this.bill.title = this.bill.payeeName + ": Due " + this.bill.dueDate
+            }
         }
     },
     beforeMount() {
