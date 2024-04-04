@@ -77,7 +77,7 @@ export default {
             const id = this.store.getID
             const {data} = await axios.get(`/api/customers/${id}/unpaidbill`)
             console.log(data)
-            this.bills = [data]
+            this.bills = data
             this.accountsLoaded = true
         }
     },
