@@ -61,8 +61,36 @@ public class Customer extends User{
 
     // viewReports
     // Shows the user a list of banking reports including deposits, withdrawals, transfers, etc.
-    public void viewReports(){
+    public String viewReports(){
+        String url = "jdbc:mysql://localhost:3306/laravel_api";  // database url
+        String user = "root";  // database username
+        String pass = "kd(S(MavJCoLV1";  // database password
 
+        String sql = "select * from transactions where customer_id = '" + this.getId() + "'";  // sql command
+
+        String report = "";  // the list of transactions
+
+        try(Connection connection = DriverManager.getConnection(url, user, pass);
+            Statement statement = connection.createStatement();
+            ResultSet items = statement.executeQuery(sql);
+        )
+        {
+            while(items.next()){
+                report += String.format("%-15s %-15s %-15s $%-14d $%-15d\n", items.getString(7),
+                        items.getString(4), items.getString(3),
+                        items.getInt(5), items.getInt(6));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("View report DB error.");
+        }
+
+        if(report.isEmpty()){
+            return "Report could not be generated.";
+        }
+
+        return String.format("%-15s %-15s %-15s %-15s %-15s\n", "Date", "Account", "Type", "Amount", "Remaining")
+                + report;
     }
 
     // transferMoney
