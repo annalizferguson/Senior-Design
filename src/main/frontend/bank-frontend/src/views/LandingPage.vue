@@ -33,8 +33,22 @@
 </template>
 
 <script>
+import {useCustomerStore} from "@/states/UserStore.js";
+import {useTellerStore} from "@/states/TellerStore.js";
 export default {
     name: "LandingPage.vue",
+    data: () => {
+        const customerStore = useCustomerStore()
+        const tellerStore = useTellerStore()
+        return {
+            customerStore: customerStore,
+            tellerStore: tellerStore
+        }
+    },
+    beforeMount() {
+        this.customerStore.$reset()
+        this.tellerStore.$reset()
+    }
 }
 </script>
 
