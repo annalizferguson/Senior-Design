@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../views/RegisterPage.vue'
+import {useCustomerStore} from "@/states/UserStore.js";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,14 +16,6 @@ const router = createRouter({
             component: Register
         },
         {
-            path: '/about',
-            name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import('../views/AboutView.vue')
-        },
-        {
             path: '/customer-login',
             name: 'customer-login',
             component: () => import('../views/customer-views/CustomerLoginPage.vue')
@@ -35,11 +28,27 @@ const router = createRouter({
         {
             path: '/customer-dash',
             name: 'customer-dash',
-            component: () => import('../views/customer-views/CustomerDashboard.vue')
+            beforeEnter: (to,from,next) => {
+                const store = useCustomerStore()
+                if (store.getAuthenticated) {
+                    next()
+                } else {
+                    next({name: 'home'})
+                }
+            },
+            component: () => import('../views/customer-views/CustomerDashboard.vue'),
         },
         {
             path: '/customer-settings',
             name: 'customer-settings',
+            beforeEnter: (to,from,next) => {
+                const store = useCustomerStore()
+                if (store.getAuthenticated) {
+                    next()
+                } else {
+                    next({name: 'home'})
+                }
+            },
             component: () => import('../views/customer-views/CustomerSettingsPage.vue')
         },
         {
@@ -50,11 +59,27 @@ const router = createRouter({
         {
             path: '/accounts',
             name: 'accounts',
+            beforeEnter: (to,from,next) => {
+                const store = useCustomerStore()
+                if (store.getAuthenticated) {
+                    next()
+                } else {
+                    next({name: 'home'})
+                }
+            },
             component: () => import('../views/customer-views/CustomerAccountsPage.vue')
         },
         {
             path: '/bills',
             name: 'bills',
+            beforeEnter: (to,from,next) => {
+                const store = useCustomerStore()
+                if (store.getAuthenticated) {
+                    next()
+                } else {
+                    next({name: 'home'})
+                }
+            },
             component: () => import('../views/customer-views/CustomerBillsPage.vue')
         },
         {

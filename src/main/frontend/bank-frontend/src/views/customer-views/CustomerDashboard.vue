@@ -21,7 +21,7 @@
                     <div
                             style="font-size:0.85em"
                     >
-                        Welcome, {{firstname}} {{lastname}}
+                        Welcome, {{ firstname }} {{ lastname }}
                     </div>
                 </v-card-title>
             </v-card>
@@ -65,9 +65,9 @@
                     </div>
                     <div style="height: 90px; width: 250px">
                         <v-btn
-                            height="100%"
-                            color="#4097f5"
-                            to="/customer-settings"
+                                height="100%"
+                                color="#4097f5"
+                                to="/customer-settings"
                         >
                             Settings
                         </v-btn>
@@ -84,7 +84,6 @@ import OpenAccountsDashboardComponent from '../../components/customer-components
 import UpcomingPaymentsDashboardComponent
     from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
 import {useCustomerStore} from "@/states/UserStore.js";
-import axios from 'axios';
 import {useRouter} from "vue-router";
 
 export default {
@@ -101,11 +100,6 @@ export default {
             lastname: store.getLastName
         }
     },
-    beforeMount() {
-        if (!this.store.getAuthenticated) {
-            this.router.push('/')
-        }
-    }
 }
 </script>
 

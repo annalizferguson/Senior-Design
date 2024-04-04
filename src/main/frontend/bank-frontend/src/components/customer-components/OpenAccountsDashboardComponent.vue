@@ -42,6 +42,7 @@
         </v-card-title>
         <v-container v-if=accountsLoaded class="d-flex flex-wrap justify-center overflow-x-auto">
             <AccountListItem
+                    width="60%"
                     v-for="(item, index) in accounts"
                     :account="item"/>
         </v-container>
