@@ -30,7 +30,7 @@
                     <div class="d-flex justify-center">
                         <v-btn
                                 v-model="payInFull"
-                                @click="amountToPay = selectedBill.amount"
+                                @click="amountToPay = selectedBill.amountDue"
                                 color="#4097f5"
                                 variant="tonal"
                         >
@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import testPayments from "@/test-files/testPayments.json"
+import axios from 'axios';
+import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
     name: "MakeAPaymentComponent.vue",
@@ -57,15 +58,11 @@ export default {
         },
     },
     data: function () {
-        let currentBills = testPayments
-        currentBills.forEach((bill) => {
-            bill.title = bill.name + ": Due " + bill["due date"]
-        })
-        if (this.bill) {
-            this.bill.title = this.bill.name + ": Due " + this.bill["due date"]
-        }
+        const store = useCustomerStore()
         return {
-            bills: currentBills,
+            store: store,
+            billsLoaded: false,
+            bills: [],
             selectedBill: this.bill,
             amountToPay: 0,
             payInFull: false,
@@ -73,9 +70,25 @@ export default {
     },
     computed: {
         selectedBillAmount() {
-            return this.selectedBill.amount
+            return this.selectedBill.amountDue
         },
     },
+    methods: {
+        async loadUnpaidBills() {
+            const id = this.store.getID
+            const {data} = await axios.get(`/api/customers/${id}/unpaidbill`)
+            console.log(data)
+            this.bills = [data]
+            this.accountsLoaded = true
+
+            this.bills.forEach((bill) => {
+                bill.title = bill.payeeName + ": Due " + bill.dueDate
+            })
+        }
+    },
+    beforeMount() {
+        this.loadUnpaidBills()
+    }
 }
 </script>
 

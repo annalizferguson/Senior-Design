@@ -57,11 +57,12 @@ export default {
         }
     },
     data: function () {
+        console.log(this.bill)
         return {
             dialogActive: false,
-            billName: this.bill.name,
-            billDate: this.bill["due date"],
-            billAmount: this.bill.amount
+            billName: this.bill.payeeName,
+            billDate: this.bill.dueDate,
+            billAmount: this.bill.amountDue,
         }
     }
 }

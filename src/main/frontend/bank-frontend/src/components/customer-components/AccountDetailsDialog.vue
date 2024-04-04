@@ -97,7 +97,7 @@ export default {
     data: function () {
         return {
             number: this.account.accountNumber,
-            balance: this.account.balance,
+            balance: this.account.balance.toLocaleString(),
             type: this.account.type,
             title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
             interestRate: this.account.interestRate,
