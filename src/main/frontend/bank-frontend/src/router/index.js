@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../views/RegisterPage.vue'
 
 const router = createRouter({
@@ -36,6 +36,11 @@ const router = createRouter({
             path: '/customer-dash',
             name: 'customer-dash',
             component: () => import('../views/customer-views/CustomerDashboard.vue')
+        },
+        {
+            path: '/customer-settings',
+            name: 'customer-settings',
+            component: () => import('../views/customer-views/CustomerSettingsPage.vue')
         },
         {
             path: '/transfers',
