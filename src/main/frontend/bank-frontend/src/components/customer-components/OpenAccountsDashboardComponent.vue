@@ -40,7 +40,12 @@
                 </v-btn>
             </div>
         </v-card-title>
-        <v-container v-if=accountsLoaded class="d-flex flex-wrap justify-center overflow-x-auto">
+        <v-container
+                v-if=accountsLoaded
+                scrollable
+                class="d-flex flex-wrap justify-center overflow-y-auto"
+                style="height: calc(100vh - 350px)"
+        >
             <AccountListItem
                     width="60%"
                     v-for="(item, index) in accounts"

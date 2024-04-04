@@ -56,8 +56,8 @@ export default {
             accountType: this.account.type,
             accountNumber: this.account.accountNumber,
             balance: this.account.balance,
-            endingDigits: this.account.accountNumber.slice(6, 10),
-            title: this.account.type + " *" + this.account.accountNumber.slice(6, 10),
+            endingDigits: this.account.accountNumber.slice(5, 9),
+            title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
         }
     },
 

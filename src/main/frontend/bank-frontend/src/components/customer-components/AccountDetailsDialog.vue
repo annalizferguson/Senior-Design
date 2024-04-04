@@ -99,7 +99,7 @@ export default {
             number: this.account.accountNumber,
             balance: this.account.balance,
             type: this.account.type,
-            title: this.account.type + " *" + this.account.accountNumber.slice(6, 10),
+            title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
             interestRate: this.account.interestRate,
             transactionCount: this.account.transactionCount,
             transactionLimit: this.account.transactionLimit,

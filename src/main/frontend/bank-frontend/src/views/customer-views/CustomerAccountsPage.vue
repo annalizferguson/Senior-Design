@@ -37,11 +37,11 @@
         </v-card>
         <v-container v-if="accountsLoaded"
                      class="d-flex justify-center flex-wrap overflow-y-auto">
-            <v-card v-for="(item, index) in accounts">
+            <v-card v-for="(item, index) in accounts" class="mb-4 mr-4">
                 <v-card-title style="background-color: #4097f5; color: #ffffff">
-                    {{item.type}} *{{item.accountNumber.slice(6,10)}}
+                    {{item.type}} *{{item.accountNumber.slice(5,9)}}
                 </v-card-title>
-                <AccountDetailsDialog width="45%" class="mb-4 mr-4" :account="item"/>
+                <AccountDetailsDialog width="45%" :account="item"/>
             </v-card>
         </v-container>
     </v-container>
