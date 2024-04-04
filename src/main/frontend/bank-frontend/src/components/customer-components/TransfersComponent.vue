@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card v-if="accountsLoaded">
         <v-card-title style="background-color: #4097f5; color: #ffffff">Transfer Form</v-card-title>
         <v-card-text>
             <v-form class="mt-5">
@@ -38,21 +38,35 @@
 </template>
 
 <script>
-import testAccounts from "@/test-files/testAccounts.json";
+import axios from 'axios';
+import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
     name: "TransfersComponent.vue",
     data: () => {
-        let accounts = testAccounts
-        accounts.forEach((account) => {
-            account.label = account.type + " *" + account.number.slice(5, 9)
-        })
+        const store = useCustomerStore()
         return {
+            store: store,
+            accountsLoaded: false,
             amount: 0,
-            accounts: accounts,
+            accounts: [],
             accountFrom: {},
             accountTo: {},
         }
+    },
+    methods: {
+        async loadAccounts() {
+            const id = this.store.getID
+            const {data} = await axios.get(`/api/customers/${id}/accounts`)
+            this.accounts = data
+            this.accounts.forEach((account) => {
+                account.label = account.type + " *" + account.accountNumber.slice(6, 10)
+            })
+            this.accountsLoaded = true
+        }
+    },
+    beforeMount() {
+        this.loadAccounts()
     }
 }
 </script>

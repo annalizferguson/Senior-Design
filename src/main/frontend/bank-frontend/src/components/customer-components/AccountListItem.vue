@@ -1,7 +1,7 @@
 <template>
     <v-card
             class="ml-3 mb-6"
-            width="45%"
+            width="100%"
             variant="elevated"
 
     >
@@ -53,12 +53,11 @@ export default {
         return {
             currentAccount: this.account,
             dialogActive: false,
-            accountName: this.account.name,
             accountType: this.account.type,
-            accountNumber: this.account.number,
+            accountNumber: this.account.accountNumber,
             balance: this.account.balance,
-            endingDigits: this.account.number.slice(5, 9),
-            title: this.account.type + " *" + this.account.number.slice(5, 9),
+            endingDigits: this.account.accountNumber.slice(6, 10),
+            title: this.account.type + " *" + this.account.accountNumber.slice(6, 10),
         }
     },
 

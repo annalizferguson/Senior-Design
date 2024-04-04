@@ -96,10 +96,10 @@ export default {
     },
     data: function () {
         return {
-            number: this.account.number,
+            number: this.account.accountNumber,
             balance: this.account.balance,
             type: this.account.type,
-            title: this.account.type + " *" + this.account.number.slice(5, 9),
+            title: this.account.type + " *" + this.account.accountNumber.slice(6, 10),
             interestRate: this.account.interestRate,
             transactionCount: this.account.transactionCount,
             transactionLimit: this.account.transactionLimit,
