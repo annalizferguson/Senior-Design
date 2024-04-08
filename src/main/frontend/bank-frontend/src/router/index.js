@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Register from '../views/RegisterPage.vue'
 import {useCustomerStore} from "@/states/UserStore.js";
 
 const router = createRouter({
@@ -11,11 +10,6 @@ const router = createRouter({
             component: () => import('../views/LandingPage.vue')
         },
         {
-            path: '/register',
-            name: 'register',
-            component: Register
-        },
-        {
             path: '/customer-login',
             name: 'customer-login',
             component: () => import('../views/customer-views/CustomerLoginPage.vue')
@@ -24,6 +18,11 @@ const router = createRouter({
             path: '/register',
             name: 'register',
             component: () => import('../views/RegisterPage.vue')
+        },
+        {
+          path: '/register-success',
+          name: 'register-success',
+          component: () => import('../views/customer-views/RegisterConfirmedPage.vue')
         },
         {
             path: '/customer-dash',

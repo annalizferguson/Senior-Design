@@ -39,8 +39,14 @@
                 </v-btn>
             </div>
         </v-card-title>
+        <v-container v-if="!billsLoaded">
+            <v-alert
+                title="No bills to display"
+                type="warning"
+            />
+        </v-container>
         <v-container
-                v-if="accountsLoaded"
+                v-if="billsLoaded"
                 class="d-flex flex-wrap flex-row justify-center overflow-x-auto"
         >
             <UpcomingPaymentsItem
@@ -66,7 +72,7 @@ export default {
     data: () => {
         const store = useCustomerStore()
         return {
-            accountsLoaded: false,
+            billsLoaded: false,
             store: store,
             dialogActive: false,
             bills: []
@@ -78,7 +84,9 @@ export default {
             const {data} = await axios.get(`/api/customers/${id}/unpaidbill`)
             console.log(data)
             this.bills = data
-            this.accountsLoaded = true
+            if (this.bills.length > 0) {
+                this.billsLoaded = true
+            }
         }
     },
     beforeMount() {
