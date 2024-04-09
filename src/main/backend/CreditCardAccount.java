@@ -8,8 +8,8 @@ public class CreditCardAccount extends FinancialAccount{
     private double penaltyFee;
     private int missedPayments;
 
-    CreditCardAccount(double newAmountDue, double newInterestRatePercent, double newPenaltyInterestPercent, double newPenaltyFee, double startingBalance) {
-        create("1", "Credit Card", startingBalance);
+    CreditCardAccount(double newAmountDue, double newInterestRatePercent, double newPenaltyInterestPercent, double newPenaltyFee, double startingBalance, String cID) {
+        create("1", "Credit Card", startingBalance, cID);
         amountDue = newAmountDue;
         interestRate = newInterestRatePercent / 100;           // convert percent to decimal equivalent
         penaltyInterest = newPenaltyInterestPercent / 100;     // convert percent to decimal equivalent
