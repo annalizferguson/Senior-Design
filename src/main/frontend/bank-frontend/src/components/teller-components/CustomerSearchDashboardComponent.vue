@@ -25,6 +25,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToDetails(item.id)"
                 >
                     View Details
                 </v-btn>
@@ -32,6 +33,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToAccounts(item.id)"
                 >
                     Manage Accounts
                 </v-btn>
@@ -63,11 +65,17 @@
 
 <script>
 import axios from 'axios';
+import {useTellerStore} from "@/states/TellerStore.js";
+import {useRouter} from "vue-router";
 
 export default {
     name: "CustomerSearchDashboardComponent.vue",
     data: () => {
+        const store = useTellerStore()
+        const route = useRouter()
         return {
+            store: store,
+            route: route,
             customers: [],
             header: [
                 {
@@ -88,6 +96,14 @@ export default {
             axios.get('/api/customers').then((response) => {
                 this.customers = response.data
             })
+        },
+        goToDetails(id) {
+            this.store.setCustomer(id)
+            this.route.push('/customer-info')
+        },
+        goToAccounts(id) {
+            this.store.setCustomer(id)
+            this.route.push('/customer-accounts')
         }
     },
     beforeMount() {
