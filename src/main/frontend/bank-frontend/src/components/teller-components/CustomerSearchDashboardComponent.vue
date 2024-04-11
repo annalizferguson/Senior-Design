@@ -33,6 +33,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToAccounts(item.id)"
                 >
                     Manage Accounts
                 </v-btn>
@@ -99,6 +100,10 @@ export default {
         goToDetails(id) {
             this.store.setCustomer(id)
             this.route.push('/customer-info')
+        },
+        goToAccounts(id) {
+            this.store.setCustomer(id)
+            this.route.push('/customer-accounts')
         }
     },
     beforeMount() {

@@ -1,22 +1,14 @@
 <template>
     <v-card v-if="accountsLoaded">
-        <v-card-title style="background-color: #4097f5; color: #ffffff">Transfer Form</v-card-title>
+        <v-card-title style="background-color: #4097f5; color: #ffffff">Deposit</v-card-title>
         <v-card-text>
             <v-form class="mt-5">
                 <v-select
-                        label="From"
+                        label="Account Into"
                         :items="accounts"
                         item-title="label"
                         return-object
                         variant="outlined"
-                />
-                <v-select
-                        label="To"
-                        :items="accounts"
-                        item-title="label"
-                        return-object
-                        variant="outlined"
-
                 />
                 <v-text-field
                         v-model="amount"
@@ -43,7 +35,7 @@ import {useCustomerStore} from "@/states/UserStore.js";
 import {useTellerStore} from "@/states/TellerStore.js";
 
 export default {
-    name: "TransfersComponent.vue",
+    name: "DepositsComponent.vue",
     data: () => {
         const store = useCustomerStore()
         const tellerStore = useTellerStore()
@@ -53,7 +45,6 @@ export default {
             accountsLoaded: false,
             amount: 0,
             accounts: [],
-            accountFrom: {},
             accountTo: {},
         }
     },
