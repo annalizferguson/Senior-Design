@@ -15,6 +15,7 @@
                             v-if="readonly"
                             class="mr-3"
                             variant="outlined"
+                            @click="readonly = false"
                     >
                         Edit Customer
                     </v-btn>
@@ -132,7 +133,7 @@
                     class="mt-2"
                     color="red"
                     variant="tonal"
-                    value="log in"
+                    @click="discardChanges"
             >
                 Discard Changes
             </v-btn>
@@ -142,6 +143,7 @@
                     color="primary"
                     variant="tonal"
                     value="log in"
+                    @click="updateCustomerInfo"
             >
                 Confirm Changes
             </v-btn>
@@ -162,7 +164,8 @@ export default {
             store: store,
             customerID: customerID,
             readonly: true,
-            customer: {}
+            customer: {},
+            originalCustomer: {}
         }
     },
     methods: {
@@ -170,9 +173,37 @@ export default {
             axios.get(`/api/customers/${this.customerID}`).then((response) => {
                 console.log(response.data)
                 this.customer = response.data
+                this.originalCustomer = response.data
             }).catch(() => {
                 console.log("ERROR: Customer not found.")
             })
+        },
+        async updateCustomerInfo() {
+            const editedCustomer = {
+                "id": this.customer.id,
+                "username": this.customer.username,
+                "password": this.customer.password,
+                "firstName": this.customer.firstName,
+                "lastName": this.customer.lastName,
+                "ssn": this.customer.ssn,
+                "email": this.customer.email,
+                "address": this.customer.address,
+                "mailingAddress": this.customer.mailingAddress,
+                "phoneNumber": this.customer.phoneNumber,
+                "cellNumber": this.customer.cellPhoneNumber,
+                "doB": this.customer.doB,
+            }
+            axios.put("/api/customers", editedCustomer).then((response) => {
+                console.log(response.data)
+                this.readonly = true
+                console.log("Customer update successful.")
+            }).catch((e) => {
+                console.log("Error in customer update.")
+            })
+        },
+        discardChanges() {
+            this.readonly = true
+            this.customer = this.originalCustomer
         }
     },
     beforeMount() {
