@@ -40,6 +40,12 @@
                 </v-btn>
             </div>
         </v-card-title>
+        <v-container v-if="!accountsLoaded">
+            <v-alert
+                    title="No accounts to display"
+                    type="warning"
+            />
+        </v-container>
         <v-container
                 v-if=accountsLoaded
                 scrollable
@@ -78,7 +84,9 @@ export default {
             const id = this.store.getID
             const {data} = await axios.get(`/api/customers/${id}/accounts`)
             this.accounts = data
-            this.accountsLoaded = true
+            if (data.length > 0) {
+                this.accountsLoaded = true
+            }
         }
     },
     beforeMount() {
