@@ -1,0 +1,10 @@
+{
+  "id": 3,
+  "email": "testemail@gmail.com",
+  "phone": "1234567890",
+  "cellphone": "9877656543",
+  "address": "444 Test Address Dansville, TN",
+  "mailingAddress": "444 Test Address Dansville, TN",
+  "dob": "06/30/1995",
+  "ssn": "843951118"
+}

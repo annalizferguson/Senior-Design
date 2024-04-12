@@ -1,7 +1,7 @@
 <template>
     <v-card
             class="ml-3 mb-6"
-            width="45%"
+            width="100%"
             variant="elevated"
 
     >
@@ -26,13 +26,18 @@
                 v-model="dialogActive"
                 width="40%"
         >
-            <AccountDetailsDialog :account="currentAccount"/>
+            <v-card>
+                <v-card-title style="background-color: #4097f5; color: #ffffff" class="d-flex justify-space-between align-center">
+                    {{ title }}
+                    <v-btn icon="mdi-close" color="#4097f5" variant="flat" @click="dialogActive = false"/>
+                </v-card-title>
+                <AccountDetailsDialog :account="currentAccount"/>
+            </v-card>
         </v-dialog>
     </v-card>
 </template>
 
 <script>
-import testaccount from "@/test-files/testaccount.json"
 import AccountDetailsDialog from "@/components/customer-components/AccountDetailsDialog.vue";
 
 export default {
@@ -48,11 +53,11 @@ export default {
         return {
             currentAccount: this.account,
             dialogActive: false,
-            accountName: this.account.name,
             accountType: this.account.type,
-            accountNumber: this.account.number,
-            balance: this.account.balance,
-            endingDigits: this.account.number.slice(5, 9),
+            accountNumber: this.account.accountNumber,
+            balance: this.account.balance.toLocaleString(),
+            endingDigits: this.account.accountNumber.slice(5, 9),
+            title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
         }
     },
 

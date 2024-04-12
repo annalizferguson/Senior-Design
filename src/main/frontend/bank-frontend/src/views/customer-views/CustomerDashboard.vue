@@ -21,7 +21,7 @@
                     <div
                             style="font-size:0.85em"
                     >
-                        Welcome, John Doe
+                        Welcome, {{ firstname }} {{ lastname }}
                     </div>
                 </v-card-title>
             </v-card>
@@ -67,6 +67,7 @@
                         <v-btn
                                 height="100%"
                                 color="#4097f5"
+                                to="/customer-settings"
                         >
                             Settings
                         </v-btn>
@@ -82,10 +83,23 @@
 import OpenAccountsDashboardComponent from '../../components/customer-components/OpenAccountsDashboardComponent.vue';
 import UpcomingPaymentsDashboardComponent
     from '../../components/customer-components/UpcomingPaymentsDashboardComponent.vue';
+import {useCustomerStore} from "@/states/UserStore.js";
+import {useRouter} from "vue-router";
 
 export default {
     name: "CustomerDashboard.vue",
-    components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent}
+    components: {OpenAccountsDashboardComponent, UpcomingPaymentsDashboardComponent},
+    data: () => {
+        const store = useCustomerStore()
+        const router = useRouter()
+        return {
+            store: store,
+            router: router,
+            customer_id: store.getID,
+            firstname: store.getFirstName,
+            lastname: store.getLastName
+        }
+    },
 }
 </script>
 

@@ -35,25 +35,48 @@
                 </v-dialog>
             </v-card-title>
         </v-card>
-        <v-container style="height: calc(100vh - 165px)" class="d-flex justify-center flex-wrap overflow-y-auto">
-            <AccountDetailsDialog width="45%" class="mb-4 mr-4" v-for="(item, index) in accounts" :account="item"/>
+        <v-container class="d-flex justify-center">
+            <v-container v-if="accountsLoaded"
+                         class="d-flex flex-wrap overflow-y-auto">
+                <v-card v-for="(item, index) in accounts" class="mb-5 mr-4 ml-4">
+                    <v-card-title style="background-color: #4097f5; color: #ffffff">
+                        {{ item.type }} *{{ item.accountNumber.slice(5, 9) }}
+                    </v-card-title>
+                    <AccountDetailsDialog width="55%" :account="item"/>
+                </v-card>
+            </v-container>
         </v-container>
     </v-container>
 </template>
 
 <script>
 import AccountDetailsDialog from "@/components/customer-components/AccountDetailsDialog.vue";
-import testAccounts from "@/test-files/testAccounts.json";
 import TransfersComponent from "@/components/customer-components/TransfersComponent.vue";
+import axios from "axios";
+import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
     name: "CustomerAccountsPage.vue",
     components: {TransfersComponent, AccountDetailsDialog},
     data: function () {
+        const store = useCustomerStore()
         return {
+            accountsLoaded: false,
             dialogActive: false,
-            accounts: testAccounts
+            accounts: [],
+            store: store,
         }
+    },
+    methods: {
+        async loadAccounts() {
+            const id = this.store.getID
+            const {data} = await axios.get(`/api/customers/${id}/accounts`)
+            this.accounts = data
+            this.accountsLoaded = true
+        }
+    },
+    beforeMount() {
+        this.loadAccounts()
     }
 }
 </script>

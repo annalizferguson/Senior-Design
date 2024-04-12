@@ -35,25 +35,40 @@
                 </div>
             </v-card-title>
         </v-card>
-        <v-container style="height: calc(100vh - 165px)" class="d-flex justify-center flex-wrap overflow-y-auto">
-            <UpcomingPaymentsItem width="45%" class="mb-4 mr-4" v-for="(item, index) in bills" :bill="item"/>
+        <v-container v-if="billsLoaded" style="height: calc(100vh - 165px)" class="d-flex justify-center flex-wrap overflow-y-auto">
+            <UpcomingPaymentsItem height="50%" width="45%" class="mb-4 mr-4" v-for="(item, index) in bills" :bill="item"/>
         </v-container>
     </v-container>
 </template>
 
 <script>
-import testPayments from "@/test-files/testPayments.json"
 import UpcomingPaymentsItem from "@/components/customer-components/UpcomingPaymentsItem.vue";
 import MakeAPaymentComponent from "@/components/customer-components/MakeAPaymentComponent.vue";
+import axios from "axios";
+import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
     name: "CustomerBillsPage.vue",
     components: {MakeAPaymentComponent, UpcomingPaymentsItem},
     data: () => {
+        const store = useCustomerStore()
         return {
+            billsLoaded: false,
             dialogActive: false,
-            bills: testPayments
+            bills: [],
+            store: store,
         }
+    },
+    methods: {
+        async loadUnpaidBills() {
+            const id = this.store.getID
+            const {data} = await axios.get(`/api/customers/${id}/unpaidbill`)
+            this.bills = data
+            this.billsLoaded = true
+        }
+    },
+    beforeMount() {
+        this.loadUnpaidBills()
     }
 
 }

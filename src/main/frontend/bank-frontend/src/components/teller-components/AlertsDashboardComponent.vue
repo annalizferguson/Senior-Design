@@ -1,6 +1,6 @@
 <template>
     <v-card
-            width="50%"
+            width="28%"
             height="85%"
             variant="outlined"
             class="ml-6"

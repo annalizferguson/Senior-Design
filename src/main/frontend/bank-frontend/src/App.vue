@@ -5,14 +5,15 @@
                 style="background-color: #1565c0; color: #ffffff"
         >
             <v-app-bar-title>
-                <router-link to="/" style="text-decoration: none; color: inherit;">Charger United Credit Union
+                <router-link to="/customer-dash" style="text-decoration: none; color: inherit;">Charger United Credit Union
                 </router-link>
             </v-app-bar-title>
             <div class="mr-2">
-                Routing Number: #123456789
+                Routing Number: #859384192
             </div>
             <v-btn
                     to="/"
+                    @click="clearStore"
             >
                 Logout
             </v-btn>
@@ -24,5 +25,20 @@
 </template>
 
 <script>
-export default {}
+import {useCustomerStore} from "@/states/UserStore.js";
+export default {
+    data: function() {
+        const store = useCustomerStore()
+        return {
+            store: store,
+        }
+    },
+    methods: {
+        clearStore: function() {
+            this.store.$reset()
+        }
+    }
+
+
+}
 </script>

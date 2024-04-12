@@ -17,18 +17,30 @@
                 <v-card-title
                         class="d-flex justify-space-between"
                 >
-                    Your Dashboard
+                    Teller Dashboard
                     <div>
                         <v-btn
                                 variant="outlined"
+                                class="mr-4"
+                                to="/create-customer"
                         >
                             Create New Customer
+                        </v-btn>
+                        <v-btn
+                                variant="outlined"
+                                class="mr-4"
+                        >
+                            Recent Alerts
+                        </v-btn>
+                        <v-btn
+                                variant="outlined"
+                        >
+                            Settings
                         </v-btn>
                     </div>
                 </v-card-title>
             </v-card>
             <CustomerSearchDashboardComponent/>
-            <AlertsDashboardComponent/>
         </v-card>
     </div>
 </template>

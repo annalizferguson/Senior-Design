@@ -1,7 +1,6 @@
 <template>
     <div
             class="d-flex justify-center align-center"
-            width="100%"
             style="height: calc(100vh - 70px)"
     >
         <v-card
@@ -28,6 +27,7 @@
                             label="Password"
                             type="password"
                             placeholder="Enter a password"
+                            hint="Passwords must be greater than 8 characters and include a capital letter, a lowercase letter, and a special character."
                             :rules="rules.required"
                     ></v-text-field>
                     <v-text-field v-if="isRegister"
@@ -37,6 +37,22 @@
                                   type="password"
                                   placeholder="Confirm your password"
                                   :rules="rules.required"
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="firstName"
+                            name="firstname"
+                            label="First Name"
+                            type="text"
+                            placeholder="Enter your first name"
+                            :rules="rules.required"
+                    ></v-text-field>
+                    <v-text-field
+                            v-model="lastName"
+                            name="lastname"
+                            label="Last Name"
+                            type="text"
+                            placeholder="Enter your last name"
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="email"
@@ -50,18 +66,17 @@
                             v-model="phoneNumber"
                             name="getPhoneNumber"
                             label="Phone Number"
-                            type="number"
+                            type="text"
                             placeholder="Enter your phone number"
-                            hide-spin-buttons
                             :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="cellPhoneNumber"
                             name="getCellPhoneNumber"
                             label="Cell Phone Number"
-                            type="number"
+                            type="text"
                             placeholder="Enter your cell phone number"
-                            hide-spin-buttons
+                            :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="address"
@@ -87,17 +102,25 @@
                             label="Date of Birth"
                             type="text"
                             placeholder="Enter your date of birth"
+                            hint="mm-dd-yyyy"
                             :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
                             v-model="ssn"
                             name="getSSN"
                             label="SSN"
-                            type="number"
+                            type="text"
                             placeholder="Enter your SSN"
-                            hide-spin-buttons
                             :rules="rules.required"
                     ></v-text-field>
+                    <v-container v-if="showRegisterFail">
+                        <v-alert
+                            closable
+                            title="Invalid Registration"
+                            text="Your registration was invalid due to empty fields or not meeting the password requirements."
+                            type="error"
+                        />
+                    </v-container>
                     <v-container
                             width="100%"
                             class="d-flex justify-space-between align-center"
@@ -111,12 +134,12 @@
                                 class="d-flex justify-end"
                         >
                             <v-btn
-                                    type="submit"
+                                    type="button"
                                     class="mt-2"
                                     color="primary"
                                     variant="elevated"
                                     value="log in"
-                                    onClick="checkIfFormIsFilled"
+                                    @click="() => {registerCustomer()}"
                             >
                                 Register
                             </v-btn>
@@ -129,17 +152,23 @@
 </template>
 
 <script>
+import axios from 'axios';
+import {useRouter} from "vue-router";
 
 export default {
     name: 'RegisterComponent',
 
     data: () => {
+        const router = useRouter()
         return {
+            router: router,
             validForm: false,
             rules: {
                 required: [value => !!value || "Required."]
             },
             checked: false,
+            firstName: "",
+            lastName: "",
             username: "",
             password: "",
             confirmPassword: "",
@@ -152,12 +181,38 @@ export default {
             cellPhoneNumber: "",
             dob: "",
             ssn: "",
+            showRegisterFail: false,
         }
     },
     methods: {
         checkIfFieldsFilled: function () {
             this.$refs.form.validate();
         },
+        async registerCustomer() {
+            const newCustomer = {
+                "username": this.username,
+                "password": this.password,
+                "firstName": this.firstName,
+                "lastName":  this.lastName,
+                "ssn": this.ssn,
+                "email": this.email,
+                "address": this.address,
+                "mailingAddress": this.mailingAddress,
+                "phoneNumber": this.phoneNumber,
+                "cellNumber": this.cellPhoneNumber,
+                "doB": this.dob,
+                "cellPhoneNumber": this.cellPhoneNumber
+            }
+                axios.post('/api/customers', newCustomer).then((response) => {
+                    console.log(response)
+                    this.router.push('/register-success')
+
+
+                }).catch((e) => {
+                    console.log("Register Invalid.")
+                    this.showRegisterFail = true
+                })
+        }
     }
 }
 
