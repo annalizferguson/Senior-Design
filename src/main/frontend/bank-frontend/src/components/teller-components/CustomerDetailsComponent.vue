@@ -20,7 +20,15 @@
                         Edit Customer
                     </v-btn>
                     <v-btn
-                            v-if="readonly"
+                        v-if="!readonly"
+                        disabled
+                        class="mr-3"
+                        variant="outlined"
+                        @click="readonly = false"
+                    >
+                        Editing Customer...
+                    </v-btn>
+                    <v-btn
                             variant="outlined"
                             to="/teller-dash"
                     >
@@ -35,7 +43,7 @@
                 style="height: calc(100vh - 260px)">
             <v-form>
                 <v-text-field
-                        v-model="customer.username"
+                        v-model="username"
                         name="username"
                         label="Username"
                         type="text"
@@ -43,7 +51,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.password"
+                        v-model="password"
                         name="password"
                         label="Password"
                         type="password"
@@ -51,7 +59,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-if="!readonly"
+                        v-if="false"
                         name="newPassword"
                         label="New Password"
                         type="password"
@@ -59,7 +67,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-if="!readonly"
+                        v-if="false"
                         name="confirmPassword"
                         label="Confirm New Password"
                         type="password"
@@ -67,7 +75,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.email"
+                        v-model="email"
                         name="email"
                         label="Customer Email"
                         type="text"
@@ -75,7 +83,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.phoneNumber"
+                        v-model="phoneNumber"
                         name="phone"
                         label="Phone Number"
                         type="text"
@@ -83,7 +91,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.cellNumber"
+                        v-model="cellNumber"
                         name="cellphone"
                         label="Cell Phone Number"
                         type="text"
@@ -91,7 +99,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.address"
+                        v-model="address"
                         name="address"
                         label="Address"
                         type="text"
@@ -99,7 +107,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.mailingAddress"
+                        v-model="mailingAddress"
                         name="mailingAddress"
                         label="Mailing Address"
                         type="text"
@@ -107,7 +115,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.doB"
+                        v-model="doB"
                         name="dob"
                         label="Date of Birth"
                         type="text"
@@ -115,7 +123,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.ssn"
+                        v-model="ssn"
                         name="ssn"
                         label="SSN"
                         type="text"
@@ -123,6 +131,12 @@
                         :readonly="readonly"
                 ></v-text-field>
             </v-form>
+            <v-alert
+                v-if="customerEditSuccess"
+                closable
+                title="Customer Information Edit Successful"
+                type="success"
+            />
         </v-container>
         <v-container
                 width="100%"
@@ -163,9 +177,22 @@ export default {
         return {
             store: store,
             customerID: customerID,
+            customerEditSuccess: false,
             readonly: true,
             customer: {},
-            originalCustomer: {}
+            originalCustomer: {},
+            id: "",
+            username: "",
+            password: "",
+            firstName: "",
+            lastName: "",
+            ssn: "",
+            email: "",
+            address: "",
+            mailingAddress: "",
+            phoneNumber: "",
+            cellNumber: "",
+            doB: "",
         }
     },
     methods: {
@@ -174,6 +201,19 @@ export default {
                 console.log(response.data)
                 this.customer = response.data
                 this.originalCustomer = response.data
+                this.id = this.customer.id
+                this.username = this.customer.username
+                this.password = this.customer.password
+                this.firstName = this.customer.firstName
+                this.lastName = this.customer.lastName
+                this.ssn = this.customer.ssn
+                this.email = this.customer.email
+                this.address = this.customer.address
+                this.mailingAddress = this.customer.mailingAddress
+                this.phoneNumber = this.customer.phoneNumber
+                this.cellNumber = this.customer.cellPhoneNumber
+                this.doB = this.customer.doB
+
             }).catch(() => {
                 console.log("ERROR: Customer not found.")
             })
@@ -181,22 +221,23 @@ export default {
         async updateCustomerInfo() {
             const editedCustomer = {
                 "id": this.customer.id,
-                "username": this.customer.username,
-                "password": this.customer.password,
-                "firstName": this.customer.firstName,
-                "lastName": this.customer.lastName,
-                "ssn": this.customer.ssn,
-                "email": this.customer.email,
-                "address": this.customer.address,
-                "mailingAddress": this.customer.mailingAddress,
-                "phoneNumber": this.customer.phoneNumber,
-                "cellNumber": this.customer.cellPhoneNumber,
-                "doB": this.customer.doB,
+                "username": this.username,
+                "password": this.password,
+                "firstName": this.firstName,
+                "lastName": this.lastName,
+                "ssn": this.ssn,
+                "email": this.email,
+                "address": this.address,
+                "mailingAddress": this.mailingAddress,
+                "phoneNumber": this.phoneNumber,
+                "cellNumber": this.cellNumber,
+                "doB": this.doB,
             }
-            axios.put("/api/customers", editedCustomer).then((response) => {
+            axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then((response) => {
                 console.log(response.data)
                 this.readonly = true
                 console.log("Customer update successful.")
+                this.customerEditSuccess = true
             }).catch((e) => {
                 console.log("Error in customer update.")
             })
@@ -204,6 +245,18 @@ export default {
         discardChanges() {
             this.readonly = true
             this.customer = this.originalCustomer
+            this.id = this.customer.id
+            this.username = this.customer.username
+            this.password = this.customer.password
+            this.firstName = this.customer.firstName
+            this.lastName = this.customer.lastName
+            this.ssn = this.customer.ssn
+            this.email = this.customer.email
+            this.address = this.customer.address
+            this.mailingAddress = this.customer.mailingAddress
+            this.phoneNumber = this.customer.phoneNumber
+            this.cellNumber = this.customer.cellPhoneNumber
+            this.doB = this.customer.doB
         }
     },
     beforeMount() {
