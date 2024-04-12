@@ -50,8 +50,28 @@
                         Cancel
                     </v-btn>
                 </v-dialog>
+                <v-dialog
+                    v-model="createAccountDialogActive"
+                    width="50%"
+                >
+                    <CreateFinancialAccountComponent/>
+                    <v-btn
+                        color="#4097f5"
+                        @click="createAccountDialogActive = false"
+                    >
+                        Cancel
+                    </v-btn>
+                </v-dialog>
             </v-card-title>
             <v-card-actions class="d-flex justify-center">
+                <v-btn
+                    variant="plain"
+                    color="#1565c0"
+                    style="font-size:0.85em"
+                    @click="createAccountDialogActive = true"
+                >
+                    Open New Financial Account
+                </v-btn>
                 <v-btn
                         variant="plain"
                         color="#1565c0"
@@ -101,10 +121,11 @@ import TransfersComponent from "@/components/customer-components/TransfersCompon
 import AccountDetailsDialog from "@/components/customer-components/AccountDetailsDialog.vue";
 import DepositsComponent from "@/components/teller-components/DepositsComponent.vue";
 import WithdrawalsComponent from "@/components/teller-components/WithdrawalsComponent.vue";
+import CreateFinancialAccountComponent from "@/components/teller-components/CreateFinancialAccountComponent.vue";
 
 export default {
     name: "CustomerAccountsComponent.vue",
-    components: {AccountDetailsDialog, TransfersComponent, DepositsComponent, WithdrawalsComponent},
+    components: {AccountDetailsDialog, TransfersComponent, DepositsComponent, WithdrawalsComponent, CreateFinancialAccountComponent},
     data: () => {
         const store = useTellerStore()
         return {
@@ -115,6 +136,7 @@ export default {
             transfersDialogActive: false,
             depositsDialogActive: false,
             withdrawalsDialogActive: false,
+            createAccountDialogActive: false,
             customerFirstName: "",
             customerLastName: ""
         }
