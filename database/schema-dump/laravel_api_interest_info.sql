@@ -1,0 +1,1 @@
+create table interest_info (form_id int not null auto_increment, firstname varchar(45), lastname varchar(45), address varchar(45), phone_number varchar(45), interest_income double, customer_id int, primary key (form_id));
