@@ -20,11 +20,11 @@
                         Edit Customer
                     </v-btn>
                     <v-btn
-                        v-if="!readonly"
-                        disabled
-                        class="mr-3"
-                        variant="outlined"
-                        @click="readonly = false"
+                            v-if="!readonly"
+                            disabled
+                            class="mr-3"
+                            variant="outlined"
+                            @click="readonly = false"
                     >
                         Editing Customer...
                     </v-btn>
@@ -131,18 +131,13 @@
                         :readonly="readonly"
                 ></v-text-field>
             </v-form>
-            <v-alert
-                v-if="customerEditSuccess"
-                closable
-                title="Customer Information Edit Successful"
-                type="success"
-            />
         </v-container>
         <v-container
                 width="100%"
                 class="d-flex justify-space-between"
         >
             <v-btn
+                    v-if="!readonly"
                     type="button"
                     class="mt-2"
                     color="red"
@@ -151,7 +146,20 @@
             >
                 Discard Changes
             </v-btn>
+            <v-alert
+                v-if="customerEditSuccess"
+                closable
+                text="Customer information successfully changed."
+                type="success"
+            />
+            <v-alert
+                v-if="customerEditFail"
+                closable
+                text="Error: Empty or Invalid fields."
+                type="error"
+            />
             <v-btn
+                    v-if="!readonly"
                     type="button"
                     class="mt-2"
                     color="primary"
@@ -178,6 +186,7 @@ export default {
             store: store,
             customerID: customerID,
             customerEditSuccess: false,
+            customerEditFail: false,
             readonly: true,
             customer: {},
             originalCustomer: {},
@@ -234,12 +243,12 @@ export default {
                 "doB": this.doB,
             }
             axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then((response) => {
-                console.log(response.data)
                 this.readonly = true
                 console.log("Customer update successful.")
-                this.customerEditSuccess = true
+                this.successAlert()
             }).catch((e) => {
                 console.log("Error in customer update.")
+                this.failAlert()
             })
         },
         discardChanges() {
@@ -257,6 +266,15 @@ export default {
             this.phoneNumber = this.customer.phoneNumber
             this.cellNumber = this.customer.cellPhoneNumber
             this.doB = this.customer.doB
+        },
+        successAlert() {
+            this.customerEditSuccess = true
+            setTimeout(() => {this.customerEditSuccess = false}, 2000)
+            this.loadCustomerInfo()
+        },
+        failAlert() {
+            this.customerEditFail = true
+            setTimeout(() => {this.customerEditFail = false}, 3000)
         }
     },
     beforeMount() {
