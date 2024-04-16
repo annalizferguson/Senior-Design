@@ -21,7 +21,7 @@
                         v-model="dialogActive"
                         width="50%"
                 >
-                    <MakeAPaymentComponent/>
+                    <MakeAPaymentComponent :customerID="store.getID"/>
                     <v-btn
                             color="#4097f5"
                             @click="dialogActive = false"
@@ -54,7 +54,9 @@
                     height="90%"
                     class="mr-2 mb-2"
                     v-for="(item, index) in bills"
-                    :bill="item"/>
+                    :bill="item"
+                    :customerID="store.getID"
+            />
         </v-container>
     </v-card>
 </template>

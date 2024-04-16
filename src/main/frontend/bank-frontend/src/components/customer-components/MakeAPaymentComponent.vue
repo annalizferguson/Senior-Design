@@ -48,7 +48,6 @@
 
 <script>
 import axios from 'axios';
-import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
     name: "MakeAPaymentComponent.vue",
@@ -56,11 +55,12 @@ export default {
         bill: {
             type: Object
         },
+        customerID: {
+            type: Number
+        }
     },
     data: function () {
-        const store = useCustomerStore()
         return {
-            store: store,
             billsLoaded: false,
             bills: [],
             selectedBill: this.bill,
@@ -75,9 +75,7 @@ export default {
     },
     methods: {
         async loadUnpaidBills() {
-            const id = this.store.getID
-            const {data} = await axios.get(`/api/customers/${id}/unpaidbill`)
-            console.log(data)
+            const {data} = await axios.get(`/api/customers/${this.customerID}/unpaidbill`)
             this.bills = data
             this.accountsLoaded = true
 

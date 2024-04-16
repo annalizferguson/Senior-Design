@@ -22,26 +22,6 @@
             <b>Amount</b>
             <div style="font-size: 2em">${{ billAmount }}</div>
         </v-container>
-        <v-card-actions class="d-flex justify-end">
-            <v-btn
-                    color="#4097f5"
-                    @click="dialogActive = true"
-            >
-                Pay Now
-            </v-btn>
-            <v-dialog
-                    v-model="dialogActive"
-                    width="50%"
-            >
-                <MakeAPaymentComponent :bill="bill" :customerID="customerID"/>
-                <v-btn
-                        color="#4097f5"
-                        @click="dialogActive = false"
-                >
-                    Cancel
-                </v-btn>
-            </v-dialog>
-        </v-card-actions>
     </v-card>
 </template>
 
@@ -50,7 +30,7 @@ import MakeAPaymentComponent from "@/components/customer-components/MakeAPayment
 import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
-    name: "UpcomingPaymentsItem.vue",
+    name: "PaidBillItem.vue",
     components: {MakeAPaymentComponent},
     props: {
         bill: {
@@ -66,8 +46,8 @@ export default {
             store: store,
             dialogActive: false,
             billName: this.bill.payeeName,
-            billDate: this.bill.dueDate,
-            billAmount: this.bill.amountDue,
+            billDate: this.bill.dateDue,
+            billAmount: this.bill.amount,
         }
     }
 }

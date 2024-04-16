@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useTellerStore = defineStore('tellerStore', {
     state: () => {
         return {
+            authenticated: false,
             teller: {
                 id: "",
                 username: "",
@@ -11,10 +12,15 @@ export const useTellerStore = defineStore('tellerStore', {
             },
             customerFocus: {
                 id: "",
+                firstName: "",
+                lastName: "",
             }
         }
     },
     getters: {
+        getAuthenticated(state) {
+            return state.authenticated
+        },
         getTeller(state) {
             return state.teller;
         },
@@ -32,14 +38,36 @@ export const useTellerStore = defineStore('tellerStore', {
         },
         getCustomerID(state) {
             return state.customerFocus.id
-        }
+        },
+        getCustomerFirstName(state) {
+            return state.customerFocus.firstName
+        },
+        getCustomerLastName(state) {
+            return state.customerFocus.lastName
+        },
     },
     actions: {
         addTeller(teller) {
             this.teller = teller
         },
-        setCustomer(id) {
+        setCustomer(id, firstname, lastname) {
             this.customerFocus.id = id
+            this.customerFocus.firstName = firstname
+            this.customerFocus.lastName = lastname
+        },
+        resetStore() {
+          this.authenticated = false
+          this.teller = {
+              id: "",
+              username: "",
+              firstName: "",
+              lastName: ""
+          }
+          this.customerFocus = {
+              id: "",
+              firstName: "",
+              lastName: "",
+          }
         }
     },
     persist: true,
