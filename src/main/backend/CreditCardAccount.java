@@ -1,6 +1,6 @@
 package main.backend;
 
-public class CreditCardAccount extends FinancialAccount {
+public class CreditCardAccount extends FinancialAccount{
 
     private double amountDue;
     private double interestRate; // interest rate in decimal
@@ -8,8 +8,8 @@ public class CreditCardAccount extends FinancialAccount {
     private double penaltyFee;
     private int missedPayments;
 
-    CreditCardAccount(double newAmountDue, double newInterestRatePercent, double newPenaltyInterestPercent, double newPenaltyFee, double startingBalance) {
-        create("1", "Credit Card", startingBalance);
+    CreditCardAccount(double newAmountDue, double newInterestRatePercent, double newPenaltyInterestPercent, double newPenaltyFee, double startingBalance, String cID) {
+        create("1", "Credit Card", startingBalance, cID);
         amountDue = newAmountDue;
         interestRate = newInterestRatePercent / 100;           // convert percent to decimal equivalent
         penaltyInterest = newPenaltyInterestPercent / 100;     // convert percent to decimal equivalent
@@ -32,7 +32,6 @@ public class CreditCardAccount extends FinancialAccount {
 
     /**
      * adds to the amount due from a credit card usage with the interestRate applied
-     *
      * @param charge - how much the credit card was charged
      */
     public void addAmountDue(double charge) {
@@ -41,7 +40,6 @@ public class CreditCardAccount extends FinancialAccount {
 
     /**
      * applies a penalty to the unpaid balance determined by flat fee or by a percentage
-     *
      * @param type
      */
     public void addUnpaidBalance(String type) {
