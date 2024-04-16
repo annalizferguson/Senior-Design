@@ -69,6 +69,7 @@
                         color="#1565c0"
                         style="font-size:0.85em"
                         @click="createAccountDialogActive = true"
+                        @close="loadCustomerAccounts"
                 >
                     Open New Financial Account
                 </v-btn>

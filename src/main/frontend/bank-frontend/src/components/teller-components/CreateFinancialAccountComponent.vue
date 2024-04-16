@@ -68,6 +68,18 @@
                         prepend-icon="mdi-currency-usd"
                         hide-spin-buttons
                 />
+                <v-alert
+                    v-model="successAlert"
+                    text="Account creation successful. You may close the dialog or create another account."
+                    type="success"
+                    closable
+                    @close="successAlert = false"
+                />
+                <v-alert
+                    v-model="failAlert"
+                    text="Account creation failed."
+                    type="error"
+                />
                 <v-container class="d-flex justify-end">
                     <v-btn
                             color="#4097f5"
@@ -114,6 +126,8 @@ export default {
             totalMortgage: 0,
             penaltyInterest: 0,
             penaltyFee: 0,
+            successAlert: false,
+            failAlert: false,
         }
     },
     methods: {
@@ -160,23 +174,38 @@ export default {
                         "interestRate": this.interestRate,
                         "amountDue": 0,
                         "missedPayments": 0,
+                        "penaltyInterest": this.penaltyInterest,
+                        "penaltyFee": this.penaltyFee,
                     }
                     break;
                 case "homemortgage":
                     accountInfo = {
+                        "customerID": this.customerID,
                         "balance": 0,
+                        "totalMortgage": this.totalMortgage,
+                        "mortgageLeft": this.totalMortgage,
+                        "monthlyDue": this.monthlyDue,
+                        "unpaidBalance": 0,
+                        "missedPayments": 0
                     }
                     break;
                 case "moneymarket":
                     accountInfo = {
+                        "customerID": this.customerID,
                         "balance": 0,
+                        "interestRate": this.interestRate,
+                        "transactionCount": 0,
+                        "transactionLimit": this.transactionLimit
                     }
                     break;
             }
             axios.post(`/api/${this.chosenAccountType.type}`, accountInfo).then((response) => {
                 console.log("Account creation successful.")
+                this.successAlert = true
             }).catch((e) => {
                 console.log("Account creation failed.")
+                this.failAlert = true
+                setTimeout(() => {this.failAlert = false}, 5000)
             })
         }
     },
