@@ -17,37 +17,40 @@
                 <v-dialog
                         v-model="transfersDialogActive"
                         width="50%"
+                        persistent
                 >
                     <TransfersComponent/>
                     <v-btn
                             color="#4097f5"
                             @click="transfersDialogActive = false; loadCustomerAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
                 <v-dialog
                         v-model="depositsDialogActive"
                         width="50%"
+                        persistent
                 >
                     <DepositsComponent/>
                     <v-btn
                             color="#4097f5"
                             @click="depositsDialogActive = false; loadCustomerAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
                 <v-dialog
                         v-model="withdrawalsDialogActive"
                         width="50%"
+                        persistent
                 >
                     <WithdrawalsComponent/>
                     <v-btn
                             color="#4097f5"
                             @click="withdrawalsDialogActive = false; loadCustomerAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
                 <v-dialog
