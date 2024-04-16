@@ -102,6 +102,11 @@ const router = createRouter({
           component: () => import('../views/teller-views/ViewCustomerAccountsPage.vue')
         },
         {
+          path: '/customer-bills',
+          name: 'customer-bills',
+          component: () => import('../views/teller-views/TellerCustomerBillsPage.vue')
+        },
+        {
             path: '/admin-dash',
             name: 'admin-dash',
             component: () => import('../views/AdminDashboard.vue')

@@ -11,6 +11,8 @@ export const useTellerStore = defineStore('tellerStore', {
             },
             customerFocus: {
                 id: "",
+                firstName: "",
+                lastName: "",
             }
         }
     },
@@ -32,14 +34,22 @@ export const useTellerStore = defineStore('tellerStore', {
         },
         getCustomerID(state) {
             return state.customerFocus.id
-        }
+        },
+        getCustomerFirstName(state) {
+            return state.customerFocus.firstName
+        },
+        getCustomerLastName(state) {
+            return state.customerFocus.lastName
+        },
     },
     actions: {
         addTeller(teller) {
             this.teller = teller
         },
-        setCustomer(id) {
+        setCustomer(id, firstname, lastname) {
             this.customerFocus.id = id
+            this.customerFocus.firstName = firstname
+            this.customerFocus.lastName = lastname
         }
     },
     persist: true,
