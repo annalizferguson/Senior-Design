@@ -24,7 +24,7 @@
                             v-model="dialogActive"
                             width="50%"
                     >
-                        Make a Payment Goes Here
+                        <MakeAPaymentComponent :customerID="customerID"/>
                         <v-btn
                                 color="#4097f5"
                                 @click="dialogActive = false"
@@ -41,7 +41,7 @@
         <v-container v-if="billsLoaded" style="height: calc(100vh - 165px)"
                      class="d-flex justify-center flex-wrap overflow-y-auto">
             <UpcomingPaymentsItem height="50%" width="45%" class="mb-4 mr-4" v-for="(item, index) in bills"
-                                  :bill="item"/>
+                                  :bill="item" :customerID="customerID"/>
         </v-container>
     </v-container>
 </template>

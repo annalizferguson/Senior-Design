@@ -33,7 +33,7 @@
                     v-model="dialogActive"
                     width="50%"
             >
-                <MakeAPaymentComponent :bill="bill"/>
+                <MakeAPaymentComponent :bill="bill" :customerID="customerID"/>
                 <v-btn
                         color="#4097f5"
                         @click="dialogActive = false"
@@ -47,6 +47,7 @@
 
 <script>
 import MakeAPaymentComponent from "@/components/customer-components/MakeAPaymentComponent.vue";
+import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
     name: "UpcomingPaymentsItem.vue",
@@ -54,11 +55,15 @@ export default {
     props: {
         bill: {
             type: Object
+        },
+        customerID: {
+            type: Number
         }
     },
     data: function () {
-        console.log(this.bill)
+        const store = useCustomerStore()
         return {
+            store: store,
             dialogActive: false,
             billName: this.bill.payeeName,
             billDate: this.bill.dueDate,

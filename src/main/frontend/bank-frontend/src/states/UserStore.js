@@ -67,6 +67,23 @@ export const useCustomerStore = defineStore('userStore', {
         },
         setAuthenticated() {
             this.authenticated = true
+        },
+        resetStore() {
+            this.authenticated = false
+            this.customer = {
+                id: "",
+                address: "",
+                cellNumber: "",
+                cellPhoneNumber: "",
+                doB: "",
+                email: "",
+                ssn: "",
+                firstName: "",
+                lastName: "",
+                mailingAddress: "",
+                username: "",
+                password: ""
+            }
         }
     },
     persist: true,
