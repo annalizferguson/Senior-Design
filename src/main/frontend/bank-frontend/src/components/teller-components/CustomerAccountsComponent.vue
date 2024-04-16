@@ -17,41 +17,65 @@
                 <v-dialog
                         v-model="transfersDialogActive"
                         width="50%"
+                        persistent
                 >
                     <TransfersComponent/>
                     <v-btn
                             color="#4097f5"
-                            @click="transfersDialogActive = false"
+                            @click="transfersDialogActive = false; loadCustomerAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
                 <v-dialog
-                    v-model="depositsDialogActive"
-                    width="50%"
+                        v-model="depositsDialogActive"
+                        width="50%"
+                        persistent
                 >
                     <DepositsComponent/>
                     <v-btn
-                        color="#4097f5"
-                        @click="depositsDialogActive = false"
+                            color="#4097f5"
+                            @click="depositsDialogActive = false; loadCustomerAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
                 <v-dialog
-                    v-model="withdrawalsDialogActive"
-                    width="50%"
+                        v-model="withdrawalsDialogActive"
+                        width="50%"
+                        persistent
                 >
                     <WithdrawalsComponent/>
                     <v-btn
-                        color="#4097f5"
-                        @click="withdrawalsDialogActive = false"
+                            color="#4097f5"
+                            @click="withdrawalsDialogActive = false; loadCustomerAccounts()"
                     >
-                        Cancel
+                        Close
+                    </v-btn>
+                </v-dialog>
+                <v-dialog
+                        v-model="createAccountDialogActive"
+                        width="50%"
+                        persistent
+                >
+                    <CreateFinancialAccountComponent/>
+                    <v-btn
+                            color="#4097f5"
+                            @click="createAccountDialogActive = false; loadCustomerAccounts()"
+                    >
+                        Close
                     </v-btn>
                 </v-dialog>
             </v-card-title>
             <v-card-actions class="d-flex justify-center">
+                <v-btn
+                        variant="plain"
+                        color="#1565c0"
+                        style="font-size:0.85em"
+                        @click="createAccountDialogActive = true"
+                >
+                    Open New Financial Account
+                </v-btn>
                 <v-btn
                         variant="plain"
                         color="#1565c0"
@@ -82,12 +106,19 @@
             <v-container v-if="accountsLoaded"
                          class="d-flex flex-wrap overflow-y-auto justify-center"
                          style="height: calc(100vh - 250px)"
+                         :key="accounts"
             >
-                <v-card width="25%" v-for="(item, index) in accounts" class="mb-5 mr-4 ml-4">
-                    <v-card-title style="background-color: #4097f5; color: #ffffff">
-                        {{ item.type }} *{{ item.accountNumber.slice(5, 9) }}
+                <v-card width="30%" v-for="(item, index) in accounts" class="mb-5 mr-4 ml-4">
+                    <v-card-title style="background-color: #4097f5; color: #ffffff"
+                                  class="d-flex justify-space-between align-center">
+                        {{ item.name }} *{{ item.accountNumber.slice(5, 9) }}
+                        <v-tooltip text="Delete Account">
+                            <template v-slot:activator="{ props }">
+                                <v-btn v-bind="props" icon="mdi-delete-outline" variant="plain"/>
+                            </template>
+                        </v-tooltip>
                     </v-card-title>
-                    <AccountDetailsDialog width="55%" :account="item"/>
+                    <AccountDetailsDialog width="60%" :account="item"/>
                 </v-card>
             </v-container>
         </v-container>
@@ -101,10 +132,17 @@ import TransfersComponent from "@/components/customer-components/TransfersCompon
 import AccountDetailsDialog from "@/components/customer-components/AccountDetailsDialog.vue";
 import DepositsComponent from "@/components/teller-components/DepositsComponent.vue";
 import WithdrawalsComponent from "@/components/teller-components/WithdrawalsComponent.vue";
+import CreateFinancialAccountComponent from "@/components/teller-components/CreateFinancialAccountComponent.vue";
 
 export default {
     name: "CustomerAccountsComponent.vue",
-    components: {AccountDetailsDialog, TransfersComponent, DepositsComponent, WithdrawalsComponent},
+    components: {
+        AccountDetailsDialog,
+        TransfersComponent,
+        DepositsComponent,
+        WithdrawalsComponent,
+        CreateFinancialAccountComponent
+    },
     data: () => {
         const store = useTellerStore()
         return {
@@ -115,6 +153,7 @@ export default {
             transfersDialogActive: false,
             depositsDialogActive: false,
             withdrawalsDialogActive: false,
+            createAccountDialogActive: false,
             customerFirstName: "",
             customerLastName: ""
         }

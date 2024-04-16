@@ -99,7 +99,7 @@ const router = createRouter({
         {
           path: '/customer-accounts',
           name: 'customer-accounts',
-          component: () => import('../views/teller-views/ViewCustomerAccountsPage.vue')
+          component: () => import('../views/teller-views/ManageCustomerAccountsPage.vue')
         },
         {
           path: '/customer-bills',

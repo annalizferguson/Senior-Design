@@ -6,8 +6,8 @@ public class MoneyMarket extends FinancialAccount {
 
     private int transactionLimit = 6;
 
-    MoneyMarket(double newInterestRate, double startingBalance) {
-        create("0", "Money Market", startingBalance);
+    MoneyMarket(double newInterestRate, double startingBalance, String cID) {
+        create("0", "Money Market", startingBalance, cID);
         interestRate = newInterestRate;
         transactionCount = 0;
     }
@@ -39,9 +39,11 @@ public class MoneyMarket extends FinancialAccount {
     }
 
 
+
     public void addInterest() {
         double addedAmount = getBalance() * interestRate;
         deposit(addedAmount);
     }
+
 
 }
