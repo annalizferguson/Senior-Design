@@ -40,7 +40,7 @@
                          class="d-flex flex-wrap overflow-y-auto">
                 <v-card v-for="(item, index) in accounts" class="mb-5 mr-4 ml-4">
                     <v-card-title style="background-color: #4097f5; color: #ffffff">
-                        {{ item.type }} *{{ item.accountNumber.slice(5, 9) }}
+                        {{ item.name }} *{{ item.accountNumber.slice(5, 9) }}
                     </v-card-title>
                     <AccountDetailsDialog width="55%" :account="item"/>
                 </v-card>
