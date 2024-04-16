@@ -1,8 +1,8 @@
 package main.backend;
 
 public class Checking extends FinancialAccount {
-    Checking(double startingBalance) {
-        create("1", "Checking", startingBalance);
+    Checking(double startingBalance, String cID) {
+        create("1", "Checking", startingBalance, cID);
     }
 }
 
