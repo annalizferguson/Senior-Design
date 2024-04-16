@@ -66,7 +66,7 @@ export default {
             const {data} = await axios.get(`/api/customers/${id}/accounts`)
             this.accounts = data
             this.accounts.forEach((account) => {
-                account.label = account.type + " *" + account.accountNumber.slice(5, 10)
+                account.label = account.name + " *" + account.accountNumber.slice(5, 10)
             })
             this.accountsLoaded = true
         }

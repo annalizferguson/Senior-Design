@@ -21,7 +21,7 @@
                     <TransfersComponent/>
                     <v-btn
                             color="#4097f5"
-                            @click="transfersDialogActive = false"
+                            @click="transfersDialogActive = false; loadCustomerAccounts()"
                     >
                         Cancel
                     </v-btn>
@@ -33,7 +33,7 @@
                     <DepositsComponent/>
                     <v-btn
                             color="#4097f5"
-                            @click="depositsDialogActive = false"
+                            @click="depositsDialogActive = false; loadCustomerAccounts()"
                     >
                         Cancel
                     </v-btn>
@@ -45,7 +45,7 @@
                     <WithdrawalsComponent/>
                     <v-btn
                             color="#4097f5"
-                            @click="withdrawalsDialogActive = false"
+                            @click="withdrawalsDialogActive = false; loadCustomerAccounts()"
                     >
                         Cancel
                     </v-btn>
@@ -53,13 +53,14 @@
                 <v-dialog
                         v-model="createAccountDialogActive"
                         width="50%"
+                        persistent
                 >
                     <CreateFinancialAccountComponent/>
                     <v-btn
                             color="#4097f5"
-                            @click="createAccountDialogActive = false"
+                            @click="createAccountDialogActive = false; loadCustomerAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
             </v-card-title>
@@ -69,7 +70,6 @@
                         color="#1565c0"
                         style="font-size:0.85em"
                         @click="createAccountDialogActive = true"
-                        @close="loadCustomerAccounts"
                 >
                     Open New Financial Account
                 </v-btn>
@@ -103,6 +103,7 @@
             <v-container v-if="accountsLoaded"
                          class="d-flex flex-wrap overflow-y-auto justify-center"
                          style="height: calc(100vh - 250px)"
+                         :key="accounts"
             >
                 <v-card width="30%" v-for="(item, index) in accounts" class="mb-5 mr-4 ml-4">
                     <v-card-title style="background-color: #4097f5; color: #ffffff"
