@@ -76,7 +76,6 @@ export default {
     methods: {
         async loadUnpaidBills() {
             const {data} = await axios.get(`/api/customers/${this.customerID}/unpaidbill`)
-            console.log(data)
             this.bills = data
             this.accountsLoaded = true
 
