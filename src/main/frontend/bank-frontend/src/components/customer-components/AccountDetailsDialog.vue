@@ -122,8 +122,8 @@ export default {
         return {
             number: this.account.accountNumber,
             balance: this.account.balance.toLocaleString(),
-            type: this.account.type,
-            title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
+            type: this.account.name,
+            title: this.account.name + " *" + this.account.accountNumber.slice(5, 9),
             interestRate: this.account.interestRate,
             transactionCount: this.account.transactionCount,
             transactionLimit: this.account.transactionLimit,
@@ -137,9 +137,6 @@ export default {
             missedPayments: this.account.missedPayments,
         }
     },
-    beforeMount() {
-        console.log(this.account)
-    }
 }
 </script>
 
