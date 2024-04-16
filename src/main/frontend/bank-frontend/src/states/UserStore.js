@@ -59,6 +59,9 @@ export const useCustomerStore = defineStore('userStore', {
         },
         getUsername(state) {
             return state.customer.username
+        },
+        getPassword(state) {
+            return state.customer.password
         }
     },
     actions: {

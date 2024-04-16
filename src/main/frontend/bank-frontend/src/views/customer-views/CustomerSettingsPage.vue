@@ -47,17 +47,17 @@
                                         ></v-text-field>
                                         <v-text-field
                                                 v-model="oldPassword"
-                                                name="password"
+                                                name="oldPassword"
                                                 label="Old Password"
                                                 type="password"
                                                 placeholder="Enter a password"
                                         ></v-text-field>
                                         <v-text-field
-                                            v-model="newPassword"
-                                            name="password"
-                                            label="New Password"
-                                            type="password"
-                                            placeholder="Enter a password"
+                                                v-model="newPassword"
+                                                name="newPassword"
+                                                label="New Password"
+                                                type="password"
+                                                placeholder="Enter a password"
                                         ></v-text-field>
                                         <v-text-field
                                                 v-model="newConfirmPassword"
@@ -66,9 +66,33 @@
                                                 type="password"
                                                 placeholder="Confirm your password"
                                         ></v-text-field>
+                                        <v-alert
+                                                v-if="mismatchedPassAlert"
+                                                closable
+                                                text="New password must match confirmed password."
+                                                type="error"
+                                        />
+                                        <v-alert
+                                                v-if="wrongPassAlert"
+                                                closable
+                                                text="Old password is required to enter a new password."
+                                                type="error"
+                                        />
+                                        <v-alert
+                                                v-if="successUP"
+                                                closable
+                                                text="Information successfully updated."
+                                                type="success"
+                                        />
+                                        <v-alert
+                                                v-if="failUP"
+                                                closable
+                                                text="Information failed to update."
+                                                type="error"
+                                        />
                                     </v-form>
                                     <v-card-actions class="d-flex justify-end">
-                                        <v-btn variant="tonal" color="#4097f5">
+                                        <v-btn variant="tonal" color="#4097f5" @click="updateUsernamePassword">
                                             Confirm Changes
                                         </v-btn>
                                     </v-card-actions>
@@ -118,7 +142,6 @@
                                                 name="getDOB"
                                                 label="Date of Birth"
                                                 type="text"
-                                                readonly
                                         ></v-text-field>
                                         <v-text-field
                                                 v-model="ssn"
@@ -129,11 +152,11 @@
                                         ></v-text-field>
                                     </v-form>
                                     <v-card-actions class="d-flex justify-space-between">
-                                        <v-btn variant="tonal" color="#4097f5">
-                                            Confirm Changes
-                                        </v-btn>
-                                        <v-btn variant="tonal" color="red">
+                                        <v-btn variant="tonal" color="red" @click="resetFromStore">
                                             Discard Changes
+                                        </v-btn>
+                                        <v-btn variant="tonal" color="#4097f5" @click="updateCustomerInfo">
+                                            Confirm Changes
                                         </v-btn>
                                     </v-card-actions>
                                 </v-card>
@@ -148,15 +171,18 @@
 
 <script>
 import {useCustomerStore} from "@/states/UserStore.js";
+import axios from "axios";
 
 export default {
     name: "CustomerSettingsPage.vue",
     data: () => {
         const store = useCustomerStore()
+        console.log(store.getCustomer)
         return {
             store: store,
             tab: 0,
             validForm: false,
+            id: store.getID,
             oldPassword: "",
             newPassword: "",
             newConfirmPassword: "",
@@ -168,6 +194,140 @@ export default {
             cellNumber: store.getCellNumber,
             address: store.getAddress,
             mailingAddress: store.getMailingAddress,
+            mismatchedPassAlert: false,
+            wrongPassAlert: false,
+            successUP: false,
+            failUP: false,
+            successRest: false,
+            failRest: false,
+        }
+    },
+    methods: {
+        async loadCustomerInfo() {
+            axios.get(`/api/customers/${this.id}`).then((response) => {
+                this.username = this.response.data.username
+                this.password = this.response.data.password
+                this.firstName = this.response.data.firstName
+                this.lastName = this.response.data.lastName
+                this.ssn = this.response.data.ssn
+                this.email = this.response.data.email
+                this.address = this.response.data.address
+                this.mailingAddress = this.response.data.mailingAddress
+                this.phoneNumber = this.response.data.phoneNumber
+                this.cellNumber = this.response.data.cellPhoneNumber
+                this.dob = this.response.data.doB
+
+            }).catch(() => {
+                console.log("ERROR: Customer not found.")
+            })
+        },
+        async updateUsernamePassword() {
+            if (this.newPassword != this.newConfirmPassword) {
+                this.mismatchedPassAlert = true
+                setTimeout(() => {
+                    this.mismatchedPassAlert = false
+                }, 2000)
+            } else if (this.oldPassword != this.store.getPassword) {
+                this.wrongPassAlert = true
+                setTimeout(() => {
+                    this.wrongPassAlert = false
+                }, 2000)
+            } else {
+                const editedCustomer = {
+                    "id": this.id,
+                    "username": this.username,
+                    "password": this.newPassword,
+                    "firstName": this.firstName,
+                    "lastName": this.lastName,
+                    "ssn": this.ssn,
+                    "email": this.email,
+                    "address": this.address,
+                    "mailingAddress": this.mailingAddress,
+                    "phoneNumber": this.phoneNumber,
+                    "cellNumber": this.cellNumber,
+                    "doB": this.dob,
+                }
+                axios.put(`/api/customersupdate/${this.store.getID}`, editedCustomer).then((response) => {
+                    console.log("Customer update successful.")
+                    this.successAlert()
+                    this.updateStore()
+                }).catch((e) => {
+                    console.log("Error in customer update.")
+                    this.failAlert()
+                })
+            }
+        },
+        async updateCustomerInfo() {
+            const editedCustomer = {
+                    "id": this.id,
+                    "username": this.username,
+                    "password": this.newPassword,
+                    "firstName": this.firstName,
+                    "lastName": this.lastName,
+                    "ssn": this.ssn,
+                    "email": this.email,
+                    "address": this.address,
+                    "mailingAddress": this.mailingAddress,
+                    "phoneNumber": this.phoneNumber,
+                    "cellNumber": this.cellNumber,
+                    "doB": this.dob,
+                }
+            axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then((response) => {
+                console.log("Customer update successful.")
+                this.updateStore()
+                this.successRest = true
+                setTimeout(() => {
+                    this.successRest = false
+                }, 3000)
+            }).catch((e) => {
+                console.log("Error in customer update.")
+                this.failRest = true
+                setTimeout(() => {
+                    this.failRest = false
+                }, 3000)
+            })
+        },
+        successAlert() {
+            this.success = true
+            setTimeout(() => {
+                this.success = false
+            }, 2000)
+        },
+        failAlert() {
+            this.fail = true
+            setTimeout(() => {
+                this.fail = false
+            }, 3000)
+        },
+        updateStore() {
+            const customer = {
+                "id": this.id,
+                "username": this.username,
+                "password": this.newPassword,
+                "firstName": this.firstName,
+                "lastName": this.lastName,
+                "ssn": this.ssn,
+                "email": this.email,
+                "address": this.address,
+                "mailingAddress": this.mailingAddress,
+                "phoneNumber": this.phoneNumber,
+                "cellNumber": this.cellNumber,
+                "doB": this.dob,
+            }
+            this.store.addCustomer(customer)
+        },
+        resetFromStore() {
+            this.username = this.store.getUsername
+            this.password = this.store.getPassword
+            this.firstName = this.store.getFirstName
+            this.lastName = this.store.getLastName
+            this.ssn = this.store.getSSN
+            this.email = this.store.getEmail
+            this.address = this.store.getAddress
+            this.mailingAddress = this.store.getMailingAddress
+            this.phoneNumber = this.store.getPhoneNumber
+            this.cellNumber = this.store.getCellNumber
+            this.dob = this.store.getDoB
         }
     }
 }
