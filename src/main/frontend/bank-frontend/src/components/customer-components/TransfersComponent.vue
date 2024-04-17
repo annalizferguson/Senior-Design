@@ -4,6 +4,7 @@
         <v-card-text>
             <v-form class="mt-5">
                 <v-select
+                        v-model="accountFrom"
                         label="From"
                         :items="accounts"
                         item-title="label"
@@ -11,6 +12,7 @@
                         variant="outlined"
                 />
                 <v-select
+                        v-model="accountTo"
                         label="To"
                         :items="accounts"
                         item-title="label"
@@ -30,7 +32,7 @@
                         required
                 />
                 <v-container class="d-flex justify-end">
-                    <v-btn color="#4097f5">Submit</v-btn>
+                    <v-btn color="#4097f5" @click="transferMoney">Submit</v-btn>
                 </v-container>
             </v-form>
         </v-card-text>
@@ -53,8 +55,8 @@ export default {
             accountsLoaded: false,
             amount: 0,
             accounts: [],
-            accountFrom: {},
-            accountTo: {},
+            accountFrom: "",
+            accountTo: "",
         }
     },
     methods: {
@@ -69,6 +71,13 @@ export default {
                 account.label = account.name + " *" + account.accountNumber.slice(5, 10)
             })
             this.accountsLoaded = true
+        },
+        async transferMoney() {
+            await axios.put(`/api/${this.accountTo.id}/${this.accountFrom.id}/${this.amount}`).then(() => {
+                console.log("Transfer successful.")
+            }).catch(() => {
+                console.log("Transfer failed.")
+            })
         }
     },
     beforeMount() {
