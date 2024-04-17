@@ -102,6 +102,28 @@
                 </v-btn>
             </v-card-actions>
         </v-card>
+        <v-container>
+            <v-alert
+                    v-model="closeSuccess"
+                    type="success"
+            >
+                Successfully closed {{ deleteAccountName }}.
+            </v-alert>
+            <v-alert
+                    v-model="closeFail"
+                    type="error"
+            >
+                Unable to close {{ deleteAccountName }}.
+            </v-alert>
+            <v-alert
+                v-model="closeWarning"
+                type="warning"
+                closable
+                @close="closeWarning = false"
+            >
+                Cannot close {{ deleteAccountName }} unless the balance is $0.
+            </v-alert>
+        </v-container>
         <v-container class="d-flex justify-center">
             <v-container v-if="accountsLoaded"
                          class="d-flex flex-wrap overflow-y-auto justify-center"
@@ -112,9 +134,10 @@
                     <v-card-title style="background-color: #4097f5; color: #ffffff"
                                   class="d-flex justify-space-between align-center">
                         {{ item.name }} *{{ item.accountNumber.slice(5, 9) }}
-                        <v-tooltip text="Delete Account">
+                        <v-tooltip text="Close Account">
                             <template v-slot:activator="{ props }">
-                                <v-btn v-bind="props" icon="mdi-delete-outline" variant="plain"/>
+                                <v-btn v-bind="props" icon="mdi-delete-outline" variant="plain"
+                                       @click="deleteAccount(index)"/>
                             </template>
                         </v-tooltip>
                     </v-card-title>
@@ -154,8 +177,12 @@ export default {
             depositsDialogActive: false,
             withdrawalsDialogActive: false,
             createAccountDialogActive: false,
-            customerFirstName: "",
-            customerLastName: ""
+            customerFirstName: store.getCustomerFirstName,
+            customerLastName: store.getCustomerLastName,
+            closeSuccess: false,
+            closeFail: false,
+            closeWarning: false,
+            deleteAccountName: ""
         }
     },
     methods: {
@@ -164,18 +191,51 @@ export default {
             this.accounts = data
             this.accountsLoaded = true
         },
-        async loadCustomer() {
-            axios.get(`/api/customers/${this.customerID}`).then((response) => {
-                this.customerFirstName = response.data.firstName
-                this.customerLastName = response.data.lastName
-            }).catch(() => {
-                console.log("ERROR: Customer not found.")
-            })
+        async deleteAccount(index) {
+            const accountToDelete = this.accounts[index]
+            if (accountToDelete.balance !== 0) {
+                this.deleteAccountName = accountToDelete.name + " *" + accountToDelete.accountNumber.slice(5, 9)
+                this.closeWarning = true
+            } else {
+                let accountType = ''
+                switch (accountToDelete.name) {
+                    case "Checking Account":
+                        accountType = "checking"
+                        break
+                    case "Savings Account":
+                        accountType = "savings"
+                        break
+                    case "Credit Card":
+                        accountType = "creditcard"
+                        break
+                    case "Money Market":
+                        accountType = "moneymarket"
+                        break
+                    case "Home Mortgage":
+                        accountType = "homemortgage"
+                        break
+                }
+                axios.delete(`/api/${accountType}/${accountToDelete.id}`).then(() => {
+                    console.log("Account closed successfully.")
+                    this.deleteAccountName = accountToDelete.name + " *" + accountToDelete.accountNumber.slice(5, 9)
+                    this.closeSuccess = true
+                    setTimeout(() => {
+                        this.closeSuccess = false
+                    }, 3000)
+                    this.loadCustomerAccounts()
+                }).catch(() => {
+                    console.log("Error closing account.")
+                    this.deleteAccountName = accountToDelete.name + " *" + accountToDelete.accountNumber.slice(5, 9)
+                    this.closeFail = true
+                    setTimeout(() => {
+                        this.closeFail = false
+                    }, 3000)
+                })
+            }
         }
     },
     beforeMount() {
         this.loadCustomerAccounts()
-        this.loadCustomer()
     }
 }
 </script>
