@@ -25,7 +25,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
-                        @click="goToDetails(item.id)"
+                        @click="goToDetails(item)"
                 >
                     View Details
                 </v-btn>
@@ -33,12 +33,12 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
-                        @click="goToAccounts(item.id)"
+                        @click="goToAccounts(item)"
                 >
                     Manage Accounts
                 </v-btn>
                 <v-btn
-                        variant="outlined" m
+                        variant="outlined"
                         color="primary"
                         class="mr-2"
                 >
