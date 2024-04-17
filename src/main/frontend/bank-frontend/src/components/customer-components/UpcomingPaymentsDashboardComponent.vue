@@ -1,7 +1,7 @@
 <template>
     <v-card
             width="100%"
-            height="65%"
+            height="100%"
             variant="outlined"
     >
         <v-card-title
@@ -35,7 +35,7 @@
                         color="#4097f5"
                         style="font-size:0.65em"
                 >
-                    See all
+                    See all Bills
                 </v-btn>
             </div>
         </v-card-title>
