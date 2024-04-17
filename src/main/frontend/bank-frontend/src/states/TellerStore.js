@@ -4,6 +4,7 @@ export const useTellerStore = defineStore('tellerStore', {
     state: () => {
         return {
             authenticated: false,
+            customerSet: false,
             teller: {
                 id: "",
                 username: "",
@@ -45,12 +46,16 @@ export const useTellerStore = defineStore('tellerStore', {
         getCustomerLastName(state) {
             return state.customerFocus.lastName
         },
+        getCustomerSet(state) {
+            return state.customerSet
+        },
     },
     actions: {
         addTeller(teller) {
             this.teller = teller
         },
         setCustomer(id, firstname, lastname) {
+            this.customerSet = true
             this.customerFocus.id = id
             this.customerFocus.firstName = firstname
             this.customerFocus.lastName = lastname
