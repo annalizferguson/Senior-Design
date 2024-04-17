@@ -68,6 +68,9 @@ export const useTellerStore = defineStore('tellerStore', {
               firstName: "",
               lastName: "",
           }
+        },
+        setAuthenticated() {
+            this.authenticated = true;
         }
     },
     persist: true,
