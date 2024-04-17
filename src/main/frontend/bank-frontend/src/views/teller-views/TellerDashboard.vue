@@ -32,11 +32,6 @@
                         >
                             Recent Alerts
                         </v-btn>
-                        <v-btn
-                                variant="outlined"
-                        >
-                            Settings
-                        </v-btn>
                     </div>
                 </v-card-title>
             </v-card>
