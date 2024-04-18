@@ -29,7 +29,7 @@
                     </div>
                 </v-card-title>
             </v-card>
-            <CustomerSearchDashboardComponent/>
+            <CustomerSearchDashboardComponent class="mt-2"/>
         </v-card>
     </div>
 </template>
