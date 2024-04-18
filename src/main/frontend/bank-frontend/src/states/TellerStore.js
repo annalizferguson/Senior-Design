@@ -8,6 +8,7 @@ export const useTellerStore = defineStore('tellerStore', {
             teller: {
                 id: "",
                 username: "",
+                password: "",
                 firstName: "",
                 lastName: ""
             },

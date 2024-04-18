@@ -9,6 +9,7 @@
             <v-btn
                     class="ml-5"
                     color="#4097f5"
+                    to="/create-teller"
             >
                 Create New Teller
             </v-btn>
@@ -33,6 +34,7 @@
                     variant="outlined"
                     color="primary"
                     class="mr-2"
+                    @click="goToDetails(item.id)"
                 >
                     View Details
                 </v-btn>
@@ -40,13 +42,7 @@
                     variant="outlined"
                     color="primary"
                     class="mr-2"
-                >
-                    View Reports
-                </v-btn>
-                <v-btn
-                    variant="outlined"
-                    color="primary"
-                    class="mr-2"
+                    @click="goToDelete(item.id)"
                 >
                     Delete Teller
                 </v-btn>
@@ -57,12 +53,12 @@
 
 <script>
 import axios from 'axios';
-import {useTellerStore} from "@/states/TellerStore.js";
+import {useAdminStore} from "@/states/AdminStore.js"
 import {useRouter} from "vue-router";
 export default {
     name: "TellerSearchDashboardComponent.vue",
     data: () => {
-        const store = useTellerStore()
+        const store = useAdminStore()
         const route = useRouter()
         return {
             store: store,
@@ -92,9 +88,9 @@ export default {
             this.store.setTeller(id)
             this.route.push('/teller-info')
         },
-        goToAccounts(id){
-          this.store.setTeller(id)
-          this.route.push('/teller-accounts')
+        goToDelete(id){
+            this.store.setTeller(id)
+            this.route.push('/teller-delete')
         }
     },
     beforeMount(){
