@@ -32,11 +32,12 @@
                     <v-dialog
                             v-model="dialogActive"
                             width="50%"
+                            persistent
                     >
                         <MakeAPaymentComponent :customerID="customerID"/>
                         <v-btn
                                 color="#4097f5"
-                                @click="dialogActive = false"
+                                @click="dialogActive = false; loadUnpaidBills(); loadPaidBills()"
                         >
                             Cancel
                         </v-btn>
@@ -44,9 +45,6 @@
                 </div>
             </v-card-title>
         </v-card>
-        <v-container v-if="unpaidBills.length === 0" class="d-flex justify-center">
-            No bills found.
-        </v-container>
         <v-container v-if="billsLoaded && showUnpaidBills" style="height: calc(100vh - 165px)"
                      class="d-flex justify-center flex-wrap overflow-y-auto">
             <UpcomingPaymentsItem height="50%" width="45%" class="mb-4 mr-4" v-for="(item, index) in unpaidBills"
@@ -88,12 +86,12 @@ export default {
     },
     methods: {
         async loadUnpaidBills() {
-            const {data} = await axios.get(`/api/customers/${this.customerID}/unpaidbill`)
+            const {data} = await axios.get(`/api/customers/${this.customerID}/unpaidbills`)
             this.unpaidBills = data
             this.billsLoaded = true
         },
         async loadPaidBills() {
-            const {data} = await axios.get(`/api/customers/${this.customerID}/paidbill`)
+            const {data} = await axios.get(`/api/customers/${this.customerID}/paidbills`)
             this.paidBills = data
         },
         switchCurrentType() {
