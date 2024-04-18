@@ -26,12 +26,6 @@
                         >
                             Create New Customer
                         </v-btn>
-                        <v-btn
-                                variant="outlined"
-                                class="mr-4"
-                        >
-                            Recent Alerts
-                        </v-btn>
                     </div>
                 </v-card-title>
             </v-card>
