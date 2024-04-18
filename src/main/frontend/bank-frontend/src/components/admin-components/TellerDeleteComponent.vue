@@ -28,6 +28,8 @@
               class="mr-5"
               style="margin-top: 20px;"
               size="x-large"
+              @click="confirmDelete"
+              to="/admin-dash"
           >
             Yes
           </v-btn>
@@ -37,12 +39,12 @@
             class="justify-center"
             style="margin-top: 20px;"
             size="x-large"
+            to="/admin-dash"
           >
             No
           </v-btn>
         </div>
       </v-card-text>
-
     </v-card>
   </div>
 </template>
@@ -74,6 +76,11 @@ export default{
         this.originalTeller = response.data
       }).catch(() => {
         console.log("ERROR: Teller not found.")
+      })
+    },
+    confirmDelete(){
+      axios.delete(`/api/tellers/${this.tellerID}`).then((response) => {
+        console.log(response)
       })
     }
   },

@@ -115,6 +115,11 @@ const router = createRouter({
             path: '/teller-delete',
             name: 'teller-delete',
             component: () => import('../views/admin-views/TellerDeletePage.vue')
+        },
+        {
+            path: '/create-teller',
+            name: 'create-teller',
+            component: () => import('../views/admin-views/CreateTellerPage.vue')
         }
     ]
 })

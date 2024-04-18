@@ -9,6 +9,7 @@
             <v-btn
                     class="ml-5"
                     color="#4097f5"
+                    to="/create-teller"
             >
                 Create New Teller
             </v-btn>
@@ -91,7 +92,6 @@ export default {
             this.store.setTeller(id)
             this.route.push('/teller-delete')
         }
-
     },
     beforeMount(){
         this.getTellers()
