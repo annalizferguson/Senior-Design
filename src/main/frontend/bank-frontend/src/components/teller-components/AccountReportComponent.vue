@@ -41,7 +41,6 @@ export default {
         async getTransactions() {
             await axios.get(`/api/transactions/${this.accountNumber}`).then((response) => {
                 this.transactions = response.data
-                console.log(response)
                 this.transactionsLoaded = true
                 console.log("Successfully loaded transactions for account " + this.accountNumber)
             }).catch(() => {

@@ -102,7 +102,7 @@
                 </v-btn>
             </v-card-actions>
         </v-card>
-        <v-container>
+        <v-container v-if="closeSuccess || closeFail || closeWarning">
             <v-alert
                     v-model="closeSuccess"
                     type="success"
