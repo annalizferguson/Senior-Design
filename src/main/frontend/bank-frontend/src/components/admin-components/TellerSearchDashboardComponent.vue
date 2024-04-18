@@ -41,13 +41,7 @@
                     variant="outlined"
                     color="primary"
                     class="mr-2"
-                >
-                    View Reports
-                </v-btn>
-                <v-btn
-                    variant="outlined"
-                    color="primary"
-                    class="mr-2"
+                    @click="goToDelete(item.id)"
                 >
                     Delete Teller
                 </v-btn>
@@ -93,9 +87,9 @@ export default {
             this.store.setTeller(id)
             this.route.push('/teller-info')
         },
-        goToAccounts(id) {
+        goToDelete(id){
             this.store.setTeller(id)
-            this.route.push('/teller-accounts')
+            this.route.push('/teller-delete')
         }
 
     },
