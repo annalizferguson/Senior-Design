@@ -38,6 +38,12 @@
                                   placeholder="Confirm your password"
                                   :rules="rules.required"
                     ></v-text-field>
+                    <v-alert
+                        v-if="password !== confirmPassword"
+                        text="The confirmation password you entered does not match the original password."
+                        type="error"
+                        class="mb-2"
+                    />
                     <v-text-field
                             v-model="firstName"
                             name="firstname"
@@ -192,20 +198,21 @@ export default {
             this.$refs.form.validate();
         },
         async registerCustomer() {
-            const newCustomer = {
-                "username": this.username,
-                "password": this.password,
-                "firstName": this.firstName,
-                "lastName":  this.lastName,
-                "ssn": this.ssn,
-                "email": this.email,
-                "address": this.address,
-                "mailingAddress": this.mailingAddress,
-                "phoneNumber": this.phoneNumber,
-                "cellNumber": this.cellPhoneNumber,
-                "doB": this.dob,
-                "cellPhoneNumber": this.cellPhoneNumber
-            }
+            if (this.password === this.confirmPassword) {
+                const newCustomer = {
+                    "username": this.username,
+                    "password": this.password,
+                    "firstName": this.firstName,
+                    "lastName": this.lastName,
+                    "ssn": this.ssn,
+                    "email": this.email,
+                    "address": this.address,
+                    "mailingAddress": this.mailingAddress,
+                    "phoneNumber": this.phoneNumber,
+                    "cellNumber": this.cellPhoneNumber,
+                    "doB": this.dob,
+                    "cellPhoneNumber": this.cellPhoneNumber
+                }
                 axios.post('/api/customers', newCustomer).then((response) => {
                     console.log(response)
                     this.router.push('/register-success')
@@ -215,6 +222,9 @@ export default {
                     console.log("Register Invalid.")
                     this.showRegisterFail = true
                 })
+            } else {
+                console.log("Password confirmation must matched entered password")
+            }
         }
     }
 }
