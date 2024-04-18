@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useAdminStore = defineStore('adminStore', {
     state: () => {
         return {
+            authenticated: false,
             teller: {
                 id: "",
                 username: "",
@@ -50,7 +51,10 @@ export const useAdminStore = defineStore('adminStore', {
         },
         setTeller(id){
             this.tellerFocus.id = id
-        }
+        },
+        setAuthenticated() {
+            this.authenticated = true
+        },
     },
     persist: true,
 })

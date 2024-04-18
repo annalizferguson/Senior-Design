@@ -52,15 +52,18 @@
 <script>
 import axios from "axios";
 import {useTellerStore} from "@/states/TellerStore.js";
+import {useAdminStore} from "@/states/AdminStore.js";
 import {useRouter} from "vue-router";
 
 export default {
     name: "TellerLoginPage.vue",
     data: () => {
         const tellerStore = useTellerStore()
+        const adminStore = useAdminStore()
         const router = useRouter()
         return {
             tellerStore: tellerStore,
+            adminStore: adminStore,
             router: router,
             loginAdmin: false,
             username: "",
@@ -82,6 +85,22 @@ export default {
                         this.tellerStore.addTeller(response.data)
                         this.tellerStore.setAuthenticated()
                         this.router.push("/teller-dash")
+                    }
+                }).catch(() => {
+                    console.log("login invalid.")
+                })
+            } else {
+                axios.post('/api/login', {
+                    username: this.$data.username,
+                    password: this.$data.password
+                }).then((response) => {
+                    if (response.data === '') {
+                        console.log("login invalid")
+                    } else {
+                        console.log("login valid!")
+                        this.adminStore.addAdmin(response.data)
+                        this.adminStore.setAuthenticated()
+                        this.router.push("/admin-dash")
                     }
                 }).catch(() => {
                     console.log("login invalid.")

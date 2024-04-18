@@ -1,7 +1,8 @@
 <template>
     <v-card
+            class="mt-2"
             width="100%"
-            height="85%"
+            height="86%"
             variant="outlined"
     >
         <v-card-title>
