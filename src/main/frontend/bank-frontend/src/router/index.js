@@ -78,6 +78,19 @@ const router = createRouter({
             component: () => import('../views/customer-views/CustomerBillsPage.vue')
         },
         {
+            path: '/reports',
+            name: 'reports',
+            beforeEnter: (to, from, next) => {
+                const store = useCustomerStore()
+                if (store.getAuthenticated) {
+                    next()
+                } else {
+                    next({name: 'home'})
+                }
+            },
+            component: () => import('../views/customer-views/CustomerTransactionsPage.vue')
+        },
+        {
             path: '/teller-login',
             name: 'teller-login',
             component: () => import('../views/teller-views/TellerLoginPage.vue')
@@ -158,6 +171,23 @@ const router = createRouter({
                 }
             },
             component: () => import('../views/teller-views/TellerCustomerBillsPage.vue')
+        },
+        {
+            path: '/customer-report',
+            name: 'customer-report',
+            beforeEnter: (to, from, next) => {
+                const store = useTellerStore()
+                if (store.getAuthenticated) {
+                    if (store.getCustomerSet) {
+                        next()
+                    } else {
+                        next({path: '/teller-dash'})
+                    }
+                } else {
+                    next({name: 'home'})
+                }
+            },
+            component: () => import('../views/teller-views/ViewCustomerTransactionsPage.vue')
         },
         {
             path: '/admin-dash',

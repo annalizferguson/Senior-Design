@@ -18,6 +18,14 @@
                 >
                     Make a Transfer
                 </v-btn>
+                <v-btn
+                    variant="plain"
+                    color="#4097f5"
+                    style="font-size:0.65em"
+                    to="/reports"
+                >
+                    View Reports
+                </v-btn>
                 <v-dialog
                         v-model="dialogActive"
                         width="50%"

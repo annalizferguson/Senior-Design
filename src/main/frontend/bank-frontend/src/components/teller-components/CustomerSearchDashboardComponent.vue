@@ -41,6 +41,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToReports(item)"
                 >
                     View Reports
                 </v-btn>
@@ -109,6 +110,10 @@ export default {
         goToBills(item) {
             this.store.setCustomer(item.id, item.firstName, item.lastName)
             this.route.push('/customer-bills')
+        },
+        goToReports(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
+            this.route.push('/customer-report')
         }
     },
     beforeMount() {
