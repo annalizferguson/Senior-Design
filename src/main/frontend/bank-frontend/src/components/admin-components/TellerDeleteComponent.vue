@@ -29,7 +29,6 @@
               style="margin-top: 20px;"
               size="x-large"
               @click="confirmDelete"
-              to="/admin-dash"
           >
             Yes
           </v-btn>
@@ -45,6 +44,18 @@
           </v-btn>
         </div>
       </v-card-text>
+      <v-alert
+          v-if="success"
+          closable
+          text="Teller Deleted Successfully"
+          type="success"
+      />
+      <v-alert
+          v-if="fail"
+          closable
+          text="Failed to Delete Teller"
+          type="error"
+      />
     </v-card>
   </div>
 </template>
@@ -65,7 +76,9 @@ export default{
       tellerID: tellerID,
       readonly: true,
       teller: {},
-      originalTeller: {}
+      originalTeller: {},
+      success: false,
+      fail: false
     }
   },
   methods: {
@@ -78,10 +91,22 @@ export default{
         console.log("ERROR: Teller not found.")
       })
     },
-    confirmDelete(){
+    async confirmDelete(){
       axios.delete(`/api/tellers/${this.tellerID}`).then((response) => {
         console.log(response)
+        this.successDelete()
+      }).catch(() =>{
+        console.log("Error deleting teller.")
+        this.failDelete()
       })
+    },
+    successDelete(){
+      this.success = true
+      setTimeout(() => {this.success = false}, 2000)
+    },
+    failDelete(){
+      this.fail = true
+      setTimeout(() => {this.fail = false}, 3000)
     }
   },
   beforeMount(){
