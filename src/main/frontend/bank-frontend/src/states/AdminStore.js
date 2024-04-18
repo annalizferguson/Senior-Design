@@ -55,6 +55,21 @@ export const useAdminStore = defineStore('adminStore', {
         setAuthenticated() {
             this.authenticated = true
         },
+        resetStore() {
+            this.authenticated = false
+            this.teller = {
+                id: "",
+                username: "",
+                firstName: "",
+                lastName: ""
+            }
+            this.customerFocus = {
+                id: "",
+            }
+            this.tellerFocus = {
+                id: "",
+            }
+        }
     },
     persist: true,
 })

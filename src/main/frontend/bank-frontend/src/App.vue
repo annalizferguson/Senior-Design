@@ -27,20 +27,24 @@
 <script>
 import {useCustomerStore} from "@/states/UserStore.js";
 import {useTellerStore} from "@/states/TellerStore.js";
+import {useAdminStore} from "@/states/AdminStore.js";
 
 export default {
     data: function() {
         const store = useCustomerStore()
         const tellerStore = useTellerStore()
+        const adminStore = useAdminStore()
         return {
             store: store,
-            tellerStore: tellerStore
+            tellerStore: tellerStore,
+            adminStore: adminStore
         }
     },
     methods: {
         clearStore: function() {
             this.store.resetStore()
-            this.tellerStore.$reset()
+            this.tellerStore.resetStore()
+            this.adminStore.resetStore()
         }
     }
 
