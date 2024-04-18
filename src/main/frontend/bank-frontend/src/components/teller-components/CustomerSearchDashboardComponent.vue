@@ -25,7 +25,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
-                        @click="goToDetails(item.id)"
+                        @click="goToDetails(item)"
                 >
                     View Details
                 </v-btn>
@@ -33,12 +33,12 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
-                        @click="goToAccounts(item.id)"
+                        @click="goToAccounts(item)"
                 >
                     Manage Accounts
                 </v-btn>
                 <v-btn
-                        variant="outlined" m
+                        variant="outlined"
                         color="primary"
                         class="mr-2"
                 >
@@ -48,6 +48,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToBills(item)"
                 >
                     View Bills
                 </v-btn>
@@ -97,13 +98,17 @@ export default {
                 this.customers = response.data
             })
         },
-        goToDetails(id) {
-            this.store.setCustomer(id)
+        goToDetails(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
             this.route.push('/customer-info')
         },
-        goToAccounts(id) {
-            this.store.setCustomer(id)
+        goToAccounts(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
             this.route.push('/customer-accounts')
+        },
+        goToBills(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
+            this.route.push('/customer-bills')
         }
     },
     beforeMount() {

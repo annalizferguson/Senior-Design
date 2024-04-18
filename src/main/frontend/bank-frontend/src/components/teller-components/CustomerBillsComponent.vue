@@ -2,12 +2,12 @@
     <v-container>
         <v-card height="10%" class="mb-4" style="background-color: #1565c0; color: white">
             <v-card-title class="d-flex justify-space-between">
-                All {{ billsType }} Payments
+                <div>All {{ billsType }} Bills for <b>{{ customerFirstName }} {{ customerLastName }}</b></div>
                 <v-btn
-                    variant="plain"
-                    color="white"
-                    style="font-size:0.65em"
-                    @click="switchCurrentType"
+                        variant="plain"
+                        color="white"
+                        style="font-size:0.65em"
+                        @click="switchCurrentType"
                 >
                     Show {{ otherBillsType }}
                 </v-btn>
@@ -25,18 +25,19 @@
                             variant="plain"
                             color="white"
                             style="font-size:0.65em"
-                            to="/customer-dash"
+                            to="/teller-dash"
                     >
                         Return to Dashboard
                     </v-btn>
                     <v-dialog
                             v-model="dialogActive"
                             width="50%"
+                            persistent
                     >
-                        <MakeAPaymentComponent :customerID="store.getID"/>
+                        <MakeAPaymentComponent :customerID="customerID"/>
                         <v-btn
                                 color="#4097f5"
-                                @click="dialogActive = false"
+                                @click="dialogActive = false; loadUnpaidBills(); loadPaidBills()"
                         >
                             Cancel
                         </v-btn>
@@ -44,60 +45,63 @@
                 </div>
             </v-card-title>
         </v-card>
-        <v-container v-if="billsLoaded && showUnpaidBills" style="height: calc(100vh - 165px)" class="d-flex justify-center flex-wrap overflow-y-auto">
-            <UpcomingPaymentsItem height="50%" width="45%" class="mb-4 mr-4" v-for="(item, index) in unpaidBills" :bill="item" :customerID="store.getID"/>
+        <v-container v-if="billsLoaded && showUnpaidBills" style="height: calc(100vh - 165px)"
+                     class="d-flex justify-center flex-wrap overflow-y-auto">
+            <UpcomingPaymentsItem height="50%" width="45%" class="mb-4 mr-4" v-for="(item, index) in unpaidBills"
+                                  :bill="item" :customerID="customerID"/>
         </v-container>
         <v-container v-if="billsLoaded && !showUnpaidBills" style="height: calc(100vh - 165px)"
                      class="d-flex justify-center flex-wrap overflow-y-auto">
             <PaidBillItem height="50%" width="45%" class="mb-4 mr-4" v-for="(item, index) in paidBills"
-                          :bill="item" :customerID="store.getID"/>
+                          :bill="item" :customerID="customerID"/>
         </v-container>
     </v-container>
 </template>
 
 <script>
 import UpcomingPaymentsItem from "@/components/customer-components/UpcomingPaymentsItem.vue";
-import MakeAPaymentComponent from "@/components/customer-components/MakeAPaymentComponent.vue";
 import PaidBillItem from "@/components/customer-components/PaidBillItem.vue";
+import MakeAPaymentComponent from "@/components/customer-components/MakeAPaymentComponent.vue";
+import {useTellerStore} from "@/states/TellerStore.js";
 import axios from "axios";
-import {useCustomerStore} from "@/states/UserStore.js";
 
 export default {
-    name: "CustomerBillsPage.vue",
+    name: "CustomerBillsComponent.vue",
     components: {MakeAPaymentComponent, UpcomingPaymentsItem, PaidBillItem},
     data: () => {
-        const store = useCustomerStore()
+        const tellerStore = useTellerStore()
         return {
-            billsLoaded: false,
-            dialogActive: false,
+            tellerStore: tellerStore,
+            customerID: tellerStore.getCustomerID,
+            customerFirstName: tellerStore.getCustomerFirstName,
+            customerLastName: tellerStore.getCustomerLastName,
             unpaidBills: [],
             paidBills: [],
-            store: store,
-            billsType: "Upcoming",
+            billsLoaded: false,
+            dialogActive: false,
+            billsType: "Unpaid",
             otherBillsType: "Paid",
             showUnpaidBills: true,
         }
     },
     methods: {
         async loadUnpaidBills() {
-            const id = this.store.getID
-            const {data} = await axios.get(`/api/customers/${id}/unpaidbills`)
+            const {data} = await axios.get(`/api/customers/${this.customerID}/unpaidbills`)
             this.unpaidBills = data
             this.billsLoaded = true
         },
         async loadPaidBills() {
-            const id = this.store.getID
-            const {data} = await axios.get(`/api/customers/${id}/paidbills`)
+            const {data} = await axios.get(`/api/customers/${this.customerID}/paidbills`)
             this.paidBills = data
         },
         switchCurrentType() {
             this.showUnpaidBills = !this.showUnpaidBills
             if (this.showUnpaidBills) {
-                this.billsType = "Upcoming"
+                this.billsType = "Unpaid"
                 this.otherBillsType = "Paid"
             } else {
                 this.billsType = "Paid"
-                this.otherBillsType = "Upcoming"
+                this.otherBillsType = "Unpaid"
             }
         }
     },
@@ -105,7 +109,6 @@ export default {
         this.loadUnpaidBills()
         this.loadPaidBills()
     }
-
 }
 </script>
 

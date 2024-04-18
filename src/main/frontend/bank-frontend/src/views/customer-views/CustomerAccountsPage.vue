@@ -24,23 +24,24 @@
                 <v-dialog
                         v-model="dialogActive"
                         width="50%"
+                        persistent
                 >
                     <TransfersComponent/>
                     <v-btn
                             color="#4097f5"
-                            @click="dialogActive = false"
+                            @click="dialogActive = false; accountsLoaded = false; loadAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
             </v-card-title>
         </v-card>
         <v-container class="d-flex justify-center">
-            <v-container v-if="accountsLoaded"
+            <v-container v-if="accountsLoaded && accounts.length > 0"
                          class="d-flex flex-wrap overflow-y-auto">
                 <v-card v-for="(item, index) in accounts" class="mb-5 mr-4 ml-4">
                     <v-card-title style="background-color: #4097f5; color: #ffffff">
-                        {{ item.type }} *{{ item.accountNumber.slice(5, 9) }}
+                        {{ item.name }} *{{ item.accountNumber.slice(5, 9) }}
                     </v-card-title>
                     <AccountDetailsDialog width="55%" :account="item"/>
                 </v-card>

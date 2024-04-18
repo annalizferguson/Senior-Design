@@ -14,6 +14,13 @@
                 />
                 <v-container v-if="selectedBill">
                     <b>Amount Due:</b> ${{ selectedBillAmount }}
+                    <v-select
+                            v-model="selectedAccount"
+                            label="Pay Bill From"
+                            :items="accounts"
+                            item-title="label"
+                            return-object
+                    />
                     <v-text-field
                             v-model="amountToPay"
                             name="amountToPay"
@@ -38,8 +45,24 @@
                         </v-btn>
                     </div>
                 </v-container>
+                <v-alert
+                    v-model="paymentSuccess"
+                    type="success"
+                    closable
+                    @close="paymentSuccess = false"
+                >
+                    Bill paid successfully. You may close this dialog or make another payment.
+                </v-alert>
+                <v-alert
+                    v-model="paymentFail"
+                    type="error"
+                    closable
+                    @close="paymentFail = false"
+                >
+                    Bill payment failed.
+                </v-alert>
                 <v-container class="d-flex justify-end">
-                    <v-btn color="#4097f5">Pay Now</v-btn>
+                    <v-btn color="#4097f5" @click="payBill">Pay Now</v-btn>
                 </v-container>
             </v-form>
         </v-card-text>
@@ -49,6 +72,7 @@
 <script>
 import axios from 'axios';
 import {useCustomerStore} from "@/states/UserStore.js";
+import {useTellerStore} from "@/states/TellerStore.js";
 
 export default {
     name: "MakeAPaymentComponent.vue",
@@ -56,16 +80,25 @@ export default {
         bill: {
             type: Object
         },
+        customerID: {
+            type: Number
+        }
     },
     data: function () {
-        const store = useCustomerStore()
+        const customerStore = useCustomerStore()
+        const tellerStore = useTellerStore()
         return {
-            store: store,
+            customerStore: customerStore,
+            tellerStore: tellerStore,
             billsLoaded: false,
             bills: [],
             selectedBill: this.bill,
             amountToPay: 0,
             payInFull: false,
+            accounts: [],
+            selectedAccount: "",
+            paymentSuccess: false,
+            paymentFail: false,
         }
     },
     computed: {
@@ -74,10 +107,19 @@ export default {
         },
     },
     methods: {
+        async loadAccounts() {
+            let id = this.customerStore.getID
+            if (!id) {
+                id = this.tellerStore.getCustomerID
+            }
+            const {data} = await axios.get(`/api/customers/${id}/accounts`)
+            this.accounts = data
+            this.accounts.forEach((account) => {
+                account.label = account.name + " *" + account.accountNumber.slice(5, 10) + " (Balance: $" + account.balance.toFixed(2) + ")"
+            })
+        },
         async loadUnpaidBills() {
-            const id = this.store.getID
-            const {data} = await axios.get(`/api/customers/${id}/unpaidbill`)
-            console.log(data)
+            const {data} = await axios.get(`/api/customers/${this.customerID}/unpaidbills`)
             this.bills = data
             this.accountsLoaded = true
 
@@ -87,10 +129,20 @@ export default {
             if (this.bill) {
                 this.bill.title = this.bill.payeeName + ": Due " + this.bill.dueDate
             }
+        },
+        payBill() {
+            axios.put(`/api/unpaidbill/${this.selectedBill.id}/${this.selectedAccount.accountNumber}/${this.amountToPay}`).then(() => {
+                console.log("Bill paid successfully.")
+                this.paymentSuccess = true
+            }).catch(() => {
+                console.log("Bill payment failed.")
+                this.paymentFail = true
+            })
         }
     },
     beforeMount() {
         this.loadUnpaidBills()
+        this.loadAccounts()
     }
 }
 </script>

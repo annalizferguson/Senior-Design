@@ -17,12 +17,21 @@
                 <v-card-title
                         class="d-flex justify-space-between"
                 >
+                    <div>
                     Your Dashboard
-                    <div
-                            style="font-size:0.85em"
+                    <v-btn
+                        color="white"
+                        variant="plain"
+                        to="/customer-settings"
                     >
-                        Welcome, {{ firstname }} {{ lastname }}
+                        Settings
+                    </v-btn>
                     </div>
+                        <div
+                                style="font-size:0.85em"
+                        >
+                            Welcome, {{ firstname }} {{ lastname }}
+                        </div>
                 </v-card-title>
             </v-card>
             <OpenAccountsDashboardComponent/>
@@ -33,46 +42,6 @@
                     variant="flat"
             >
                 <UpcomingPaymentsDashboardComponent/>
-                <v-card
-                        width="100%"
-                        height="32%"
-                        variant="outlined"
-                        class="d-flex flex-wrap justify-center align-center mt-4"
-                >
-                    <div style="height: 90px; width: 250px; margin-right: 100px">
-                        <v-btn
-                                height="100%"
-                                color="#4097f5"
-                        >
-                            Open New Account
-                        </v-btn>
-                    </div>
-                    <div style="height: 90px; width: 250px">
-                        <v-btn
-                                height="100%"
-                                color="#4097f5"
-                        >
-                            View Reports
-                        </v-btn>
-                    </div>
-                    <div style="height: 90px; width: 250px; margin-right: 100px">
-                        <v-btn
-                                height="100%"
-                                color="#4097f5"
-                        >
-                            View Account History
-                        </v-btn>
-                    </div>
-                    <div style="height: 90px; width: 250px">
-                        <v-btn
-                                height="100%"
-                                color="#4097f5"
-                                to="/customer-settings"
-                        >
-                            Settings
-                        </v-btn>
-                    </div>
-                </v-card>
             </v-card>
         </v-card>
     </div>

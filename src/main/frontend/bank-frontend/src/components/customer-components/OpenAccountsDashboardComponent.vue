@@ -21,13 +21,14 @@
                 <v-dialog
                         v-model="dialogActive"
                         width="50%"
+                        persistent
                 >
                     <TransfersComponent/>
                     <v-btn
                             color="#4097f5"
-                            @click="dialogActive = false"
+                            @click="dialogActive = false; accountsLoaded = false; loadAccounts()"
                     >
-                        Cancel
+                        Close
                     </v-btn>
                 </v-dialog>
                 <v-btn

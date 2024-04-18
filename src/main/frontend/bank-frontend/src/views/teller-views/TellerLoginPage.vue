@@ -1,7 +1,6 @@
 <template>
     <div
             class="d-flex justify-center align-center"
-            width="100%"
             style="height: calc(100vh - 146px)"
     >
         <v-card
@@ -34,18 +33,15 @@
                             class="d-flex justify-space-between"
                     >
                         <v-switch v-model="loginAdmin" label="Login as Admin" color="primary"></v-switch>
-                        <router-link
-                                to="/customer-dash">
-                            <v-btn
-                                    type="submit"
-                                    class="mt-2"
-                                    color="primary"
-                                    value="log in"
-                                    to="/teller-dash"
-                            >
-                                Login
-                            </v-btn>
-                        </router-link>
+                        <v-btn
+                                type="button"
+                                class="mt-2"
+                                color="primary"
+                                value="log in"
+                                @click="login"
+                        >
+                            Login
+                        </v-btn>
                     </v-container>
                 </v-form>
             </v-card-text>
@@ -54,16 +50,45 @@
 </template>
 
 <script>
+import axios from "axios";
+import {useTellerStore} from "@/states/TellerStore.js";
+import {useRouter} from "vue-router";
+
 export default {
     name: "TellerLoginPage.vue",
     data: () => {
+        const tellerStore = useTellerStore()
+        const router = useRouter()
         return {
+            tellerStore: tellerStore,
+            router: router,
             loginAdmin: false,
             username: "",
             password: "",
             errorMessage: "Error",
         }
     },
+    methods: {
+        login: function () {
+            if (!this.loginAdmin) {
+                axios.post('/api/login', {
+                    username: this.$data.username,
+                    password: this.$data.password
+                }).then((response) => {
+                    if (response.data === '') {
+                        console.log("login invalid")
+                    } else {
+                        console.log("login valid!")
+                        this.tellerStore.addTeller(response.data)
+                        this.tellerStore.setAuthenticated()
+                        this.router.push("/teller-dash")
+                    }
+                }).catch(() => {
+                    console.log("login invalid.")
+                })
+            }
+        },
+    }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
     <v-card
             width="100%"
-            height="65%"
+            height="100%"
             variant="outlined"
     >
         <v-card-title
@@ -21,7 +21,7 @@
                         v-model="dialogActive"
                         width="50%"
                 >
-                    <MakeAPaymentComponent/>
+                    <MakeAPaymentComponent :customerID="store.getID"/>
                     <v-btn
                             color="#4097f5"
                             @click="dialogActive = false"
@@ -35,7 +35,7 @@
                         color="#4097f5"
                         style="font-size:0.65em"
                 >
-                    See all
+                    See all Bills
                 </v-btn>
             </div>
         </v-card-title>
@@ -54,7 +54,9 @@
                     height="90%"
                     class="mr-2 mb-2"
                     v-for="(item, index) in bills"
-                    :bill="item"/>
+                    :bill="item"
+                    :customerID="store.getID"
+            />
         </v-container>
     </v-card>
 </template>
@@ -81,7 +83,7 @@ export default {
     methods: {
         async loadUnpaidBills() {
             const id = this.store.getID
-            const {data} = await axios.get(`/api/customers/${id}/unpaidbill`)
+            const {data} = await axios.get(`/api/customers/${id}/unpaidbills`)
             console.log(data)
             this.bills = data
             if (this.bills.length > 0) {
