@@ -37,7 +37,7 @@
                     <div class="d-flex justify-center">
                         <v-btn
                                 v-model="payInFull"
-                                @click="amountToPay = selectedBill.amountDue"
+                                @click="amountToPay = selectedBill.currentAmountDue"
                                 color="#4097f5"
                                 variant="tonal"
                         >
@@ -103,7 +103,7 @@ export default {
     },
     computed: {
         selectedBillAmount() {
-            return this.selectedBill.amountDue
+            return this.selectedBill.currentAmountDue
         },
     },
     methods: {
@@ -130,7 +130,7 @@ export default {
                 this.bill.title = this.bill.payeeName + ": Due " + this.bill.dueDate
             }
         },
-        payBill() {
+        async payBill() {
             axios.put(`/api/unpaidbill/${this.selectedBill.id}/${this.selectedAccount.accountNumber}/${this.amountToPay}`).then(() => {
                 console.log("Bill paid successfully.")
                 this.paymentSuccess = true

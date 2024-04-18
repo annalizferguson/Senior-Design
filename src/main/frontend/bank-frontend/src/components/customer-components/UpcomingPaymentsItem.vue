@@ -36,9 +36,9 @@
                 <MakeAPaymentComponent :bill="bill" :customerID="customerID"/>
                 <v-btn
                         color="#4097f5"
-                        @click="dialogActive = false"
+                        @click="dialogActive = false;"
                 >
-                    Cancel
+                    Close
                 </v-btn>
             </v-dialog>
         </v-card-actions>
@@ -67,7 +67,7 @@ export default {
             dialogActive: false,
             billName: this.bill.payeeName,
             billDate: this.bill.dueDate,
-            billAmount: this.bill.amountDue,
+            billAmount: this.bill.currentAmountDue,
         }
     }
 }

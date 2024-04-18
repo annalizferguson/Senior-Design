@@ -84,7 +84,6 @@ export default {
         async loadUnpaidBills() {
             const id = this.store.getID
             const {data} = await axios.get(`/api/customers/${id}/unpaidbills`)
-            console.log(data)
             this.bills = data
             if (this.bills.length > 0) {
                 this.billsLoaded = true
