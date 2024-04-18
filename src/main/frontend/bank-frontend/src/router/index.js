@@ -105,6 +105,11 @@ const router = createRouter({
             path: '/admin-dash',
             name: 'admin-dash',
             component: () => import('../views/AdminDashboard.vue')
+        },
+        {
+            path: '/teller-info',
+            name: 'teller-info',
+            component: ()  => import('../views/admin-views/TellerDetailsPage.vue')
         }
     ]
 })

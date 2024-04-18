@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useTellerStore = defineStore('tellerStore', {
+export const useAdminStore = defineStore('adminStore', {
     state: () => {
         return {
             teller: {
@@ -12,11 +12,14 @@ export const useTellerStore = defineStore('tellerStore', {
             },
             customerFocus: {
                 id: "",
+            },
+            tellerFocus:{
+                id: "",
             }
         }
     },
     getters: {
-        getTeller(state) {
+        getAdmin(state) {
             return state.teller;
         },
         getID(state) {
@@ -33,14 +36,20 @@ export const useTellerStore = defineStore('tellerStore', {
         },
         getCustomerID(state) {
             return state.customerFocus.id
+        },
+        getTellerID(state){
+            return state.tellerFocus.id
         }
     },
     actions: {
-        addTeller(teller) {
-            this.teller = teller
+        addAdmin(admin) {
+            this.admin = admin
         },
         setCustomer(id) {
             this.customerFocus.id = id
+        },
+        setTeller(id){
+            this.tellerFocus.id = id
         }
     },
     persist: true,

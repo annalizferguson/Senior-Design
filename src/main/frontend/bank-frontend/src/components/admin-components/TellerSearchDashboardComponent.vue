@@ -33,6 +33,7 @@
                     variant="outlined"
                     color="primary"
                     class="mr-2"
+                    @click="goToDetails(item.id)"
                 >
                     View Details
                 </v-btn>
@@ -57,12 +58,12 @@
 
 <script>
 import axios from 'axios';
-import {useTellerStore} from "@/states/TellerStore.js";
+import {useAdminStore} from "@/states/AdminStore.js"
 import {useRouter} from "vue-router";
 export default {
     name: "TellerSearchDashboardComponent.vue",
     data: () => {
-        const store = useTellerStore()
+        const store = useAdminStore()
         const route = useRouter()
         return {
             store: store,
@@ -92,10 +93,11 @@ export default {
             this.store.setTeller(id)
             this.route.push('/teller-info')
         },
-        goToAccounts(id){
-          this.store.setTeller(id)
-          this.route.push('/teller-accounts')
+        goToAccounts(id) {
+            this.store.setTeller(id)
+            this.route.push('/teller-accounts')
         }
+
     },
     beforeMount(){
         this.getTellers()
@@ -104,7 +106,5 @@ export default {
 </script>
 
 <style scoped>
-
-</style>
 
 </style>
