@@ -32,13 +32,14 @@
                     <v-dialog
                             v-model="dialogActive"
                             width="50%"
+                            persistent
                     >
                         <MakeAPaymentComponent :customerID="store.getID"/>
                         <v-btn
                                 color="#4097f5"
-                                @click="dialogActive = false"
+                                @click="dialogActive = false; loadUnpaidBills(); loadPaidBills()"
                         >
-                            Cancel
+                            Close
                         </v-btn>
                     </v-dialog>
                 </div>

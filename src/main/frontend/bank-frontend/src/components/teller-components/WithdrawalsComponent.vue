@@ -4,6 +4,7 @@
         <v-card-text>
             <v-form class="mt-5">
                 <v-select
+                        v-model="selectedAccount"
                         label="Account From"
                         :items="accounts"
                         item-title="label"
@@ -21,8 +22,22 @@
                         hide-spin-buttons
                         required
                 />
+                <v-alert
+                        v-model="withdrawalSuccess"
+                        text="Withdrawal successful. You may close this dialog or initiate another withdrawal."
+                        type="success"
+                        @close="withdrawalSuccess = false"
+                        closable
+                />
+                <v-alert
+                        v-model="withdrawalFail"
+                        text="Withdrawal failed."
+                        type="error"
+                        @close="withdrawalFail = false"
+                        closable
+                />
                 <v-container class="d-flex justify-end">
-                    <v-btn color="#4097f5">Submit</v-btn>
+                    <v-btn color="#4097f5" @click="withdraw()">Submit</v-btn>
                 </v-container>
             </v-form>
         </v-card-text>
@@ -46,6 +61,9 @@ export default {
             amount: 0,
             accounts: [],
             accountTo: {},
+            withdrawalSuccess: false,
+            withdrawalFail: false,
+            selectedAccount: ""
         }
     },
     methods: {
@@ -57,10 +75,19 @@ export default {
             const {data} = await axios.get(`/api/customers/${id}/accounts`)
             this.accounts = data
             this.accounts.forEach((account) => {
-                account.label = account.type + " *" + account.accountNumber.slice(5, 10)
+                account.label = account.name + " *" + account.accountNumber.slice(5, 10)
             })
             this.accountsLoaded = true
-        }
+        },
+        withdraw() {
+            axios.post(`/api/withdrawal/${this.selectedAccount.accountNumber}/${this.amount}`).then(() => {
+                console.log("Withdrawal Successful")
+                this.withdrawalSuccess = true
+            }).catch(() => {
+                console.log("Withdrawal failed.")
+                this.withdrawalFail = true
+            })
+        },
     },
     beforeMount() {
         this.loadAccounts()

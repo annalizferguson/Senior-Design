@@ -9,7 +9,7 @@
                             variant="plain"
                             color="white"
                             style="font-size:0.65em"
-                            to="/teller-dash"
+                            to="/customer-dash"
                     >
                         Return to Dashboard
                     </v-btn>
