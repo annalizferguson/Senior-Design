@@ -57,26 +57,8 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
-                        @click="deleteDialog = true"
+                        @click="deleteDialog = true; deleteCustomer(item)"
                 >
-                    <v-dialog
-                        v-model="deleteDialog"
-                        persistent
-                    >
-                        <v-container class="d-flex justify-center">
-                        <v-card width="75%">
-                            <v-card-title class="d-flex justify-center">Are you sure you want to delete this customer?</v-card-title>
-                            <v-card-actions class="d-flex justify-center">
-                                <v-btn color="primary" @click="deleteCustomer(item); deleteDialog = false">
-                                    Yes
-                                </v-btn>
-                                <v-btn color="primary" @click="deleteDialog = false">
-                                    No
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                        </v-container>
-                    </v-dialog>
                     Delete Customer
                 </v-btn>
             </template>
