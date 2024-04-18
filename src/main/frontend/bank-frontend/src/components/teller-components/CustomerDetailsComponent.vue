@@ -43,6 +43,22 @@
                 style="height: calc(100vh - 260px)">
             <v-form>
                 <v-text-field
+                    v-model="firstName"
+                    name="getFirstName"
+                    label="First Name"
+                    type="text"
+                    placeholder="Enter first name"
+                    :readonly="readonly"
+                ></v-text-field>
+                <v-text-field
+                    v-model="lastName"
+                    name="getLastName"
+                    label="Last Name"
+                    type="text"
+                    placeholder="Enter last name"
+                    :readonly="readonly"
+                ></v-text-field>
+                <v-text-field
                         v-model="username"
                         name="username"
                         label="Username"
@@ -54,24 +70,9 @@
                         v-model="password"
                         name="password"
                         label="Password"
-                        type="password"
                         placeholder="Enter old password"
-                        :readonly="readonly"
-                ></v-text-field>
-                <v-text-field
-                        v-if="false"
-                        name="newPassword"
-                        label="New Password"
-                        type="password"
-                        placeholder="Enter new password"
-                        :readonly="readonly"
-                ></v-text-field>
-                <v-text-field
-                        v-if="false"
-                        name="confirmPassword"
-                        label="Confirm New Password"
-                        type="password"
-                        placeholder="Confirm new password"
+                        hint="Passwords must be greater than 8 characters and include a capital letter, a lowercase letter, and a special character."
+                        :type="showPassword"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
@@ -88,6 +89,7 @@
                         label="Phone Number"
                         type="text"
                         placeholder="Enter updated phone number"
+                        hint="(xxx)xxx-xxxx"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
@@ -96,6 +98,7 @@
                         label="Cell Phone Number"
                         type="text"
                         placeholder="Enter updated cellphone number"
+                        hint="(xxx)xxx-xxxx"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
@@ -120,6 +123,7 @@
                         label="Date of Birth"
                         type="text"
                         placeholder="Enter updated date of birth"
+                        hint="mm-dd-yyyy"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
@@ -128,6 +132,7 @@
                         label="SSN"
                         type="text"
                         placeholder="Enter updated SSN"
+                        hint="xxx-xx-xxxx"
                         :readonly="readonly"
                 ></v-text-field>
             </v-form>
@@ -202,6 +207,7 @@ export default {
             phoneNumber: "",
             cellNumber: "",
             doB: "",
+            showPassword: "password",
         }
     },
     methods: {
@@ -242,11 +248,11 @@ export default {
                 "cellNumber": this.cellNumber,
                 "doB": this.doB,
             }
-            axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then((response) => {
+            axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then(() => {
                 this.readonly = true
                 console.log("Customer update successful.")
                 this.successAlert()
-            }).catch((e) => {
+            }).catch(() => {
                 console.log("Error in customer update.")
                 this.failAlert()
             })

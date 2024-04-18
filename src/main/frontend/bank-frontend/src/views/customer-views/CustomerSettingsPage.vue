@@ -71,24 +71,28 @@
                                                 closable
                                                 text="New password must match confirmed password."
                                                 type="error"
+                                                @close="mismatchedPassAlert = false"
                                         />
                                         <v-alert
                                                 v-if="wrongPassAlert"
                                                 closable
                                                 text="Old password is required to enter a new password."
                                                 type="error"
+                                                @close="wrongPassAlert = false"
                                         />
                                         <v-alert
                                                 v-if="successUP"
                                                 closable
                                                 text="Information successfully updated."
                                                 type="success"
+                                                @close="successUP = false"
                                         />
                                         <v-alert
                                                 v-if="failUP"
                                                 closable
                                                 text="Information failed to update."
                                                 type="error"
+                                                @close="failUP = false"
                                         />
                                     </v-form>
                                     <v-card-actions class="d-flex justify-end">
@@ -101,6 +105,20 @@
                             <v-window-item value="1">
                                 <v-card variant="flat">
                                     <v-form v-model="validForm" ref="form">
+                                        <v-text-field
+                                            v-model="firstName"
+                                            name="getFirstName"
+                                            label="First Name"
+                                            type="text"
+                                            placeholder="Enter your first name"
+                                        ></v-text-field>
+                                        <v-text-field
+                                            v-model="lastName"
+                                            name="getLastName"
+                                            label="Last Name"
+                                            type="text"
+                                            placeholder="Enter your last name"
+                                        ></v-text-field>
                                         <v-text-field
                                                 v-model="email"
                                                 name="getEmail"
@@ -150,6 +168,20 @@
                                                 type="password"
                                                 readonly
                                         ></v-text-field>
+                                        <v-alert
+                                            v-if="successRest"
+                                            closable
+                                            text="Information successfully updated"
+                                            type="success"
+                                            @close="successRest = false"
+                                        />
+                                        <v-alert
+                                            v-if="failRest"
+                                            closable
+                                            text="Information failed to update."
+                                            type="error"
+                                            @close="failRest = false"
+                                        />
                                     </v-form>
                                     <v-card-actions class="d-flex justify-space-between">
                                         <v-btn variant="tonal" color="red" @click="resetFromStore">
@@ -177,7 +209,6 @@ export default {
     name: "CustomerSettingsPage.vue",
     data: () => {
         const store = useCustomerStore()
-        console.log(store.getCustomer)
         return {
             store: store,
             tab: 0,
@@ -187,6 +218,8 @@ export default {
             newPassword: "",
             newConfirmPassword: "",
             username: store.getUsername,
+            firstName: store.getFirstName,
+            lastName: store.getLastName,
             dob: store.getDoB,
             ssn: store.getSSN,
             email: store.getEmail,
@@ -204,7 +237,7 @@ export default {
     },
     methods: {
         async loadCustomerInfo() {
-            axios.get(`/api/customers/${this.id}`).then((response) => {
+            axios.get(`/api/customers/${this.id}`).then(() => {
                 this.username = this.response.data.username
                 this.password = this.response.data.password
                 this.firstName = this.response.data.firstName
@@ -222,12 +255,12 @@ export default {
             })
         },
         async updateUsernamePassword() {
-            if (this.newPassword != this.newConfirmPassword) {
+            if (this.newPassword !== this.newConfirmPassword) {
                 this.mismatchedPassAlert = true
                 setTimeout(() => {
                     this.mismatchedPassAlert = false
                 }, 2000)
-            } else if (this.oldPassword != this.store.getPassword) {
+            } else if (this.oldPassword !== this.store.getPassword) {
                 this.wrongPassAlert = true
                 setTimeout(() => {
                     this.wrongPassAlert = false
@@ -247,11 +280,11 @@ export default {
                     "cellNumber": this.cellNumber,
                     "doB": this.dob,
                 }
-                axios.put(`/api/customersupdate/${this.store.getID}`, editedCustomer).then((response) => {
+                axios.put(`/api/customersupdate/${this.store.getID}`, editedCustomer).then(() => {
                     console.log("Customer update successful.")
                     this.successAlert()
                     this.updateStore()
-                }).catch((e) => {
+                }).catch(() => {
                     console.log("Error in customer update.")
                     this.failAlert()
                 })
@@ -272,32 +305,16 @@ export default {
                     "cellNumber": this.cellNumber,
                     "doB": this.dob,
                 }
-            axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then((response) => {
+            axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then(() => {
                 console.log("Customer update successful.")
                 this.updateStore()
                 this.successRest = true
-                setTimeout(() => {
-                    this.successRest = false
-                }, 3000)
-            }).catch((e) => {
+                this.successUP = true
+            }).catch(() => {
                 console.log("Error in customer update.")
                 this.failRest = true
-                setTimeout(() => {
-                    this.failRest = false
-                }, 3000)
+                this.failUP = true
             })
-        },
-        successAlert() {
-            this.success = true
-            setTimeout(() => {
-                this.success = false
-            }, 2000)
-        },
-        failAlert() {
-            this.fail = true
-            setTimeout(() => {
-                this.fail = false
-            }, 3000)
         },
         updateStore() {
             const customer = {
