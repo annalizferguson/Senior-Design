@@ -62,20 +62,11 @@
                     closable
                     title="Teller Deleted Successfully"
                     type="success"
-            >
-                <div>
-                  <v-btn
-                    variant="outlined"
-                    to="/admin-dash"
-                  >
-                    Return to Dashboard
-                  </v-btn>
-                </div>
-            </v-alert>
+            />
             <v-alert
                     v-if="fail"
                     closable
-                    text="Failed to Delete Teller"
+                    title="Failed to Delete Teller"
                     type="error"
             />
         </v-card>
@@ -84,15 +75,14 @@
 <script>
 import {useAdminStore} from "@/states/AdminStore.js";
 import axios from 'axios';
-import TellerSearchDashboardComponent from "@/components/admin-components/TellerSearchDashboardComponent.vue";
-import CustomerSearchDashboardComponent from "@/components/teller-components/CustomerSearchDashboardComponent.vue";
+import {useRouter} from "vue-router";
 
 export default {
     name: "TellerDeleteComponent.vue",
-    components: {CustomerSearchDashboardComponent, TellerSearchDashboardComponent},
     data: () => {
         const store = useAdminStore()
         const tellerID = store.getTellerID
+        const router = useRouter()
         return {
             store: store,
             tellerID: tellerID,
@@ -100,7 +90,8 @@ export default {
             teller: {},
             originalTeller: {},
             success: false,
-            fail: false
+            fail: false,
+            router: router
         }
     },
     methods: {
@@ -125,7 +116,7 @@ export default {
         },
         successDelete() {
             this.success = true
-            setTimeout(() => this.route.push('/admin-dash'), 2000)
+            setTimeout(() => this.router.push('/admin-dash'), 2000)
         },
         failDelete() {
             this.fail = true
