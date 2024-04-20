@@ -13,8 +13,15 @@
                     variant="elevated"
                     color="#4097f5"
             >
-                <v-card-title>
+                <v-card-title class="d-flex justify-space-between">
                     Delete Teller Account
+                  <v-btn
+                      class=""
+                      variant="outlined"
+                      to="/admin-dash"
+                  >
+                    Return to Dashboard
+                  </v-btn>
                 </v-card-title>
             </v-card>
             <v-container
@@ -53,9 +60,18 @@
             <v-alert
                     v-if="success"
                     closable
-                    text="Teller Deleted Successfully"
+                    title="Teller Deleted Successfully"
                     type="success"
-            />
+            >
+                <div>
+                  <v-btn
+                    variant="outlined"
+                    to="/admin-dash"
+                  >
+                    Return to Dashboard
+                  </v-btn>
+                </div>
+            </v-alert>
             <v-alert
                     v-if="fail"
                     closable
@@ -101,22 +117,21 @@ export default {
             axios.delete(`/api/tellers/${this.tellerID}`).then((response) => {
                 console.log(response)
                 this.successDelete()
-            }).catch(() => {
+            }).catch((e) => {
+                console.log(e)
                 console.log("Error deleting teller.")
                 this.failDelete()
             })
         },
         successDelete() {
             this.success = true
-            setTimeout(() => {
-                this.success = false
-            }, 2000)
+            setTimeout(() => this.route.push('/admin-dash'), 2000)
         },
         failDelete() {
             this.fail = true
             setTimeout(() => {
                 this.fail = false
-            }, 3000)
+            }, 5000)
         }
     },
     beforeMount() {

@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import {useCustomerStore} from "@/states/UserStore.js";
 import {useTellerStore} from "@/states/TellerStore.js";
+import {useAdminStore} from "@/states/AdminStore.js";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -192,7 +193,7 @@ const router = createRouter({
         {
             path: '/admin-dash',
             name: 'admin-dash',
-            component: () => import('../views/AdminDashboard.vue')
+            component: () => import('../views/admin-views/AdminDashboard.vue')
         },
         {
             path: '/teller-info',
@@ -208,7 +209,12 @@ const router = createRouter({
             path: '/create-teller',
             name: 'create-teller',
             component: () => import('../views/admin-views/CreateTellerPage.vue')
-        }
+        },
+        {
+            path: '/admin-dash',
+            name: 'admin-dash',
+            component: () => import('../views/admin-views/AdminDashboard.vue')
+        },
     ]
 })
 

@@ -40,7 +40,10 @@ export const useAdminStore = defineStore('adminStore', {
         },
         getTellerID(state){
             return state.tellerFocus.id
-        }
+        },
+        getAuthenticated(state) {
+            return state.authenticated
+        },
     },
     actions: {
         addAdmin(admin) {
