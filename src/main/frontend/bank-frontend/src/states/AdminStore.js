@@ -63,6 +63,7 @@ export const useAdminStore = defineStore('adminStore', {
             this.teller = {
                 id: "",
                 username: "",
+                password: "",
                 firstName: "",
                 lastName: ""
             }
