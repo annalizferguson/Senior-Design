@@ -53,11 +53,11 @@ export default {
         return {
             currentAccount: this.account,
             dialogActive: false,
-            accountType: this.account.type,
+            accountType: this.account.name,
             accountNumber: this.account.accountNumber,
             balance: this.account.balance.toLocaleString(),
             endingDigits: this.account.accountNumber.slice(5, 9),
-            title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
+            title: this.account.name + " *" + this.account.accountNumber.slice(5, 9),
         }
     },
 

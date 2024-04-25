@@ -4,6 +4,7 @@
         <v-card-text>
             <v-form class="mt-5">
                 <v-select
+                    v-model="selectedAccount"
                         label="Account Into"
                         :items="accounts"
                         item-title="label"
@@ -21,8 +22,22 @@
                         hide-spin-buttons
                         required
                 />
+                <v-alert
+                    v-model="depositSuccess"
+                    text="Deposit successful. You may close this dialog or initiate another deposit."
+                    type="success"
+                    @close="depositSuccess = false"
+                    closable
+                />
+                <v-alert
+                    v-model="depositFail"
+                    text="Deposit failed."
+                    type="error"
+                    @close="depositFail = false"
+                    closable
+                />
                 <v-container class="d-flex justify-end">
-                    <v-btn color="#4097f5">Submit</v-btn>
+                    <v-btn color="#4097f5" @click="deposit">Submit</v-btn>
                 </v-container>
             </v-form>
         </v-card-text>
@@ -46,6 +61,9 @@ export default {
             amount: 0,
             accounts: [],
             accountTo: {},
+            selectedAccount: "",
+            depositSuccess: false,
+            depositFail: false,
         }
     },
     methods: {
@@ -57,10 +75,19 @@ export default {
             const {data} = await axios.get(`/api/customers/${id}/accounts`)
             this.accounts = data
             this.accounts.forEach((account) => {
-                account.label = account.type + " *" + account.accountNumber.slice(5, 10)
+                account.label = account.name + " *" + account.accountNumber.slice(5, 10)
             })
             this.accountsLoaded = true
-        }
+        },
+        deposit() {
+            axios.post(`/api/deposit/${this.selectedAccount.accountNumber}/${this.amount}`).then(() => {
+                console.log("Deposit Successful")
+                this.depositSuccess = true
+            }).catch(() => {
+                console.log("Deposit failed.")
+                this.depositFail = true
+            })
+        },
     },
     beforeMount() {
         this.loadAccounts()

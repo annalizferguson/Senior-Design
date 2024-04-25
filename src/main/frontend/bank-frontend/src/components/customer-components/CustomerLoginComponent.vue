@@ -77,21 +77,22 @@ export default {
 
     methods: {
         login: function () {
-            try {
-                axios.post('/api/login', {
-                    username: this.$data.username,
-                    password: this.$data.password
-                }).then((response) => {
+            axios.post('/api/login', {
+                username: this.$data.username,
+                password: this.$data.password
+            }).then((response) => {
+                if (response.data === '') {
+                    console.log("login invalid")
+                } else {
                     console.log("login valid!")
                     this.store.addCustomer(response.data)
-                    this.store.setAuthenticated()
                     console.log(response.data)
+                    this.store.setAuthenticated()
                     this.router.push("/customer-dash")
-
-                })
-            } catch (error) {
-                console.log("invalid login")
-            }
+                }
+            }).catch(() => {
+                console.log("login invalid.")
+            })
         },
     }
 

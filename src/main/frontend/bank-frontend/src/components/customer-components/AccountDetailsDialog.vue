@@ -16,7 +16,7 @@
                 <v-container>${{ balance }}</v-container>
             </v-col>
         </v-row>
-        <v-row v-if="type === 'Savings' || type === 'Money Market' || type === 'Credit Card' ">
+        <v-row v-if="type === 'Savings Account' || type === 'Money Market' || type === 'Credit Card' ">
             <v-col>
                 <v-container><b>Interest
                     Rate:</b></v-container>
@@ -46,6 +46,22 @@
         <v-row v-if="type === 'Credit Card'">
             <v-col>
                 <v-container><b>Amount Due:</b></v-container>
+            </v-col>
+            <v-col>
+                <v-container>${{ amountDue }}</v-container>
+            </v-col>
+        </v-row>
+        <v-row v-if="type === 'Credit Card'">
+            <v-col>
+                <v-container><b>Penalty Interest:</b></v-container>
+            </v-col>
+            <v-col>
+                <v-container>{{ penaltyInterest }}%</v-container>
+            </v-col>
+        </v-row>
+        <v-row v-if="type === 'Credit Card'">
+            <v-col>
+                <v-container><b>Penalty Fee:</b></v-container>
             </v-col>
             <v-col>
                 <v-container>${{ amountDue }}</v-container>
@@ -83,6 +99,14 @@
                 <v-container>${{ unpaidBalance }}</v-container>
             </v-col>
         </v-row>
+        <v-row v-if="type === 'Credit Card' || type === 'Home Mortgage'">
+            <v-col>
+                <v-container><b>Missed Payments:</b></v-container>
+            </v-col>
+            <v-col>
+                <v-container>{{ missedPayments }}</v-container>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -98,8 +122,8 @@ export default {
         return {
             number: this.account.accountNumber,
             balance: this.account.balance.toLocaleString(),
-            type: this.account.type,
-            title: this.account.type + " *" + this.account.accountNumber.slice(5, 9),
+            type: this.account.name,
+            title: this.account.name + " *" + this.account.accountNumber.slice(5, 9),
             interestRate: this.account.interestRate,
             transactionCount: this.account.transactionCount,
             transactionLimit: this.account.transactionLimit,
@@ -107,7 +131,10 @@ export default {
             totalMortgage: this.account.totalMortgage?.toLocaleString(),
             mortgageLeft: this.account.mortgageLeft?.toLocaleString(),
             monthlyDue: this.account.monthlyDue,
-            unpaidBalance: this.account.unpaidBalance
+            unpaidBalance: this.account.unpaidBalance,
+            penaltyInterest: this.account.penaltyInterest,
+            penaltyFee: this.account.penaltyFee,
+            missedPayments: this.account.missedPayments,
         }
     },
 }

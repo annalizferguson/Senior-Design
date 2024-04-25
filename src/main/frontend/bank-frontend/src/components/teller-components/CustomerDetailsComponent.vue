@@ -20,7 +20,15 @@
                         Edit Customer
                     </v-btn>
                     <v-btn
-                            v-if="readonly"
+                            v-if="!readonly"
+                            disabled
+                            class="mr-3"
+                            variant="outlined"
+                            @click="readonly = false"
+                    >
+                        Editing Customer...
+                    </v-btn>
+                    <v-btn
                             variant="outlined"
                             to="/teller-dash"
                     >
@@ -35,7 +43,23 @@
                 style="height: calc(100vh - 260px)">
             <v-form>
                 <v-text-field
-                        v-model="customer.username"
+                    v-model="firstName"
+                    name="getFirstName"
+                    label="First Name"
+                    type="text"
+                    placeholder="Enter first name"
+                    :readonly="readonly"
+                ></v-text-field>
+                <v-text-field
+                    v-model="lastName"
+                    name="getLastName"
+                    label="Last Name"
+                    type="text"
+                    placeholder="Enter last name"
+                    :readonly="readonly"
+                ></v-text-field>
+                <v-text-field
+                        v-model="username"
                         name="username"
                         label="Username"
                         type="text"
@@ -43,31 +67,16 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.password"
+                        v-model="password"
                         name="password"
                         label="Password"
-                        type="password"
                         placeholder="Enter old password"
+                        hint="Passwords must be greater than 8 characters and include a capital letter, a lowercase letter, and a special character."
+                        :type="showPassword"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-if="!readonly"
-                        name="newPassword"
-                        label="New Password"
-                        type="password"
-                        placeholder="Enter new password"
-                        :readonly="readonly"
-                ></v-text-field>
-                <v-text-field
-                        v-if="!readonly"
-                        name="confirmPassword"
-                        label="Confirm New Password"
-                        type="password"
-                        placeholder="Confirm new password"
-                        :readonly="readonly"
-                ></v-text-field>
-                <v-text-field
-                        v-model="customer.email"
+                        v-model="email"
                         name="email"
                         label="Customer Email"
                         type="text"
@@ -75,23 +84,25 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.phoneNumber"
+                        v-model="phoneNumber"
                         name="phone"
                         label="Phone Number"
                         type="text"
                         placeholder="Enter updated phone number"
+                        hint="(xxx)xxx-xxxx"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.cellNumber"
+                        v-model="cellNumber"
                         name="cellphone"
                         label="Cell Phone Number"
                         type="text"
                         placeholder="Enter updated cellphone number"
+                        hint="(xxx)xxx-xxxx"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.address"
+                        v-model="address"
                         name="address"
                         label="Address"
                         type="text"
@@ -99,7 +110,7 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.mailingAddress"
+                        v-model="mailingAddress"
                         name="mailingAddress"
                         label="Mailing Address"
                         type="text"
@@ -107,19 +118,21 @@
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.doB"
+                        v-model="doB"
                         name="dob"
                         label="Date of Birth"
                         type="text"
                         placeholder="Enter updated date of birth"
+                        hint="mm-dd-yyyy"
                         :readonly="readonly"
                 ></v-text-field>
                 <v-text-field
-                        v-model="customer.ssn"
+                        v-model="ssn"
                         name="ssn"
                         label="SSN"
                         type="text"
                         placeholder="Enter updated SSN"
+                        hint="xxx-xx-xxxx"
                         :readonly="readonly"
                 ></v-text-field>
             </v-form>
@@ -129,6 +142,7 @@
                 class="d-flex justify-space-between"
         >
             <v-btn
+                    v-if="!readonly"
                     type="button"
                     class="mt-2"
                     color="red"
@@ -137,7 +151,20 @@
             >
                 Discard Changes
             </v-btn>
+            <v-alert
+                v-if="customerEditSuccess"
+                closable
+                text="Customer information successfully changed."
+                type="success"
+            />
+            <v-alert
+                v-if="customerEditFail"
+                closable
+                text="Error: Empty or Invalid fields."
+                type="error"
+            />
             <v-btn
+                    v-if="!readonly"
                     type="button"
                     class="mt-2"
                     color="primary"
@@ -163,9 +190,24 @@ export default {
         return {
             store: store,
             customerID: customerID,
+            customerEditSuccess: false,
+            customerEditFail: false,
             readonly: true,
             customer: {},
-            originalCustomer: {}
+            originalCustomer: {},
+            id: "",
+            username: "",
+            password: "",
+            firstName: "",
+            lastName: "",
+            ssn: "",
+            email: "",
+            address: "",
+            mailingAddress: "",
+            phoneNumber: "",
+            cellNumber: "",
+            doB: "",
+            showPassword: "password",
         }
     },
     methods: {
@@ -174,6 +216,19 @@ export default {
                 console.log(response.data)
                 this.customer = response.data
                 this.originalCustomer = response.data
+                this.id = this.customer.id
+                this.username = this.customer.username
+                this.password = this.customer.password
+                this.firstName = this.customer.firstName
+                this.lastName = this.customer.lastName
+                this.ssn = this.customer.ssn
+                this.email = this.customer.email
+                this.address = this.customer.address
+                this.mailingAddress = this.customer.mailingAddress
+                this.phoneNumber = this.customer.phoneNumber
+                this.cellNumber = this.customer.cellPhoneNumber
+                this.doB = this.customer.doB
+
             }).catch(() => {
                 console.log("ERROR: Customer not found.")
             })
@@ -181,29 +236,51 @@ export default {
         async updateCustomerInfo() {
             const editedCustomer = {
                 "id": this.customer.id,
-                "username": this.customer.username,
-                "password": this.customer.password,
-                "firstName": this.customer.firstName,
-                "lastName": this.customer.lastName,
-                "ssn": this.customer.ssn,
-                "email": this.customer.email,
-                "address": this.customer.address,
-                "mailingAddress": this.customer.mailingAddress,
-                "phoneNumber": this.customer.phoneNumber,
-                "cellNumber": this.customer.cellPhoneNumber,
-                "doB": this.customer.doB,
+                "username": this.username,
+                "password": this.password,
+                "firstName": this.firstName,
+                "lastName": this.lastName,
+                "ssn": this.ssn,
+                "email": this.email,
+                "address": this.address,
+                "mailingAddress": this.mailingAddress,
+                "phoneNumber": this.phoneNumber,
+                "cellNumber": this.cellNumber,
+                "doB": this.doB,
             }
-            axios.put("/api/customers", editedCustomer).then((response) => {
-                console.log(response.data)
+            axios.put(`/api/customersupdate/${this.id}`, editedCustomer).then(() => {
                 this.readonly = true
                 console.log("Customer update successful.")
-            }).catch((e) => {
+                this.successAlert()
+            }).catch(() => {
                 console.log("Error in customer update.")
+                this.failAlert()
             })
         },
         discardChanges() {
             this.readonly = true
             this.customer = this.originalCustomer
+            this.id = this.customer.id
+            this.username = this.customer.username
+            this.password = this.customer.password
+            this.firstName = this.customer.firstName
+            this.lastName = this.customer.lastName
+            this.ssn = this.customer.ssn
+            this.email = this.customer.email
+            this.address = this.customer.address
+            this.mailingAddress = this.customer.mailingAddress
+            this.phoneNumber = this.customer.phoneNumber
+            this.cellNumber = this.customer.cellPhoneNumber
+            this.doB = this.customer.doB
+        },
+        successAlert() {
+            this.customerEditSuccess = true
+            setTimeout(() => {this.customerEditSuccess = false}, 2000)
+            this.loadCustomerInfo()
+        },
+        failAlert() {
+            this.customerEditFail = true
+            setTimeout(() => {this.customerEditFail = false}, 3000)
         }
     },
     beforeMount() {

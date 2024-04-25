@@ -68,6 +68,7 @@
                             label="Phone Number"
                             type="text"
                             placeholder="Enter your phone number"
+                            hint="(xxx)xxx-xxxx"
                             :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
@@ -76,6 +77,7 @@
                             label="Cell Phone Number"
                             type="text"
                             placeholder="Enter your cell phone number"
+                            hint="(xxx)xxx-xxxx"
                             :rules="rules.required"
                     ></v-text-field>
                     <v-text-field
@@ -111,6 +113,7 @@
                             label="SSN"
                             type="text"
                             placeholder="Enter your SSN"
+                            hint="xxx-xx-xxxx"
                             :rules="rules.required"
                     ></v-text-field>
                     <v-container v-if="showRegisterFail">
@@ -208,7 +211,7 @@ export default {
                     this.router.push('/register-success')
 
 
-                }).catch((e) => {
+                }).catch(() => {
                     console.log("Register Invalid.")
                     this.showRegisterFail = true
                 })

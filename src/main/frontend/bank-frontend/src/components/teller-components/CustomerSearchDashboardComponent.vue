@@ -1,7 +1,7 @@
 <template>
     <v-card
             width="100%"
-            height="85%"
+            height="88%"
             variant="outlined"
     >
         <v-card-title>Customer Search</v-card-title>
@@ -25,7 +25,7 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
-                        @click="goToDetails(item.id)"
+                        @click="goToDetails(item)"
                 >
                     View Details
                 </v-btn>
@@ -33,14 +33,15 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
-                        @click="goToAccounts(item.id)"
+                        @click="goToAccounts(item)"
                 >
                     Manage Accounts
                 </v-btn>
                 <v-btn
-                        variant="outlined" m
+                        variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToReports(item)"
                 >
                     View Reports
                 </v-btn>
@@ -48,15 +49,17 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToBills(item)"
                 >
                     View Bills
                 </v-btn>
                 <v-btn
-                    variant="outlined"
-                    color="primary"
-                    class="mr-2"
+                        variant="outlined"
+                        color="primary"
+                        class="mr-2"
+                        @click="deleteDialog = true; deleteCustomer(item)"
                 >
-                    User Settings
+                    Delete Customer
                 </v-btn>
             </template>
         </v-data-table>
@@ -88,7 +91,8 @@ export default {
                 {title: 'First Name', key: 'firstName'},
                 {title: 'Actions', key: 'actions', sortable: false},
             ],
-            search: ""
+            search: "",
+            deleteDialog: false
         }
     },
     methods: {
@@ -97,13 +101,29 @@ export default {
                 this.customers = response.data
             })
         },
-        goToDetails(id) {
-            this.store.setCustomer(id)
+        goToDetails(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
             this.route.push('/customer-info')
         },
-        goToAccounts(id) {
-            this.store.setCustomer(id)
+        goToAccounts(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
             this.route.push('/customer-accounts')
+        },
+        goToBills(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
+            this.route.push('/customer-bills')
+        },
+        goToReports(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
+            this.route.push('/customer-report')
+        },
+        async deleteCustomer(item) {
+            axios.delete(`/api/customers/${item.id}`).then(() => {
+                console.log("Customer deleted successfully.")
+                this.getCustomers()
+            }).catch(() => {
+                console.log("Customer delete failed.")
+            })
         }
     },
     beforeMount() {

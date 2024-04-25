@@ -46,6 +46,7 @@ public class MoneyMarket extends FinancialAccount {
         double addedAmount = getBalance() * interestRate;
         deposit(addedAmount);
 
+
         double interestToAdd = -1;
 
         String url = "jdbc:mysql://localhost:3306/laravel_api";  //database url
