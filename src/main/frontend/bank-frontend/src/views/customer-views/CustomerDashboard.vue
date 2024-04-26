@@ -18,20 +18,27 @@
                         class="d-flex justify-space-between"
                 >
                     <div>
-                    Your Dashboard
-                    <v-btn
-                        color="white"
-                        variant="plain"
-                        to="/customer-settings"
-                    >
-                        Settings
-                    </v-btn>
-                    </div>
-                        <div
-                                style="font-size:0.85em"
+                        Your Dashboard
+                        <v-btn
+                                color="white"
+                                variant="plain"
+                                to="/1099-INT"
                         >
-                            Welcome, {{ firstname }} {{ lastname }}
-                        </div>
+                            1099-INT Form
+                        </v-btn>
+                        <v-btn
+                                color="white"
+                                variant="plain"
+                                to="/customer-settings"
+                        >
+                            Settings
+                        </v-btn>
+                    </div>
+                    <div
+                            style="font-size:0.85em"
+                    >
+                        Welcome, {{ firstname }} {{ lastname }}
+                    </div>
                 </v-card-title>
             </v-card>
             <OpenAccountsDashboardComponent/>

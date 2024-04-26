@@ -2,16 +2,6 @@
     <v-card height="10%" class="mb-4" style="background-color: #1565c0; color: white">
         <v-card-title class="d-flex justify-space-between">
             Form 1099-INT for Calendar Year {{ year }}
-            <div>
-                <v-btn
-                        variant="plain"
-                        color="white"
-                        style="font-size:0.65em"
-                        to="/customer-dash"
-                >
-                    Return to Dashboard
-                </v-btn>
-            </div>
         </v-card-title>
     </v-card>
     <v-card v-if="formLoaded">
