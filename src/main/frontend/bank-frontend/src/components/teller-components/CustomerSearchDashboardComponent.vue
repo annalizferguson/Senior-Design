@@ -57,6 +57,14 @@
                         variant="outlined"
                         color="primary"
                         class="mr-2"
+                        @click="goToINT(item)"
+                >
+                    1099-INT Form
+                </v-btn>
+                <v-btn
+                        variant="outlined"
+                        color="primary"
+                        class="mr-2"
                         @click="deleteDialog = true; deleteCustomer(item)"
                 >
                     Delete Customer
@@ -116,6 +124,10 @@ export default {
         goToReports(item) {
             this.store.setCustomer(item.id, item.firstName, item.lastName)
             this.route.push('/customer-report')
+        },
+        goToINT(item) {
+            this.store.setCustomer(item.id, item.firstName, item.lastName)
+            this.route.push('/customer-1099-INT')
         },
         async deleteCustomer(item) {
             axios.delete(`/api/customers/${item.id}`).then(() => {
