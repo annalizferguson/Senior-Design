@@ -1,1 +1,0 @@
-create table transactions (transaction_id int not null auto_increment, customer_id int, transaction_type varchar(255), account_type varchar(255), amount decimal(10, 2), new_balance decimal(10,2), primary key (transaction_idtransaction_id))
