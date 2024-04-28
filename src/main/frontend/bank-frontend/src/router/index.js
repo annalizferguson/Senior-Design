@@ -92,6 +92,19 @@ const router = createRouter({
             component: () => import('../views/customer-views/CustomerTransactionsPage.vue')
         },
         {
+            path: '/1099-INT',
+            name: '1099-INT',
+            beforeEnter: (to, from, next) => {
+                const store = useCustomerStore()
+                if (store.getAuthenticated) {
+                    next()
+                } else {
+                    next({name: 'home'})
+                }
+            },
+            component: () => import('../views/customer-views/Customer1099FormPage.vue')
+        },
+        {
             path: '/teller-login',
             name: 'teller-login',
             component: () => import('../views/teller-views/TellerLoginPage.vue')
@@ -191,6 +204,23 @@ const router = createRouter({
             component: () => import('../views/teller-views/ViewCustomerTransactionsPage.vue')
         },
         {
+            path: '/customer-1099-INT',
+            name: 'customer-1099-INT',
+            beforeEnter: (to, from, next) => {
+                const store = useTellerStore()
+                if (store.getAuthenticated) {
+                    if (store.getCustomerSet) {
+                        next()
+                    } else {
+                        next({path: '/teller-dash'})
+                    }
+                } else {
+                    next({name: 'home'})
+                }
+            },
+            component: () => import('../views/teller-views/Customer1099INTPage.vue')
+        },
+        {
             path: '/admin-dash',
             name: 'admin-dash',
             component: () => import('../views/admin-views/AdminDashboard.vue')
@@ -198,7 +228,7 @@ const router = createRouter({
         {
             path: '/teller-info',
             name: 'teller-info',
-            component: ()  => import('../views/admin-views/TellerDetailsPage.vue')
+            component: () => import('../views/admin-views/TellerDetailsPage.vue')
         },
         {
             path: '/teller-delete',
