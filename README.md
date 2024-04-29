@@ -1,4 +1,4 @@
-##Bank Management Utility
+## Bank Management Utility
 # Group 1
 
 # Downloading IntelliJ IDEA
