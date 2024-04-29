@@ -22,7 +22,7 @@
 - Open a new SQL tab by clicking on the page symbol with a + in the top left. 
 - In the submission folder, open the SQL schema file. Copy and paste the entire file into the SQL tab in MySQL. Run the SQL tab by clicking on the lightning symbol at the top. Make sure you click on the lightning symbol without the cursor symbol.
 - You can at the tables right clicking on the schema -> schema inspector -> tables.
-- You can look at the content of the tables by making a new SQL tab and running the following command: select * from <table name>.
+- You can look at the content of the tables by making a new SQL tab and running the following command: select * from <table_name>.
 
 # Downloading Vue/Vuetify
 - Go to this link to download NodeJS: https://nodejs.org/en#download. Follow the download instructions.
