@@ -56,7 +56,7 @@
   - bbrown, Barb23#@!
 - Tellers
   - martin_smith, M5m!tH#@!
-  - em_johnson, $nH0jM3@$
+  - em_johnson, `$nH0jM3@$`
   - james_davis, J3s!21&1s3
 - Administrator
-  -bank_admin, 5sdJ!A32#%d
+  - bank_admin, 5sdJ!A32#%d
